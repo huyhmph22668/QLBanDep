@@ -22,8 +22,6 @@ public class frm_Login extends javax.swing.JFrame {
 
         panelGradiente1 = new swing.PanelGradiente();
         jPanel1 = new javax.swing.JPanel();
-        jLabel1 = new javax.swing.JLabel();
-        jLabel3 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
         Slide = new swing.PanelSlide();
@@ -34,18 +32,6 @@ public class frm_Login extends javax.swing.JFrame {
 
         jPanel1.setBackground(new java.awt.Color(153, 204, 255));
         jPanel1.setLayout(null);
-
-        jLabel1.setFont(new java.awt.Font("Tw Cen MT Condensed Extra Bold", 1, 28)); // NOI18N
-        jLabel1.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel1.setText("WELCOME TO ");
-        jPanel1.add(jLabel1);
-        jLabel1.setBounds(55, 37, 154, 31);
-
-        jLabel3.setFont(new java.awt.Font("Sylfaen", 1, 24)); // NOI18N
-        jLabel3.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel3.setText("SHOES STORE");
-        jPanel1.add(jLabel3);
-        jLabel3.setBounds(127, 74, 162, 48);
 
         jLabel5.setText("jLabel5");
         jPanel1.add(jLabel5);
@@ -130,8 +116,6 @@ public class frm_Login extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private swing.PanelSlide Slide;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;

@@ -5,8 +5,11 @@
 package views;
 
 
+import java.util.List;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
+import services.IKhachhangServices;
+import viewmodels.KhachhangViewMD;
 
 
 /**
@@ -14,7 +17,13 @@ import javax.swing.table.DefaultTableModel;
  * @author hungh
  */
 public class frm_Khachhang extends javax.swing.JPanel {
-
+    
+    DefaultTableModel defaultTableModel = new DefaultTableModel();
+    List<KhachhangViewMD> listKhachHang;
+    private IKhachhangServices KHServices;
+    
+    // hiển thị table 
+   
   
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -130,13 +139,11 @@ public class frm_Khachhang extends javax.swing.JPanel {
         panelBorder1.add(jLabel8);
         jLabel8.setBounds(90, 200, 48, 30);
 
-        rd_nu.setBackground(new java.awt.Color(204, 204, 255));
         buttonGroup1.add(rd_nu);
         rd_nu.setText("Nữ");
         panelBorder1.add(rd_nu);
         rd_nu.setBounds(230, 200, 60, 30);
 
-        rd_Nam.setBackground(new java.awt.Color(204, 204, 255));
         buttonGroup1.add(rd_Nam);
         rd_Nam.setSelected(true);
         rd_Nam.setText("Nam");
@@ -210,7 +217,7 @@ public class frm_Khachhang extends javax.swing.JPanel {
 
         jTabbedPane3.setBackground(new java.awt.Color(204, 204, 204));
 
-        jPanel1.setBackground(new java.awt.Color(204, 204, 255));
+        jPanel1.setBackground(new java.awt.Color(204, 204, 204));
 
         panelBorder3.setBackground(new java.awt.Color(255, 255, 255));
 

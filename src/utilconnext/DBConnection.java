@@ -15,10 +15,10 @@ import java.util.logging.Logger;
 public class DBConnection {//Lớp này giải quyết kết nối xử lý truy vấn
 
     private static final String USERNAME = "sa";
-    private static final String PASSWORD = "12345";
+    private static final String PASSWORD = "huy180803";
     private static final String SERVER = "localhost";
     private static final String PORT = "1433";
-    private static final String DATABASE_NAME = "DuAn1";
+    private static final String DATABASE_NAME = "QLQuanGiay";
     private static final boolean USING_SSL = true;
 
     private static String CONNECT_STRING;

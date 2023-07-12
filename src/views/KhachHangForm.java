@@ -10,12 +10,157 @@ import java.util.List;
 import java.util.regex.Pattern;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
-
+import models.KhachHang;
+import services.IKhachhangServices;
+import services.impl.KhachHangServicesImpl;
+import viewmodels.KhachhangViewMD;
 
 public class KhachHangForm extends javax.swing.JFrame {
 
+    DefaultTableModel defaultTableModel = new DefaultTableModel();
+    List<KhachhangViewMD> listKhachHang;
+    private KhachHangServicesImpl KHImpl = new KhachHangServicesImpl();
+    
+    public KhachHangForm(){
+        initComponents();
+        setLocationRelativeTo(null);
+        
+        listKhachHang = KHImpl.getall();
+        showTable(listKhachHang);
+    }
    
- 
+    
+    
+    // Hiển thị Khách hàng
+      public void showTable(List<KhachhangViewMD> list) {
+        defaultTableModel = (DefaultTableModel) tb_khachHang.getModel();
+        defaultTableModel.setRowCount(0);
+        for (KhachhangViewMD khachHang01 : list) {
+            defaultTableModel.addRow(khachHang01.toDataRow());
+        }
+    }
+      // check trong form khách hàng 
+      public boolean check() {
+        String sdt = "(0\\d{9})";
+        String mail = "^[\\w-\\.]+@([\\w-]+\\.)+[\\w-]{2,4}$";
+        Pattern p = Pattern.compile("^[0-9]+$");
+        if (txt_Ten1.getText().equals("")) {
+            JOptionPane.showMessageDialog(this, "Bạn chưa nhập tên!");
+            return false;
+        }
+        if (p.matcher(txt_Ten1.getText()).find() == true) {
+            JOptionPane.showMessageDialog(this, "Tên của bạn không được nhập số");
+            return false;
+        } else if (txt_Ten1.getText().length() > 30) {
+            JOptionPane.showMessageDialog(this, "Tên không được quá 30 kí tự");
+            return false;
+        }
+        if (txt_sdt.getText().equals("")) {
+            JOptionPane.showMessageDialog(this, "Bạn chưa nhập SĐT!");
+            return false;
+        }
+        try {
+            if (!txt_sdt.getText().matches(sdt)) {
+                JOptionPane.showMessageDialog(this, "Số điện thoại của bạn chưa đúng định dạng");
+                return false;
+            }
+        } catch (Exception e) {
+        }
+//        if (KHImpl.kiemtrasdt(txt_sdt.getText()) != null) {
+//            JOptionPane.showMessageDialog(this, "Số điện thoại của bạn đã tồn tại");
+//            return false;
+//        }
+        if (txt_email.getText().equals("")) {
+            return true;
+        } else {
+            try {
+                if (!txt_email.getText().matches(mail)) {
+                    JOptionPane.showMessageDialog(this, "Email của bạn chưa đúng định dạng");
+                    return false;
+                }
+            } catch (Exception e) {
+            }
+        }
+//        if (KHImpl.kiemtra(txt_email.getText()) != null) {
+//            JOptionPane.showMessageDialog(this, "Email đã tồn tại");
+//            return false;
+//        }
+
+        return true;
+
+    }
+      // check 03
+      public boolean check3() {
+        String sdt = "(0\\d{9})";
+        String mail = "^[\\w-\\.]+@([\\w-]+\\.)+[\\w-]{2,4}$";
+        Pattern p = Pattern.compile("^[0-9]+$");
+        if (txt_Ten1.getText().equals("")) {
+            JOptionPane.showMessageDialog(this, "Bạn chưa nhập tên!");
+            return false;
+        }
+        if (p.matcher(txt_Ten1.getText()).find() == true) {
+            JOptionPane.showMessageDialog(this, "Tên của bạn không được nhập số");
+            return false;
+        }
+        if (txt_Ten1.getText().length() > 30) {
+            JOptionPane.showMessageDialog(this, "Tên không được quá 30 kí tự");
+            return false;
+        }
+        if (txt_sdt.getText().equals("")) {
+            JOptionPane.showMessageDialog(this, "Bạn chưa nhập SĐT!");
+            return false;
+        }
+        try {
+            if (!txt_sdt.getText().matches(sdt)) {
+                JOptionPane.showMessageDialog(this, "Số điện thoại của bạn chưa đúng định dạng");
+                return false;
+            }
+        } catch (Exception e) {
+        }
+
+        if (txt_email.getText().equals("")) {
+            return true;
+        } else {
+            try {
+
+                if (!txt_email.getText().matches(mail)) {
+                    JOptionPane.showMessageDialog(this, "Email của bạn chưa đúng định dạng");
+                    return false;
+                }
+
+            } catch (Exception e) {
+            }
+        }
+
+        return true;
+    }
+      
+      // Sửa Data
+      private KhachHang getData() {
+        KhachHang cv = new KhachHang();
+        cv.setTen(txt_Ten1.getText());
+        cv.setTendem(txt_TenDem.getText());
+        cv.setHo(txt_Ho.getText());
+        int gt;
+        if (rd_nam.isSelected()) {
+            gt = 0;
+        } else {
+            gt = 1;
+        }
+        cv.setGioitinh(gt);
+        cv.setNgaysinh(date_ngaysinh.getDate());
+        cv.setSdt(txt_sdt.getText());
+        cv.setEmail(txt_email.getText());
+
+        return cv;
+    }
+      // lấy ra id 
+      public int layid() {
+        Integer row = tb_khachHang.getSelectedRow();
+        int id = (int) tb_khachHang.getValueAt(row, 0);
+        return id;
+
+    }
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -247,15 +392,33 @@ public class KhachHangForm extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void Btn_capNhatActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Btn_capNhatActionPerformed
-      
+          int row = tb_khachHang.getSelectedRow();
+        if (row < 0) {
+            JOptionPane.showMessageDialog(this, "cần chọn khách hàng để cập nhật");
+            return;
+        }
+        if (check3()) {
+
+            if (JOptionPane.showConfirmDialog(this, "Bạn có muốn cập nhật không?") == JOptionPane.YES_OPTION) {
+                int id = layid();
+
+                JOptionPane.showMessageDialog(this, KHImpl.update(id, getData()));
+                listKhachHang = KHImpl.getall();
+                showTable(listKhachHang);
+            }
+        }
     }//GEN-LAST:event_Btn_capNhatActionPerformed
 
     private void btn_themActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_themActionPerformed
-      
+        if(check()){
+            JOptionPane.showMessageDialog(this, KHImpl.add(getData()));
+            listKhachHang = KHImpl.getall();
+            showTable(listKhachHang);
+        }
     }//GEN-LAST:event_btn_themActionPerformed
 
     private void btn_chonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_chonActionPerformed
-     
+
     }//GEN-LAST:event_btn_chonActionPerformed
 
     private void txt_timKiemCaretUpdate(javax.swing.event.CaretEvent evt) {//GEN-FIRST:event_txt_timKiemCaretUpdate
@@ -263,7 +426,22 @@ public class KhachHangForm extends javax.swing.JFrame {
     }//GEN-LAST:event_txt_timKiemCaretUpdate
 
     private void tb_khachHangMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tb_khachHangMouseClicked
-      
+     int id = layid();
+
+        int row = tb_khachHang.getSelectedRow();
+        KhachhangViewMD kh = listKhachHang.get(row);
+        txt_Ten1.setText(kh.getTen());
+        txt_TenDem.setText(kh.getTendem());
+        txt_Ho.setText(kh.getHo());
+        String gt = (tb_khachHang.getValueAt(row, 2).toString());
+        if (gt == "Nam") {
+            rd_nam.setSelected(true);
+        } else {
+            rd_nu.setSelected(true);
+        }
+        date_ngaysinh.setDate((Date) tb_khachHang.getValueAt(row, 3));
+        txt_sdt.setText(kh.getSdt());
+        txt_email.setText(kh.getEmail());
     }//GEN-LAST:event_tb_khachHangMouseClicked
 
     private void txt_timKiemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_timKiemActionPerformed
@@ -271,43 +449,43 @@ public class KhachHangForm extends javax.swing.JFrame {
     }//GEN-LAST:event_txt_timKiemActionPerformed
 
     private void txt_timKiemKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txt_timKiemKeyReleased
-     
+
     }//GEN-LAST:event_txt_timKiemKeyReleased
 
     /**
      * @param args the command line arguments
      */
-//    public static void main(String args[]) {
-//        /* Set the Nimbus look and feel */
-//        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-//        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-//         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-//         */
-//        try {
-//            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-//                if ("Nimbus".equals(info.getName())) {
-//                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-//                    break;
-//                }
-//            }
-//        } catch (ClassNotFoundException ex) {
-//            java.util.logging.Logger.getLogger(KhachHangForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-//        } catch (InstantiationException ex) {
-//            java.util.logging.Logger.getLogger(KhachHangForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-//        } catch (IllegalAccessException ex) {
-//            java.util.logging.Logger.getLogger(KhachHangForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-//        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-//            java.util.logging.Logger.getLogger(KhachHangForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-//        }
-//        //</editor-fold>
-//
-//        /* Create and display the form */
-//        java.awt.EventQueue.invokeLater(new Runnable() {
-//            public void run() {
-//                new KhachHangForm().setVisible(true);
-//            }
-//        });
-//    }
+    public static void main(String args[]) {
+        /* Set the Nimbus look and feel */
+        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
+        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
+         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
+         */
+        try {
+            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
+                if ("Nimbus".equals(info.getName())) {
+                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
+                    break;
+                }
+            }
+        } catch (ClassNotFoundException ex) {
+            java.util.logging.Logger.getLogger(KhachHangForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (InstantiationException ex) {
+            java.util.logging.Logger.getLogger(KhachHangForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (IllegalAccessException ex) {
+            java.util.logging.Logger.getLogger(KhachHangForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+            java.util.logging.Logger.getLogger(KhachHangForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        }
+        //</editor-fold>
+
+        /* Create and display the form */
+        java.awt.EventQueue.invokeLater(new Runnable() {
+            public void run() {
+                new KhachHangForm().setVisible(true);
+            }
+        });
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private swing.MyButton Btn_capNhat;
