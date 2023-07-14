@@ -13,8 +13,8 @@ import javax.swing.table.DefaultTableModel;
 import models.KhachHang;
 import services.IHoaDonServiec;
 import services.IKhachHangService;
-import services.imp.HoaDonServiec;
-import services.imp.khahangsvImpl;
+import services.impl.HoaDonServiec;
+import services.impl.khahangsvImpl;
 import viewmodels.KhachHangViewMD;
 
 /**

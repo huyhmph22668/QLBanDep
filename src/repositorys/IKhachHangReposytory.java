@@ -6,6 +6,7 @@ package repositorys;
 
 import java.util.List;
 import models.KhachHang;
+import viewmodels.KhachHang02ViewMD;
 
 /**
  *
@@ -13,10 +14,24 @@ import models.KhachHang;
  */
 public interface IKhachHangReposytory {
     List<KhachHang> getall();
-    
-     boolean add(KhachHang khachhang);
+
+    List<KhachHang02ViewMD> getall02();
+
+    boolean add(KhachHang khachhang);
 
     boolean update(int id, KhachHang khachhang);
 
     boolean delete(int id);
+
+    public List<KhachHang> GetTK(String SDT);
+
+    public List<KhachHang02ViewMD> GetTKTheoIDKH(int ID);
+
+    List<KhachHang> SeachTheoSDT(String SDT);
+
+    Integer updateDiemKhachHang(String SDT, int diem);
+
+    String kiemtra(String mail);
+
+    String kiemtrasdt(String sdt);
 }

@@ -2,13 +2,13 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package services.imp;
+package services.impl;
 
 import java.util.ArrayList;
 import java.util.List;
 import models.KhachHang;
 import repositorys.IKhachHangReposytory;
-import repositorys.imp.KhachHangRPImpl;
+import repositorys.impl.KhachHangReposirotyImpl;
 import services.IKhachHangService;
 import viewmodels.KhachHang02ViewMD;
 import viewmodels.KhachHangViewMD;
@@ -19,7 +19,7 @@ import viewmodels.KhachHangViewMD;
  */
 public class khahangsvImpl implements IKhachHangService {
 
-    private IKhachHangReposytory khachHang01 = new KhachHangRPImpl();
+    private IKhachHangReposytory khachHang01 = new KhachHangReposirotyImpl();
 
     @Override
     public List<KhachHangViewMD> getall() {
