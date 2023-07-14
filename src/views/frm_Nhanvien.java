@@ -45,13 +45,11 @@ public class frm_Nhanvien extends javax.swing.JPanel {
         defaultTableModel = (DefaultTableModel) tblnhanvien.getModel();
         Loaddata();
     }
-      private void inittable() {
+    
+
+   private void inittable() {
         DefaultTableModel model = (DefaultTableModel) tblnhanvien.getModel();
 
-<<<<<<< HEAD
-    public frm_Nhanvien(){
-        initComponents();
-=======
         model.addColumn("STT");
         model.addColumn("Họ");
         model.addColumn("Tên đệm");
@@ -65,6 +63,7 @@ public class frm_Nhanvien extends javax.swing.JPanel {
         model.addColumn("Chức Vụ");
         model.addColumn("Trạng thái");
     }
+
         public void Loaddata() {
         defaultTableModel.setRowCount(0);
         List<UsersViewmodel> nvv = nhanVienService.getAllNhanVien();
@@ -294,7 +293,7 @@ public class frm_Nhanvien extends javax.swing.JPanel {
         Integer id = (Integer) tblnhanvien.getValueAt(row, 0);
         return id;
 
->>>>>>> 7ec6ad99565f1f6db092d0dcca4a70fa55da448c
+
     }
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -662,32 +661,25 @@ public class frm_Nhanvien extends javax.swing.JPanel {
         // TODO add your handling code here:
     }//GEN-LAST:event_cbochucvuActionPerformed
 
-   public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        // ...
+  
+    public static void main(String args[]) {
+    /* Set the Nimbus look and feel */
+    // ...
 
-<<<<<<< HEAD
-     public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        // ...
+    /* Create and display the form */
+    java.awt.EventQueue.invokeLater(new Runnable() {
+        public void run() {
+            JFrame frame = new JFrame();
+            frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+            frame.setSize(1010, 640);
+            frame.getContentPane().add(new frm_Nhanvien());
+            frame.setVisible(true);
+        }
+    });
+}
 
-=======
->>>>>>> 7ec6ad99565f1f6db092d0dcca4a70fa55da448c
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                JFrame frame = new JFrame();
-                frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-                frame.setSize(1010, 640);
-                frame.getContentPane().add(new frm_Nhanvien());
-                frame.setVisible(true);
-            }
-        });
-    }
-<<<<<<< HEAD
     
-=======
->>>>>>> 7ec6ad99565f1f6db092d0dcca4a70fa55da448c
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private swing.MyButton btncapnhat;
     private swing.MyButton btnlmmoi;

@@ -108,11 +108,11 @@ public class frm_Khuyenmai extends javax.swing.JPanel {
         setBackground(new java.awt.Color(255, 255, 255));
         setMinimumSize(new java.awt.Dimension(1010, 640));
 
-        panelGradiente1.setBackground(new java.awt.Color(242, 242, 242));
-        panelGradiente1.setColorPrimario(new java.awt.Color(204, 255, 255));
-        panelGradiente1.setColorSecundario(new java.awt.Color(242, 242, 242));
+        panelGradiente1.setBackground(new java.awt.Color(204, 204, 204));
+        panelGradiente1.setColorPrimario(new java.awt.Color(204, 204, 204));
+        panelGradiente1.setColorSecundario(new java.awt.Color(204, 204, 204));
 
-        panelBorder1.setBackground(new java.awt.Color(242, 242, 242));
+        panelBorder1.setBackground(new java.awt.Color(204, 204, 204));
 
         jLabel2.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel2.setText("Ngày bắt đầu");
