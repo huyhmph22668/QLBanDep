@@ -15,15 +15,286 @@ import javax.swing.DefaultComboBoxModel;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
+import models.ChucVu;
+import models.Users;
+import repositorys.IUsersRepository;
+import repositorys.impl.UsersRepositoryImpl;
+import services.IChucVuService;
+import services.IUsersService;
+import services.impl.ChucVuServiceImpl;
+import services.impl.UsersServiceImpl;
+import viewmodels.UsersViewmodel;
 
 /**
  *
  * @author hungh
  */
 public class frm_Nhanvien extends javax.swing.JPanel {
-
+     DefaultTableModel defaultTableModel;
+    DefaultComboBoxModel defaultComboBoxModel;
+    private final IUsersService nhanVienService;
+    private final IChucVuService CVService;
     public frm_Nhanvien(){
         initComponents();
+        nhanVienService = new UsersServiceImpl();
+        CVService = new ChucVuServiceImpl();
+        inittable();
+        List<ChucVu> cvv = CVService.getAllChucVu();
+        cbochucvu.setModel(new DefaultComboBoxModel((cvv.toArray())));
+//        txtTaikhoan.setEditable(true);
+        defaultTableModel = (DefaultTableModel) tblnhanvien.getModel();
+        Loaddata();
+    }
+      private void inittable() {
+        DefaultTableModel model = (DefaultTableModel) tblnhanvien.getModel();
+
+<<<<<<< HEAD
+    public frm_Nhanvien(){
+        initComponents();
+=======
+        model.addColumn("STT");
+        model.addColumn("Họ");
+        model.addColumn("Tên đệm");
+        model.addColumn("Tên");
+        model.addColumn("Ngày sinh");
+        model.addColumn("Giới tính");
+        model.addColumn("SĐT");
+        model.addColumn("Tài Khoản");
+        model.addColumn("Mật Khẩu");
+        model.addColumn("Email");
+        model.addColumn("Chức Vụ");
+        model.addColumn("Trạng thái");
+    }
+        public void Loaddata() {
+        defaultTableModel.setRowCount(0);
+        List<UsersViewmodel> nvv = nhanVienService.getAllNhanVien();
+        int stt = 1;
+        for (UsersViewmodel x : nvv) {
+            defaultTableModel.addRow(new Object[]{
+                stt,
+                x.getHo(),
+                x.getTendem(),
+                x.getTen(),
+                x.getNgaysinh(),
+                x.getGioitinh() == 1 ? "Nam" : "Nữ",
+                x.getSdt(),
+                x.getTk(),
+                x.getMk(),
+                x.getEmail(),
+                x.getChucVu().getTen(),
+                x.getTT() == 1 ? "Làm việc" : "Nghỉ Làm"
+            });
+            stt++;
+        }
+        lblTongnv.setText("Tổng nhân viên : " + nvv.size());
+    }
+
+    public void ClearForm() {
+        txtten.setText("");
+        txttendem.setText("");
+        txtho.setText("");
+        txtTaikhoan.setText("");
+        txtPass.setText("");
+        txtemail.setText("");
+        txtsdt.setText("");
+        buttonGroup1.clearSelection();
+        chk_tt.setSelected(false);
+        cbochucvu.setSelectedIndex(0);
+        datengaysinh.setDate(null);
+        Loaddata();
+    }
+
+    public void Showtable() {
+        try {
+            Integer row = tblnhanvien.getSelectedRow();
+
+            txtho.setText(tblnhanvien.getValueAt(row, 1).toString());
+            txttendem.setText(tblnhanvien.getValueAt(row, 2).toString());
+            txtten.setText(tblnhanvien.getValueAt(row, 3).toString());
+            String gt = (tblnhanvien.getValueAt(row, 5).toString());
+            if (gt == "Nam") {
+                rd_nam.setSelected(true);
+            } else {
+                rd_nu.setSelected(true);
+            }
+            String tt = (tblnhanvien.getValueAt(row, 11).toString());
+            if (tt == "Làm việc") {
+                chk_tt.setSelected(true);
+            } else if (tt == "Nghỉ Làm") {
+                chk_tt.setSelected(false);
+            }
+
+            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+            Date date = sdf.parse((String) tblnhanvien.getValueAt(row, 4));
+            datengaysinh.setDate(date);
+
+            txtsdt.setText(tblnhanvien.getValueAt(row, 6).toString());
+            txtTaikhoan.setText(tblnhanvien.getValueAt(row, 7).toString());
+            txtPass.setText(tblnhanvien.getValueAt(row, 8).toString());
+            txtemail.setText(tblnhanvien.getValueAt(row, 9).toString());
+
+        } catch (ParseException ex) {
+            Logger.getLogger(frm_Nhanvien.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    private UsersViewmodel getInputForm() {
+        String sdt = "(0\\d{9})";
+        String mail = "^[\\w-\\.]+@([\\w-]+\\.)+[\\w-]{2,4}$";
+        UsersViewmodel nv = new UsersViewmodel();
+        Pattern p = Pattern.compile("^[0-9]+$");
+// Tên
+        try {
+            if (txtten.getText().isEmpty()) {
+                JOptionPane.showMessageDialog(this, "Vui lòng nhâm tên ");
+                return null;
+            }
+        } catch (Exception e) {
+        }
+        if (p.matcher(txtten.getText()).find() == true) {
+            JOptionPane.showMessageDialog(this, "Tên không được nhập số");
+            return null;
+        }
+        if (txtten.getText().length() > 30) {
+            JOptionPane.showMessageDialog(this, "Tên không được quá 30 kí tự");
+            return null;
+        }
+// Tên Đệm
+        try {
+            if (txttendem.getText().isEmpty()) {
+                JOptionPane.showMessageDialog(this, "Vui lòng nhập tên đệm");
+                return null;
+            }
+        } catch (Exception e) {
+        }
+        if (p.matcher(txttendem.getText()).find() == true) {
+            JOptionPane.showMessageDialog(this, "Tên đệm không được nhập số");
+            return null;
+        }
+        if (txttendem.getText().length() > 30) {
+            JOptionPane.showMessageDialog(this, "Tên đệm không được quá 30 kí tự");
+            return null;
+        }
+// Họ
+        try {
+            if (txtho.getText().isEmpty()) {
+                JOptionPane.showMessageDialog(this, "Vui lòng nhập họ");
+                return null;
+            }
+        } catch (Exception e) {
+        }
+        if (p.matcher(txtho.getText()).find() == true) {
+            JOptionPane.showMessageDialog(this, "Họ không được nhập số");
+            return null;
+        }
+        if (txtho.getText().length() > 30) {
+            JOptionPane.showMessageDialog(this, "Họ không được quá 30 kí tự");
+            return null;
+        }
+// Ngày Sinh        
+        try {
+            if (datengaysinh.getDate() == null) {
+                JOptionPane.showMessageDialog(this, "Vui lòng chọn ngày sinh");
+                return null;
+            }
+        } catch (Exception e) {
+        }
+// SĐT
+        try {
+            if (txtsdt.getText().isEmpty()) {
+                JOptionPane.showMessageDialog(this, "Vui lòng nhập số điện thoại");
+                return null;
+            }
+        } catch (Exception e) {
+
+        }
+
+        try {
+            if (!txtsdt.getText().matches(sdt)) {
+                JOptionPane.showMessageDialog(this, "Số điện thoại của bạn chưa đúng định dạng");
+                return null;
+            }
+        } catch (Exception e) {
+        }
+
+        if (nhanVienService.kiemtrasdt(txtsdt.getText()) != null) {
+            JOptionPane.showMessageDialog(this, "Số điện thoại của bạn đã tồn tại");
+            return null;
+        }
+// TÀi Khoản
+        try {
+            if (txtTaikhoan.getText().isEmpty()) {
+                JOptionPane.showMessageDialog(this, "Vui lòng nhập tài khoản");
+                return null;
+            }
+        } catch (Exception e) {
+        }
+        if (nhanVienService.kiemtratk(txtTaikhoan.getText()) != null) {
+            JOptionPane.showMessageDialog(this, "Tên tài khoản đã tồn tại");
+            return null;
+        }
+// Mật Khẩu
+        try {
+            if (txtPass.getText().isEmpty()) {
+                JOptionPane.showMessageDialog(this, "Vui lòng nhập mật khẩu");
+                return null;
+            }
+        } catch (Exception e) {
+        }
+// Email        
+        try {
+            if (txtemail.getText().isEmpty()) {
+                JOptionPane.showMessageDialog(this, "Vui lòng nhập email");
+                return null;
+            }
+        } catch (Exception e) {
+        }
+
+        try {
+            if (!txtemail.getText().matches(mail)) {
+                JOptionPane.showMessageDialog(this, "Email của bạn chưa đúng định dạng");
+                return null;
+            }
+        } catch (Exception e) {
+        }
+        if (nhanVienService.kiemtra(txtemail.getText()) != null) {
+            JOptionPane.showMessageDialog(this, "Email đã tồn tại");
+            return null;
+        }
+
+        nv.setTen(txtten.getText());
+        nv.setTendem(txttendem.getText());
+        nv.setHo(txtho.getText());
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+        String date = sdf.format(datengaysinh.getDate());
+        nv.setNgaysinh(date);
+        Integer gt;
+        if (rd_nam.isSelected()) {
+            gt = 1;
+        } else {
+            gt = 0;
+        }
+        nv.setGioitinh(gt);
+        nv.setSdt(txtsdt.getText());
+        nv.setTk(txtTaikhoan.getText());
+        nv.setMk(txtPass.getText());
+        nv.setEmail(txtemail.getText());
+        ChucVu cvv = (ChucVu) cbochucvu.getSelectedItem();
+        nv.setChucVu(cvv);
+        if (chk_tt.isSelected()) {
+            nv.setTT(1);
+        } else {
+            nv.setTT(0);
+        }
+        return nv;
+    }
+
+    public Integer getNhanVienSelectTedRow() {
+        Integer row = tblnhanvien.getSelectedRow();
+        Integer id = (Integer) tblnhanvien.getValueAt(row, 0);
+        return id;
+
+>>>>>>> 7ec6ad99565f1f6db092d0dcca4a70fa55da448c
     }
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -251,22 +522,107 @@ public class frm_Nhanvien extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnthemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnthemActionPerformed
-       
-
+        UsersViewmodel nv = getInputForm();
+        if (nv == null) {
+            return;
+        }
+        if (JOptionPane.showConfirmDialog(this, "Bạn có chắc chắn muốn thêm ?", "Add", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
+            if (nhanVienService.add(nv) != false) {
+                JOptionPane.showMessageDialog(this, "Thêm Thành Công");
+                Loaddata();
+            } else {
+                JOptionPane.showMessageDialog(this, "Thêm Thất Bại");
+            }
+        }
     }//GEN-LAST:event_btnthemActionPerformed
 
     private void tblnhanvienMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblnhanvienMouseClicked
+ try {
+            int index = tblnhanvien.getSelectedRow();
+            String gt = (String) tblnhanvien.getValueAt(index, 5);
+            String tt = (String) tblnhanvien.getValueAt(index, 11);
+            int trangthai = tt.equals("Làm việc") ? 1 : 0;
+            int gioiitinh = gt.equals("Nam") ? 1 : 0;
+            txtho.setText(tblnhanvien.getValueAt(index, 1) + "");
+            txtten.setText(tblnhanvien.getValueAt(index, 3) + "");
+            txttendem.setText(tblnhanvien.getValueAt(index, 2) + "");
+            txtsdt.setText(tblnhanvien.getValueAt(index, 6) + "");
+            txtemail.setText(tblnhanvien.getValueAt(index, 9) + "");
+            txtTaikhoan.setText(tblnhanvien.getValueAt(index, 7) + "");
+            txtPass.setText(tblnhanvien.getValueAt(index, 8) + "");
+            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+            Date date1 = sdf.parse((String) tblnhanvien.getValueAt(index, 4));
+            datengaysinh.setDate(date1);
+            chk_tt.setSelected(trangthai == 1 ? true : false);
+            if (gioiitinh == 1) {
+                rd_nam.setSelected(true);
+            } else {
+                rd_nu.setSelected(true);
+            }
+            if (tblnhanvien.getValueAt(index, 10).toString().equals("quản lý")) {
+                cbochucvu.setSelectedIndex(0);
+            } else {
+                cbochucvu.setSelectedIndex(1);
+            }
 
+        } catch (ParseException ex) {
+            Logger.getLogger(frm_Nhanvien.class.getName()).log(Level.SEVERE, null, ex);
+        }
      
 
     }//GEN-LAST:event_tblnhanvienMouseClicked
 
     private void btncapnhatActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btncapnhatActionPerformed
-      
+      UsersViewmodel nv = new UsersViewmodel();
+        Integer row = tblnhanvien.getSelectedRow();
+        if (row < 0) {
+            JOptionPane.showMessageDialog(this, "Hãy chọn dòng cần sửa !");
+            return;
+        }
+
+        nv.setTen(txtten.getText());
+        nv.setTendem(txttendem.getText());
+        nv.setHo(txtho.getText());
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+        String date = sdf.format(datengaysinh.getDate());
+        nv.setNgaysinh(date);
+        Integer gt;
+        if (rd_nam.isSelected()) {
+            gt = 1;
+        } else {
+            gt = 0;
+        }
+
+        nv.setGioitinh(gt);
+        nv.setSdt(txtsdt.getText());
+        nv.setTk(txtTaikhoan.getText());
+        nv.setMk(txtPass.getText());
+        nv.setEmail(txtemail.getText());
+        ChucVu cvv = (ChucVu) cbochucvu.getSelectedItem();
+        nv.setChucVu(cvv);
+        if (chk_tt.isSelected()) {
+            nv.setTT(1);
+        } else {
+            nv.setTT(0);
+        }
+
+        if (JOptionPane.showConfirmDialog(this, "Bạn có chắc chắn muốn sửa ?", "Update", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
+            IUsersRepository usersReposytory = new UsersRepositoryImpl();
+            List<Users> lst = usersReposytory.getAllNhanVien();
+            if (nhanVienService.update(nv, lst.get(row).getId()) != false) {
+                JOptionPane.showMessageDialog(this, "Sửa Thành Công");
+                Loaddata();
+                ClearForm();
+            } else {
+                JOptionPane.showMessageDialog(this, "Sửa Thất Bại");
+                Showtable();
+            }
+        }
     }//GEN-LAST:event_btncapnhatActionPerformed
 
     private void btnlmmoiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnlmmoiActionPerformed
-        //        loaddata();
+         ClearForm();
+        Loaddata();
       
     }//GEN-LAST:event_btnlmmoiActionPerformed
 
@@ -277,7 +633,25 @@ public class frm_Nhanvien extends javax.swing.JPanel {
     }//GEN-LAST:event_lbl_searchMouseClicked
 
     private void searchtxtCaretUpdate(javax.swing.event.CaretEvent evt) {//GEN-FIRST:event_searchtxtCaretUpdate
-      
+       defaultTableModel.setRowCount(0);
+        int stt = 1;
+        for (UsersViewmodel x : nhanVienService.SearchNVV(searchtxt.getText())) {
+            defaultTableModel.addRow(new Object[]{
+                stt,
+                x.getHo(),
+                x.getTendem(),
+                x.getTen(),
+                x.getNgaysinh(),
+                x.getGioitinh() == 1 ? "Nam" : "Nữ",
+                x.getSdt(),
+                x.getTk(),
+                x.getMk(),
+                x.getEmail(),
+                x.getChucVu().getTen(),
+                x.getTT() == 1 ? "Làm việc" : "Nghỉ Làm"
+            });
+            stt++;
+        }
     }//GEN-LAST:event_searchtxtCaretUpdate
 
     private void searchtxtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_searchtxtActionPerformed
@@ -288,11 +662,17 @@ public class frm_Nhanvien extends javax.swing.JPanel {
         // TODO add your handling code here:
     }//GEN-LAST:event_cbochucvuActionPerformed
 
+   public static void main(String args[]) {
+        /* Set the Nimbus look and feel */
+        // ...
 
+<<<<<<< HEAD
      public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         // ...
 
+=======
+>>>>>>> 7ec6ad99565f1f6db092d0dcca4a70fa55da448c
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
@@ -304,7 +684,10 @@ public class frm_Nhanvien extends javax.swing.JPanel {
             }
         });
     }
+<<<<<<< HEAD
     
+=======
+>>>>>>> 7ec6ad99565f1f6db092d0dcca4a70fa55da448c
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private swing.MyButton btncapnhat;
     private swing.MyButton btnlmmoi;
