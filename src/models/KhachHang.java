@@ -11,7 +11,8 @@ import java.util.Date;
  * @author Admin
  */
 public class KhachHang {
-     private int id;
+
+    private int id;
     private String ten;
     private String tendem;
     private String ho;
@@ -108,5 +109,4 @@ public class KhachHang {
         this.diemthuong = diemthuong;
     }
 
-   
 }

@@ -4,27 +4,256 @@
  */
 package views;
 
-
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import java.util.regex.Pattern;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
-import services.IKhachhangServices;
-import viewmodels.KhachhangViewMD;
-
+import models.KhachHang;
+import services.imp.khahangsvImpl;
+import viewmodels.KhachHangViewMD;
+import services.IKhachHangService;
+import viewmodels.KhachHang02ViewMD;
 
 /**
  *
  * @author hungh
  */
 public class frm_Khachhang extends javax.swing.JPanel {
-    
+
     DefaultTableModel defaultTableModel = new DefaultTableModel();
-    List<KhachhangViewMD> listKhachHang;
-    private IKhachhangServices KHServices;
-    
-    // hiển thị table 
-   
-  
+    List<KhachHangViewMD> listKhachHang;
+    List<KhachHang02ViewMD> listKhachHang01;
+
+    private IKhachHangService KH;
+
+    public frm_Khachhang() {
+        initComponents();
+        KH = new khahangsvImpl();
+        listKhachHang = KH.getall();
+        showTable(listKhachHang);
+        TXT_01.setText("Tổng số khách hàng là : " + listKhachHang.size());
+
+    }
+
+    public void showTable(List<KhachHangViewMD> list) {
+        defaultTableModel = (DefaultTableModel) TB_bang1.getModel();
+        defaultTableModel.setRowCount(0);
+        for (KhachHangViewMD khachHang01 : list) {
+            defaultTableModel.addRow(khachHang01.toDataRow());
+        }
+    }
+
+    public void showTable2(List<KhachHang02ViewMD> list01) {
+        defaultTableModel = (DefaultTableModel) TB_bang02.getModel();
+        defaultTableModel.setRowCount(0);
+        for (KhachHang02ViewMD khachHang01 : list01) {
+            defaultTableModel.addRow(khachHang01.toDataRow());
+        }
+    }
+
+    public void showTable3(List<KhachHang02ViewMD> list01) {
+        int id = layid();
+        defaultTableModel = (DefaultTableModel) TB_bang02.getModel();
+        defaultTableModel.setRowCount(0);
+        for (KhachHang02ViewMD khachHangViewMD : KH.GetTKTheoIDKH(id)) {
+            defaultTableModel.addRow(khachHangViewMD.toDataRow());
+        }
+    }
+
+    private KhachHang getData() {
+        KhachHang cv = new KhachHang();
+        cv.setTen(txt_Ten.getText());
+        cv.setTendem(txt_tenDem.getText());
+        cv.setHo(txt_Ho.getText());
+        int gt;
+        if (rd_Nam.isSelected()) {
+            gt = 0;
+        } else {
+            gt = 1;
+        }
+        cv.setGioitinh(gt);
+        cv.setNgaysinh(date_ngaysinh1.getDate());
+        cv.setSdt(txt_sdt.getText());
+        cv.setEmail(txt_email.getText());
+
+        return cv;
+    }
+
+    public int layid() {
+        Integer row = TB_bang1.getSelectedRow();
+        int id = Integer.parseInt(TB_bang1.getValueAt(row, 0).toString());
+        return id;
+
+    }
+
+    public boolean check() {
+        String sdt = "(0\\d{9})";
+        String mail = "^[\\w-\\.]+@([\\w-]+\\.)+[\\w-]{2,4}$";
+        Pattern p = Pattern.compile("^[0-9]+$");
+        if (txt_Ten.getText().equals("")) {
+            JOptionPane.showMessageDialog(this, "Bạn chưa nhập tên!");
+            return false;
+        }
+        if (p.matcher(txt_Ten.getText()).find() == true) {
+            JOptionPane.showMessageDialog(this, "Tên của bạn không được nhập số");
+            return false;
+        }
+        if (txt_Ten.getText().length() > 30) {
+            JOptionPane.showMessageDialog(this, "Tên không được quá 30 kí tự");
+            return false;
+        }
+
+        if (txt_sdt.getText().equals("")) {
+            JOptionPane.showMessageDialog(this, "Bạn chưa nhập SĐT!");
+            return false;
+        }
+        try {
+            if (!txt_sdt.getText().matches(sdt)) {
+                JOptionPane.showMessageDialog(this, "Số điện thoại của bạn chưa đúng định dạng");
+                return false;
+            }
+        } catch (Exception e) {
+        }
+
+        if (KH.kiemtrasdt(txt_sdt.getText()) != null) {
+            JOptionPane.showMessageDialog(this, "Số điện thoại của bạn đã tồn tại");
+            return false;
+        } else if (txt_email.getText().equals("")) {
+            return true;
+        } else {
+            try {
+
+                if (!txt_email.getText().matches(mail)) {
+                    JOptionPane.showMessageDialog(this, "Email của bạn chưa đúng định dạng");
+                    return false;
+                }
+                if (KH.kiemtra(txt_email.getText()) != null) {
+                    JOptionPane.showMessageDialog(this, "Email đã tồn tại");
+                    return false;
+                }
+
+            } catch (Exception e) {
+            }
+        }
+
+        return true;
+
+    }
+
+    public boolean check2() {
+        Pattern p = Pattern.compile("^[0-9]+$");
+
+        if (txt_Ho.getText() == null & txt_tenDem.getText() == null) {
+            return true;
+        } else {
+
+            if (p.matcher(txt_Ho.getText()).find() == true) {
+                JOptionPane.showMessageDialog(this, "Họ của bạn không được nhập số");
+                return false;
+            }
+            if (txt_Ho.getText().length() > 30) {
+                JOptionPane.showMessageDialog(this, "Họ không được quá 30 kí tự");
+                return false;
+            }
+            if (p.matcher(txt_tenDem.getText()).find() == true) {
+                JOptionPane.showMessageDialog(this, "Tên đệm của bạn không được nhập số");
+                return false;
+            }
+            if (txt_tenDem.getText().length() > 30) {
+                JOptionPane.showMessageDialog(this, "Tên Đệm không được quá 30 kí tự");
+                return false;
+
+            }
+        }
+
+        return true;
+    }
+
+    public boolean check3() {
+        String sdt = "(0\\d{9})";
+        String mail = "^[\\w-\\.]+@([\\w-]+\\.)+[\\w-]{2,4}$";
+        Pattern p = Pattern.compile("^[0-9]+$");
+        if (txt_Ten.getText().equals("")) {
+            JOptionPane.showMessageDialog(this, "Bạn chưa nhập tên!");
+            return false;
+        }
+        if (p.matcher(txt_Ten.getText()).find() == true) {
+            JOptionPane.showMessageDialog(this, "Tên của bạn không được nhập số");
+            return false;
+        }
+        if (txt_Ten.getText().length() > 30) {
+            JOptionPane.showMessageDialog(this, "Tên không được quá 30 kí tự");
+            return false;
+        }
+        if (txt_sdt.getText().equals("")) {
+            JOptionPane.showMessageDialog(this, "Bạn chưa nhập SĐT!");
+            return false;
+        }
+        try {
+            if (!txt_sdt.getText().matches(sdt)) {
+                JOptionPane.showMessageDialog(this, "Số điện thoại của bạn chưa đúng định dạng");
+                return false;
+            }
+        } catch (Exception e) {
+        }
+
+        if (txt_email.getText().equals("")) {
+            return true;
+        } else {
+            try {
+
+                if (!txt_email.getText().matches(mail)) {
+                    JOptionPane.showMessageDialog(this, "Email của bạn chưa đúng định dạng");
+                    return false;
+                }
+
+            } catch (Exception e) {
+            }
+        }
+
+        return true;
+
+    }
+
+    public boolean check4() {
+        Pattern p = Pattern.compile("^[0-9]+$");
+
+        if (txt_Ho.getText() == null & txt_tenDem.getText() == null) {
+            return true;
+        } else {
+
+            if (p.matcher(txt_Ho.getText()).find() == true) {
+                JOptionPane.showMessageDialog(this, "Họ của bạn không được nhập số");
+                return false;
+            }
+            if (txt_Ho.getText().length() > 30) {
+                JOptionPane.showMessageDialog(this, "Họ không được quá 30 kí tự");
+                return false;
+            }
+            if (p.matcher(txt_tenDem.getText()).find() == true) {
+                JOptionPane.showMessageDialog(this, "Tên đệm của bạn không được nhập số");
+                return false;
+            }
+            if (txt_tenDem.getText().length() > 30) {
+                JOptionPane.showMessageDialog(this, "Tên Đệm không được quá 30 kí tự");
+                return false;
+
+            }
+        }
+
+        return true;
+    }
+
+    /**
+     * This method is called from within the constructor to initialize the form.
+     * WARNING: Do NOT modify this code. The content of this method is always
+     * regenerated by the Form Editor.
+     */
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -107,10 +336,10 @@ public class frm_Khachhang extends javax.swing.JPanel {
         setMinimumSize(new java.awt.Dimension(1010, 640));
         setPreferredSize(new java.awt.Dimension(1010, 640));
 
-        panelGradiente1.setColorPrimario(new java.awt.Color(204, 204, 204));
-        panelGradiente1.setColorSecundario(new java.awt.Color(204, 204, 204));
+        panelGradiente1.setColorPrimario(new java.awt.Color(204, 255, 255));
+        panelGradiente1.setColorSecundario(new java.awt.Color(255, 204, 255));
 
-        panelBorder1.setBackground(new java.awt.Color(204, 204, 204));
+        panelBorder1.setBackground(new java.awt.Color(204, 204, 255));
         panelBorder1.setToolTipText("");
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
@@ -139,11 +368,13 @@ public class frm_Khachhang extends javax.swing.JPanel {
         panelBorder1.add(jLabel8);
         jLabel8.setBounds(90, 200, 48, 30);
 
+        rd_nu.setBackground(new java.awt.Color(204, 204, 255));
         buttonGroup1.add(rd_nu);
         rd_nu.setText("Nữ");
         panelBorder1.add(rd_nu);
         rd_nu.setBounds(230, 200, 60, 30);
 
+        rd_Nam.setBackground(new java.awt.Color(204, 204, 255));
         buttonGroup1.add(rd_Nam);
         rd_Nam.setSelected(true);
         rd_Nam.setText("Nam");
@@ -215,9 +446,9 @@ public class frm_Khachhang extends javax.swing.JPanel {
         panelGradiente1.add(panelBorder1);
         panelBorder1.setBounds(10, 0, 990, 260);
 
-        jTabbedPane3.setBackground(new java.awt.Color(204, 204, 204));
+        jTabbedPane3.setBackground(new java.awt.Color(204, 204, 255));
 
-        jPanel1.setBackground(new java.awt.Color(204, 204, 204));
+        jPanel1.setBackground(new java.awt.Color(204, 204, 255));
 
         panelBorder3.setBackground(new java.awt.Color(255, 255, 255));
 
@@ -241,7 +472,7 @@ public class frm_Khachhang extends javax.swing.JPanel {
         TXT_01.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         TXT_01.setForeground(new java.awt.Color(255, 51, 0));
 
-        TB_bang1.setBackground(new java.awt.Color(242, 242, 242));
+        TB_bang1.setBackground(new java.awt.Color(255, 245, 255));
         TB_bang1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null, null, null},
@@ -339,13 +570,14 @@ public class frm_Khachhang extends javax.swing.JPanel {
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGap(16, 16, 16)
-                        .addComponent(LBL_SOLUONG, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addComponent(LBL_SOLUONG, javax.swing.GroupLayout.DEFAULT_SIZE, 32, Short.MAX_VALUE))
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addContainerGap()
                         .addComponent(btn_LamMoi1, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(0, 0, Short.MAX_VALUE)))
-                .addGap(18, 18, 18)
-                .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 273, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 273, Short.MAX_VALUE)
+                .addContainerGap())
         );
 
         jTabbedPane3.addTab("Lịch Sử Mua Hàng", jPanel2);
@@ -366,17 +598,44 @@ public class frm_Khachhang extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btn_themActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_themActionPerformed
-       
+        if (check() && check2()) {
+            JOptionPane.showMessageDialog(this, KH.add(getData()));
+            listKhachHang = KH.getall();
+            showTable(listKhachHang);
+            TXT_01.setText("Tổng số khách hàng là : " + listKhachHang.size());
+
+        }
 
 
     }//GEN-LAST:event_btn_themActionPerformed
 
     private void btn_LamMoiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_LamMoiActionPerformed
-     
+        txt_Ten.setText("");
+        txt_tenDem.setText("");
+        txt_Ho.setText("");
+        date_ngaysinh1.setCalendar(null);
+        txt_sdt.setText("");
+        txt_email.setText("");
+
     }//GEN-LAST:event_btn_LamMoiActionPerformed
 
     private void Btn_capNhatActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Btn_capNhatActionPerformed
-      
+        int row = TB_bang1.getSelectedRow();
+        if (row < 0) {
+            JOptionPane.showMessageDialog(this, "cần chọn khách hàng để cập nhật");
+            return;
+        }
+        if (check3() && check4()) {
+            if (JOptionPane.showConfirmDialog(this, "Bạn có muốn cập nhật không?") == JOptionPane.YES_OPTION) {
+                int id = layid();
+
+                JOptionPane.showMessageDialog(this, KH.update(id, getData()));
+                listKhachHang = KH.getall();
+                showTable(listKhachHang);
+                TXT_01.setText("Tổng số khách hàng là : " + listKhachHang.size());
+
+            }
+        }
 
     }//GEN-LAST:event_Btn_capNhatActionPerformed
 
@@ -389,15 +648,41 @@ public class frm_Khachhang extends javax.swing.JPanel {
     }//GEN-LAST:event_Btn_timKiem1MouseClicked
 
     private void txt_timKiem01KeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txt_timKiem01KeyReleased
-    
+        defaultTableModel = (DefaultTableModel) TB_bang1.getModel();
+        defaultTableModel.setRowCount(0);
+        for (KhachHangViewMD khachHang01 : KH.GetTK(txt_timKiem01.getText())) {
+            defaultTableModel.addRow(khachHang01.toDataRow());
+        }
     }//GEN-LAST:event_txt_timKiem01KeyReleased
 
     private void btn_LamMoi1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_LamMoi1ActionPerformed
-      
+        listKhachHang01 = KH.getall01();
+        showTable2(listKhachHang01);
+        LBL_SOLUONG.setText("Tổng số hoá đơn là : " + listKhachHang01.size());
+
     }//GEN-LAST:event_btn_LamMoi1ActionPerformed
 
     private void TB_bang1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TB_bang1MouseClicked
-      
+        // TODO add your handling code here:
+        int id = layid();
+        showTable3(listKhachHang01);
+        listKhachHang01 = KH.GetTKTheoIDKH(id);
+        LBL_SOLUONG.setText("Tổng số hoá đơn là : " + KH.GetTKTheoIDKH(id).size());
+
+        int row = TB_bang1.getSelectedRow();
+        KhachHangViewMD kh = listKhachHang.get(row);
+        txt_Ten.setText(kh.getTen());
+        txt_tenDem.setText(kh.getTendem());
+        txt_Ho.setText(kh.getHo());
+        String gt = (TB_bang1.getValueAt(row, 2).toString());
+        if (gt == "Nam") {
+            rd_Nam.setSelected(true);
+        } else {
+            rd_nu.setSelected(true);
+        }
+        date_ngaysinh1.setDate((Date) TB_bang1.getValueAt(row, 3));
+        txt_sdt.setText(kh.getSdt());
+        txt_email.setText(kh.getEmail());
     }//GEN-LAST:event_TB_bang1MouseClicked
 
 

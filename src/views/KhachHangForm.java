@@ -11,36 +11,71 @@ import java.util.regex.Pattern;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import models.KhachHang;
-import services.IKhachhangServices;
-import services.impl.KhachHangServicesImpl;
-import viewmodels.KhachhangViewMD;
+import services.IHoaDonServiec;
+import services.IKhachHangService;
+import services.imp.HoaDonServiec;
+import services.imp.khahangsvImpl;
+import viewmodels.KhachHangViewMD;
 
+/**
+ *
+ * @author Admin
+ */
 public class KhachHangForm extends javax.swing.JFrame {
 
     DefaultTableModel defaultTableModel = new DefaultTableModel();
-    List<KhachhangViewMD> listKhachHang;
-    private KhachHangServicesImpl KHImpl = new KhachHangServicesImpl();
-    
-    public KhachHangForm(){
+    List<KhachHangViewMD> listKhachHang;
+    private IKhachHangService KH;
+    private IHoaDonServiec hoaDonServiec;
+    String Ma;
+
+    public KhachHangForm(String MaHD) {
         initComponents();
         setLocationRelativeTo(null);
-        
-        listKhachHang = KHImpl.getall();
+        KH = new khahangsvImpl();
+        hoaDonServiec = new HoaDonServiec();
+        listKhachHang = KH.getall();
+
+        Ma = MaHD;
         showTable(listKhachHang);
+
     }
-   
-    
-    
-    // Hiển thị Khách hàng
-      public void showTable(List<KhachhangViewMD> list) {
+
+    public void showTable(List<KhachHangViewMD> list) {
         defaultTableModel = (DefaultTableModel) tb_khachHang.getModel();
         defaultTableModel.setRowCount(0);
-        for (KhachhangViewMD khachHang01 : list) {
+        for (KhachHangViewMD khachHang01 : list) {
             defaultTableModel.addRow(khachHang01.toDataRow());
         }
     }
-      // check trong form khách hàng 
-      public boolean check() {
+
+    private KhachHang getData() {
+        KhachHang cv = new KhachHang();
+        cv.setTen(txt_Ten1.getText());
+        cv.setTendem(txt_TenDem.getText());
+        cv.setHo(txt_Ho.getText());
+        int gt;
+        if (rd_nam.isSelected()) {
+            gt = 0;
+        } else {
+            gt = 1;
+        }
+        cv.setGioitinh(gt);
+        cv.setNgaysinh(date_ngaysinh.getDate());
+        cv.setSdt(txt_sdt.getText());
+        cv.setEmail(txt_email.getText());
+
+        return cv;
+    }
+
+    public int layid() {
+        Integer row = tb_khachHang.getSelectedRow();
+        int id = (int) tb_khachHang.getValueAt(row, 0);
+        return id;
+
+    }
+
+    public boolean check() {
         String sdt = "(0\\d{9})";
         String mail = "^[\\w-\\.]+@([\\w-]+\\.)+[\\w-]{2,4}$";
         Pattern p = Pattern.compile("^[0-9]+$");
@@ -66,10 +101,10 @@ public class KhachHangForm extends javax.swing.JFrame {
             }
         } catch (Exception e) {
         }
-//        if (KHImpl.kiemtrasdt(txt_sdt.getText()) != null) {
-//            JOptionPane.showMessageDialog(this, "Số điện thoại của bạn đã tồn tại");
-//            return false;
-//        }
+        if (KH.kiemtrasdt(txt_sdt.getText()) != null) {
+            JOptionPane.showMessageDialog(this, "Số điện thoại của bạn đã tồn tại");
+            return false;
+        }
         if (txt_email.getText().equals("")) {
             return true;
         } else {
@@ -81,16 +116,43 @@ public class KhachHangForm extends javax.swing.JFrame {
             } catch (Exception e) {
             }
         }
-//        if (KHImpl.kiemtra(txt_email.getText()) != null) {
-//            JOptionPane.showMessageDialog(this, "Email đã tồn tại");
-//            return false;
-//        }
+        if (KH.kiemtra(txt_email.getText()) != null) {
+            JOptionPane.showMessageDialog(this, "Email đã tồn tại");
+            return false;
+        }
 
         return true;
 
     }
-      // check 03
-      public boolean check3() {
+
+    public boolean check2() {
+        Pattern p = Pattern.compile("^[0-9]+$");
+        if (txt_Ho.getText().equals("") & txt_TenDem.getText().equals("")) {
+            return true;
+        } else {
+            if (p.matcher(txt_Ho.getText()).find() == true) {
+                JOptionPane.showMessageDialog(this, "Họ của bạn không được nhập số");
+                return false;
+            }
+            if (txt_Ho.getText().length() > 30) {
+                JOptionPane.showMessageDialog(this, "Họ không được quá 30 kí tự");
+                return false;
+            }
+            if (p.matcher(txt_TenDem.getText()).find() == true) {
+                JOptionPane.showMessageDialog(this, "Tên đệm của bạn không được nhập số");
+                return false;
+            }
+            if (txt_TenDem.getText().length() > 30) {
+                JOptionPane.showMessageDialog(this, "Tên Đệm không được quá 30 kí tự");
+                return false;
+            }
+        }
+
+        return true;
+
+    }
+
+    public boolean check3() {
         String sdt = "(0\\d{9})";
         String mail = "^[\\w-\\.]+@([\\w-]+\\.)+[\\w-]{2,4}$";
         Pattern p = Pattern.compile("^[0-9]+$");
@@ -134,33 +196,41 @@ public class KhachHangForm extends javax.swing.JFrame {
 
         return true;
     }
-      
-      // Sửa Data
-      private KhachHang getData() {
-        KhachHang cv = new KhachHang();
-        cv.setTen(txt_Ten1.getText());
-        cv.setTendem(txt_TenDem.getText());
-        cv.setHo(txt_Ho.getText());
-        int gt;
-        if (rd_nam.isSelected()) {
-            gt = 0;
+
+    public boolean check4() {
+        Pattern p = Pattern.compile("^[0-9]+$");
+
+        if (txt_Ho.getText() == null & txt_TenDem.getText() == null) {
+            return true;
         } else {
-            gt = 1;
+
+            if (p.matcher(txt_Ho.getText()).find() == true) {
+                JOptionPane.showMessageDialog(this, "Họ của bạn không được nhập số");
+                return false;
+            }
+            if (txt_Ho.getText().length() > 30) {
+                JOptionPane.showMessageDialog(this, "Họ không được quá 30 kí tự");
+                return false;
+            }
+            if (p.matcher(txt_TenDem.getText()).find() == true) {
+                JOptionPane.showMessageDialog(this, "Tên đệm của bạn không được nhập số");
+                return false;
+            }
+            if (txt_TenDem.getText().length() > 30) {
+                JOptionPane.showMessageDialog(this, "Tên Đệm không được quá 30 kí tự");
+                return false;
+
+            }
         }
-        cv.setGioitinh(gt);
-        cv.setNgaysinh(date_ngaysinh.getDate());
-        cv.setSdt(txt_sdt.getText());
-        cv.setEmail(txt_email.getText());
 
-        return cv;
+        return true;
     }
-      // lấy ra id 
-      public int layid() {
-        Integer row = tb_khachHang.getSelectedRow();
-        int id = (int) tb_khachHang.getValueAt(row, 0);
-        return id;
 
-    }
+    /**
+     * This method is called from within the constructor to initialize the form.
+     * WARNING: Do NOT modify this code. The content of this method is always
+     * regenerated by the Form Editor.
+     */
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -190,6 +260,8 @@ public class KhachHangForm extends javax.swing.JFrame {
         txt_timKiem = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+
+        jPanel1.setBackground(new java.awt.Color(204, 204, 255));
 
         tb_khachHang.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -392,33 +464,39 @@ public class KhachHangForm extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void Btn_capNhatActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Btn_capNhatActionPerformed
-          int row = tb_khachHang.getSelectedRow();
+        int row = tb_khachHang.getSelectedRow();
         if (row < 0) {
             JOptionPane.showMessageDialog(this, "cần chọn khách hàng để cập nhật");
             return;
         }
-        if (check3()) {
+        if (check3() && check4()) {
 
             if (JOptionPane.showConfirmDialog(this, "Bạn có muốn cập nhật không?") == JOptionPane.YES_OPTION) {
                 int id = layid();
 
-                JOptionPane.showMessageDialog(this, KHImpl.update(id, getData()));
-                listKhachHang = KHImpl.getall();
+                JOptionPane.showMessageDialog(this, KH.update(id, getData()));
+                listKhachHang = KH.getall();
                 showTable(listKhachHang);
             }
         }
     }//GEN-LAST:event_Btn_capNhatActionPerformed
 
     private void btn_themActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_themActionPerformed
-        if(check()){
-            JOptionPane.showMessageDialog(this, KHImpl.add(getData()));
-            listKhachHang = KHImpl.getall();
+        if (check() && check2()) {
+            JOptionPane.showMessageDialog(this, KH.add(getData()));
+            listKhachHang = KH.getall();
             showTable(listKhachHang);
         }
     }//GEN-LAST:event_btn_themActionPerformed
 
     private void btn_chonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_chonActionPerformed
-
+        int rowKh = tb_khachHang.getSelectedRow();
+        if (rowKh < 0) {
+            JOptionPane.showMessageDialog(this, "lựa 1 khách hàng");
+            return;
+        }
+        Integer updateHoaDonKh = hoaDonServiec.updateHoaDonKhachHang(Integer.parseInt(tb_khachHang.getValueAt(rowKh, 0).toString()), Ma);
+        dispose();
     }//GEN-LAST:event_btn_chonActionPerformed
 
     private void txt_timKiemCaretUpdate(javax.swing.event.CaretEvent evt) {//GEN-FIRST:event_txt_timKiemCaretUpdate
@@ -426,10 +504,10 @@ public class KhachHangForm extends javax.swing.JFrame {
     }//GEN-LAST:event_txt_timKiemCaretUpdate
 
     private void tb_khachHangMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tb_khachHangMouseClicked
-     int id = layid();
+        int id = layid();
 
         int row = tb_khachHang.getSelectedRow();
-        KhachhangViewMD kh = listKhachHang.get(row);
+        KhachHangViewMD kh = listKhachHang.get(row);
         txt_Ten1.setText(kh.getTen());
         txt_TenDem.setText(kh.getTendem());
         txt_Ho.setText(kh.getHo());
@@ -449,43 +527,47 @@ public class KhachHangForm extends javax.swing.JFrame {
     }//GEN-LAST:event_txt_timKiemActionPerformed
 
     private void txt_timKiemKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txt_timKiemKeyReleased
-
+        defaultTableModel = (DefaultTableModel) tb_khachHang.getModel();
+        defaultTableModel.setRowCount(0);
+        for (KhachHangViewMD khachHang01 : KH.GetTK(txt_timKiem.getText())) {
+            defaultTableModel.addRow(khachHang01.toDataRow());
+        }
     }//GEN-LAST:event_txt_timKiemKeyReleased
 
     /**
      * @param args the command line arguments
      */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(KhachHangForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(KhachHangForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(KhachHangForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(KhachHangForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new KhachHangForm().setVisible(true);
-            }
-        });
-    }
+//    public static void main(String args[]) {
+//        /* Set the Nimbus look and feel */
+//        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
+//        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
+//         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
+//         */
+//        try {
+//            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
+//                if ("Nimbus".equals(info.getName())) {
+//                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
+//                    break;
+//                }
+//            }
+//        } catch (ClassNotFoundException ex) {
+//            java.util.logging.Logger.getLogger(KhachHangForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+//        } catch (InstantiationException ex) {
+//            java.util.logging.Logger.getLogger(KhachHangForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+//        } catch (IllegalAccessException ex) {
+//            java.util.logging.Logger.getLogger(KhachHangForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+//        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+//            java.util.logging.Logger.getLogger(KhachHangForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+//        }
+//        //</editor-fold>
+//
+//        /* Create and display the form */
+//        java.awt.EventQueue.invokeLater(new Runnable() {
+//            public void run() {
+//                new KhachHangForm().setVisible(true);
+//            }
+//        });
+//    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private swing.MyButton Btn_capNhat;

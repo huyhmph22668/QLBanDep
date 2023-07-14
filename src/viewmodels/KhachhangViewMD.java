@@ -10,8 +10,8 @@ import java.util.Date;
  *
  * @author Admin
  */
-public class KhachhangViewMD {
-      private int id;
+public class KhachHangViewMD {
+     private int id;
     private String ten;
     private String tendem;
     private String ho;
@@ -21,10 +21,10 @@ public class KhachhangViewMD {
     private String sdt;
     private int diemthuong;
 
-    public KhachhangViewMD() {
+    public KhachHangViewMD() {
     }
 
-    public KhachhangViewMD(int id, String ten, String tendem, String ho, int gioitinh, Date ngaysinh, String email, String sdt, int diemthuong) {
+    public KhachHangViewMD(int id, String ten, String tendem, String ho, int gioitinh, Date ngaysinh, String email, String sdt, int diemthuong) {
         this.id = id;
         this.ten = ten;
         this.tendem = tendem;
@@ -35,8 +35,6 @@ public class KhachhangViewMD {
         this.sdt = sdt;
         this.diemthuong = diemthuong;
     }
-
-  
 
     public int getId() {
         return id;
@@ -86,6 +84,8 @@ public class KhachhangViewMD {
         this.ngaysinh = ngaysinh;
     }
 
+   
+
     public String getEmail() {
         return email;
     }
@@ -109,11 +109,10 @@ public class KhachhangViewMD {
     public void setDiemthuong(int diemthuong) {
         this.diemthuong = diemthuong;
     }
-    
-       public Object[] toDataRow() {
+
+    public Object[] toDataRow() {
         return new Object[]{id, ho + " " + tendem + " " + ten, gioitinh == 0 ? "Nam" : "Nữ", ngaysinh, sdt, email, diemthuong};
 
     }
-    
-    
+
 }
