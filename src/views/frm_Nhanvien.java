@@ -12,6 +12,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.regex.Pattern;
 import javax.swing.DefaultComboBoxModel;
+import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
@@ -21,6 +22,9 @@ import javax.swing.table.DefaultTableModel;
  */
 public class frm_Nhanvien extends javax.swing.JPanel {
 
+    public frm_Nhanvien(){
+        initComponents();
+    }
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -285,6 +289,22 @@ public class frm_Nhanvien extends javax.swing.JPanel {
     }//GEN-LAST:event_cbochucvuActionPerformed
 
 
+     public static void main(String args[]) {
+        /* Set the Nimbus look and feel */
+        // ...
+
+        /* Create and display the form */
+        java.awt.EventQueue.invokeLater(new Runnable() {
+            public void run() {
+                JFrame frame = new JFrame();
+                frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+                frame.setSize(1010, 640);
+                frame.getContentPane().add(new frm_Nhanvien());
+                frame.setVisible(true);
+            }
+        });
+    }
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private swing.MyButton btncapnhat;
     private swing.MyButton btnlmmoi;
