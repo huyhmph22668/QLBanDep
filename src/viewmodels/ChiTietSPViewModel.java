@@ -17,7 +17,7 @@ import models.ThuongHieu;
  * @author Admin 88
  */
 public class ChiTietSPViewModel {
-      private String ma;
+    private String ma;
     private String ten;
     private NSX nsx;
     private MauSac mausac;
@@ -30,12 +30,12 @@ public class ChiTietSPViewModel {
     private Double gianhap;
     private Double giaban;
     private String mota;
-
+    private String qrcode;
 
     public ChiTietSPViewModel() {
     }
 
-    public ChiTietSPViewModel(String ma, String ten, NSX nsx, MauSac mausac, DanhMuc danhmuc, KichCo kichco, ChatLieu chatlieu, ThuongHieu thuonghieu, KhuyenMai khuyenmai, int soluongton, Double gianhap, Double giaban, String mota) {
+    public ChiTietSPViewModel(String ma, String ten, NSX nsx, MauSac mausac, DanhMuc danhmuc, KichCo kichco, ChatLieu chatlieu, ThuongHieu thuonghieu, KhuyenMai khuyenmai, int soluongton, Double gianhap, Double giaban, String mota, String qrcode) {
         this.ma = ma;
         this.ten = ten;
         this.nsx = nsx;
@@ -49,7 +49,7 @@ public class ChiTietSPViewModel {
         this.gianhap = gianhap;
         this.giaban = giaban;
         this.mota = mota;
-
+        this.qrcode = qrcode;
     }
 
     public String getMa() {
@@ -156,4 +156,11 @@ public class ChiTietSPViewModel {
         this.mota = mota;
     }
 
+    public String getQrcode() {
+        return qrcode;
+    }
+
+    public void setQrcode(String qrcode) {
+        this.qrcode = qrcode;
+    }
 }
