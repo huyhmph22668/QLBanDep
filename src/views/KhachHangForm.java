@@ -11,9 +11,9 @@ import java.util.regex.Pattern;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import models.KhachHang;
-import services.IHoaDonServiec;
+import services.IHoaDonService;
 import services.IKhachHangService;
-import services.impl.HoaDonServiec;
+import services.impl.HoaDonService;
 import services.impl.khahangsvImpl;
 import viewmodels.KhachHangViewMD;
 
@@ -26,14 +26,14 @@ public class KhachHangForm extends javax.swing.JFrame {
     DefaultTableModel defaultTableModel = new DefaultTableModel();
     List<KhachHangViewMD> listKhachHang;
     private IKhachHangService KH;
-    private IHoaDonServiec hoaDonServiec;
+    private IHoaDonService hoaDonService;
     String Ma;
 
     public KhachHangForm(String MaHD) {
         initComponents();
         setLocationRelativeTo(null);
         KH = new khahangsvImpl();
-        hoaDonServiec = new HoaDonServiec();
+        hoaDonService = new HoaDonService();
         listKhachHang = KH.getall();
 
         Ma = MaHD;
@@ -495,7 +495,7 @@ public class KhachHangForm extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "lựa 1 khách hàng");
             return;
         }
-        Integer updateHoaDonKh = hoaDonServiec.updateHoaDonKhachHang(Integer.parseInt(tb_khachHang.getValueAt(rowKh, 0).toString()), Ma);
+        Integer updateHoaDonKh = hoaDonService.updateHoaDonKhachHang(Integer.parseInt(tb_khachHang.getValueAt(rowKh, 0).toString()), Ma);
         dispose();
     }//GEN-LAST:event_btn_chonActionPerformed
 

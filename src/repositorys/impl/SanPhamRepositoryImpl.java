@@ -18,10 +18,7 @@ import models.SanPham;
 import repositorys.ISanPhamRepository;
 import utilconnext.DBConnection;
 
-/**
- *
- * @author LE DUONG
- */
+
 public class SanPhamRepositoryImpl implements ISanPhamRepository {
 
     @Override
