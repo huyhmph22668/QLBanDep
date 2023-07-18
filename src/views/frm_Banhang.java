@@ -125,14 +125,13 @@ public class frm_Banhang extends javax.swing.JPanel implements Runnable, ThreadF
         });
         jPopupMenu1.add(jMenuItem1);
 
-        setBackground(new java.awt.Color(204, 255, 255));
+        setBackground(new java.awt.Color(255, 255, 255));
         setMinimumSize(new java.awt.Dimension(1010, 640));
         setName(""); // NOI18N
 
         panelGradiente1.setColorPrimario(new java.awt.Color(204, 204, 204));
         panelGradiente1.setColorSecundario(new java.awt.Color(204, 204, 204));
 
-        tb_sanPham.setBackground(new java.awt.Color(255, 245, 255));
         tb_sanPham.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
@@ -153,10 +152,9 @@ public class frm_Banhang extends javax.swing.JPanel implements Runnable, ThreadF
         jScrollPane2.setBounds(10, 60, 560, 190);
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        jLabel1.setForeground(new java.awt.Color(0, 0, 102));
         jLabel1.setText("Sản phẩm");
         panelGradiente1.add(jLabel1);
-        jLabel1.setBounds(10, 0, 100, 15);
+        jLabel1.setBounds(20, 0, 100, 15);
 
         cb_danhMuc.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "All" }));
         cb_danhMuc.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 204, 204), 2));
@@ -217,10 +215,9 @@ public class frm_Banhang extends javax.swing.JPanel implements Runnable, ThreadF
             }
         });
         panelGradiente2.add(btn_clear);
-        btn_clear.setBounds(490, 110, 100, 30);
+        btn_clear.setBounds(490, 100, 100, 30);
 
         jLabel2.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        jLabel2.setForeground(new java.awt.Color(0, 0, 102));
         jLabel2.setText("Giỏ hàng");
         panelGradiente2.add(jLabel2);
         jLabel2.setBounds(10, 0, 55, 15);
@@ -270,7 +267,6 @@ public class frm_Banhang extends javax.swing.JPanel implements Runnable, ThreadF
         jScrollPane1.setBounds(10, 20, 370, 150);
 
         jLabel4.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        jLabel4.setForeground(new java.awt.Color(0, 0, 102));
         jLabel4.setText("Hóa đơn chờ");
         jLabel4.setToolTipText("");
         panelGradiente3.add(jLabel4);

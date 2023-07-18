@@ -35,21 +35,19 @@ public class frm_Dangnhap extends javax.swing.JPanel {
         hideshow = new javax.swing.JLabel();
         quenmatkhau1 = new javax.swing.JButton();
 
-        setBackground(new java.awt.Color(255, 255, 255));
+        setBackground(new java.awt.Color(204, 204, 204));
         setMaximumSize(new java.awt.Dimension(328, 373));
         setMinimumSize(new java.awt.Dimension(328, 373));
         setName(""); // NOI18N
         setPreferredSize(new java.awt.Dimension(328, 373));
         setLayout(null);
 
-        jLabel2.setFont(new java.awt.Font("Times New Roman", 1, 32)); // NOI18N
-        jLabel2.setForeground(new java.awt.Color(255, 51, 51));
+        jLabel2.setFont(new java.awt.Font("Yu Gothic UI", 1, 36)); // NOI18N
         jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel2.setText("LOGIN");
         add(jLabel2);
-        jLabel2.setBounds(70, 30, 257, 40);
+        jLabel2.setBounds(90, 10, 240, 60);
 
-        txtPass.setBackground(new java.awt.Color(227, 255, 255));
         txtPass.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
         txtPass.setMinimumSize(new java.awt.Dimension(300, 40));
         txtPass.setPreferredSize(new java.awt.Dimension(300, 40));
@@ -77,7 +75,7 @@ public class frm_Dangnhap extends javax.swing.JPanel {
             }
         });
         add(myButton1);
-        myButton1.setBounds(230, 350, 120, 48);
+        myButton1.setBounds(220, 350, 120, 48);
 
         lbl_thongBao.setForeground(new java.awt.Color(255, 51, 51));
         lbl_thongBao.setBorder(null);
@@ -86,7 +84,6 @@ public class frm_Dangnhap extends javax.swing.JPanel {
         add(lbl_thongBao);
         lbl_thongBao.setBounds(240, 270, 0, 0);
 
-        txtUser.setBackground(new java.awt.Color(227, 255, 255));
         txtUser.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
         txtUser.setMinimumSize(new java.awt.Dimension(300, 40));
         txtUser.setName(""); // NOI18N
@@ -101,6 +98,7 @@ public class frm_Dangnhap extends javax.swing.JPanel {
         jLabel1.setBounds(60, 100, 90, 24);
 
         myButton2.setBackground(new java.awt.Color(125, 229, 251));
+        myButton2.setBorder(null);
         myButton2.setForeground(new java.awt.Color(0, 51, 102));
         myButton2.setText("Đăng nhập");
         myButton2.setFont(new java.awt.Font("Times New Roman", 1, 12)); // NOI18N
@@ -121,14 +119,14 @@ public class frm_Dangnhap extends javax.swing.JPanel {
         add(hideshow);
         hideshow.setBounds(360, 220, 30, 40);
 
-        quenmatkhau1.setFont(new java.awt.Font("Tempus Sans ITC", 1, 14)); // NOI18N
-        quenmatkhau1.setForeground(new java.awt.Color(204, 0, 0));
+        quenmatkhau1.setFont(new java.awt.Font("Tw Cen MT", 1, 12)); // NOI18N
+        quenmatkhau1.setForeground(new java.awt.Color(255, 0, 0));
         quenmatkhau1.setText("Forget password?");
         quenmatkhau1.setBorder(null);
         quenmatkhau1.setContentAreaFilled(false);
         quenmatkhau1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         add(quenmatkhau1);
-        quenmatkhau1.setBounds(240, 300, 120, 19);
+        quenmatkhau1.setBounds(240, 300, 120, 14);
     }// </editor-fold>//GEN-END:initComponents
 
     private void myButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_myButton1ActionPerformed

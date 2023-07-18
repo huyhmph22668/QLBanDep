@@ -149,7 +149,6 @@ public class frm_Thongke extends javax.swing.JPanel {
 
         panelBorder1.setBackground(new java.awt.Color(204, 204, 204));
 
-        Tb_Sp.setBackground(new java.awt.Color(255, 245, 255));
         Tb_Sp.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
@@ -210,7 +209,7 @@ public class frm_Thongke extends javax.swing.JPanel {
         panelBorder1.add(date_year);
         date_year.setBounds(200, 30, 100, 30);
 
-        btn_bieudo.setBackground(new java.awt.Color(153, 255, 204));
+        btn_bieudo.setBackground(new java.awt.Color(102, 255, 255));
         btn_bieudo.setText("Biểu đồ");
         btn_bieudo.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 204, 204), 2));
         btn_bieudo.addActionListener(new java.awt.event.ActionListener() {
