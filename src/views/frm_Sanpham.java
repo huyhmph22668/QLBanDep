@@ -69,7 +69,6 @@ public class frm_Sanpham extends javax.swing.JPanel {
     DefaultTableModel defaultTableModel;
     private boolean hish = false;
     String sp = null;
-    
 
     public frm_Sanpham() {
         initComponents();
@@ -204,7 +203,6 @@ public class frm_Sanpham extends javax.swing.JPanel {
 //            System.out.println("xuất thất bại");
 //        }
 //    }
-
     public static void generateQRcode(String data, String path, Map map, int h, int w) {
         try {
             BitMatrix matrix = new MultiFormatWriter().encode(new String(data.getBytes("UTF-8"), "UTF-8"), BarcodeFormat.QR_CODE, w, h);
@@ -647,7 +645,7 @@ public class frm_Sanpham extends javax.swing.JPanel {
     }//GEN-LAST:event_btn_themActionPerformed
 
     private void btn_capnhatActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_capnhatActionPerformed
-  int row = tbl_sp.getSelectedRow();
+        int row = tbl_sp.getSelectedRow();
         if (row == -1) {
             JOptionPane.showMessageDialog(this, " Bạn cần chọn 1 dòng để cập nhật");
             return;
@@ -672,7 +670,7 @@ public class frm_Sanpham extends javax.swing.JPanel {
 
     private void btn_xoaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_xoaActionPerformed
         int row = tbl_sp.getSelectedRow();
-        String ma = (String) tbl_sp.getValueAt(row,0);
+        String ma = (String) tbl_sp.getValueAt(row, 0);
         int chon = JOptionPane.showConfirmDialog(this, "Bạn Có chắc muốn xóa sản phẩm ?", "Delete", JOptionPane.YES_NO_OPTION);
         if (chon == JOptionPane.YES_OPTION) {
             boolean kq = iChiTietSPServices.Delete(ma);
@@ -724,7 +722,7 @@ public class frm_Sanpham extends javax.swing.JPanel {
     }//GEN-LAST:event_hideshowMouseClicked
 
     private void jLabel15MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel15MouseClicked
-
+        new frm_themthuoctinh(new javax.swing.JFrame(), true).setVisible(true);
     }//GEN-LAST:event_jLabel15MouseClicked
 
     private void searchTextKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_searchTextKeyReleased
