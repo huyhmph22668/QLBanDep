@@ -65,8 +65,7 @@ public class frm_Dangnhap extends javax.swing.JPanel {
         add(jLabel3);
         jLabel3.setBounds(60, 190, 80, 24);
 
-        myButton1.setBackground(new java.awt.Color(125, 229, 251));
-        myButton1.setForeground(new java.awt.Color(0, 51, 102));
+        myButton1.setForeground(new java.awt.Color(255, 0, 0));
         myButton1.setText("Thoát");
         myButton1.setFont(new java.awt.Font("Times New Roman", 1, 12)); // NOI18N
         myButton1.addActionListener(new java.awt.event.ActionListener() {
@@ -97,9 +96,8 @@ public class frm_Dangnhap extends javax.swing.JPanel {
         add(jLabel1);
         jLabel1.setBounds(60, 100, 90, 24);
 
-        myButton2.setBackground(new java.awt.Color(125, 229, 251));
         myButton2.setBorder(null);
-        myButton2.setForeground(new java.awt.Color(0, 51, 102));
+        myButton2.setForeground(new java.awt.Color(51, 51, 51));
         myButton2.setText("Đăng nhập");
         myButton2.setFont(new java.awt.Font("Times New Roman", 1, 12)); // NOI18N
         myButton2.addActionListener(new java.awt.event.ActionListener() {

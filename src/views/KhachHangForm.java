@@ -29,6 +29,7 @@ public class KhachHangForm extends javax.swing.JFrame {
     private IHoaDonService hoaDonService;
     String Ma;
 
+    
     public KhachHangForm(String MaHD) {
         initComponents();
         setLocationRelativeTo(null);
@@ -39,6 +40,18 @@ public class KhachHangForm extends javax.swing.JFrame {
         Ma = MaHD;
         showTable(listKhachHang);
 
+    }
+
+    private KhachHangForm() {
+        initComponents();
+        
+        setLocationRelativeTo(null);
+        KH = new khahangsvImpl();
+        hoaDonService = new HoaDonService();
+        listKhachHang = KH.getall();
+
+
+        showTable(listKhachHang);
     }
 
     public void showTable(List<KhachHangViewMD> list) {
@@ -261,7 +274,7 @@ public class KhachHangForm extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
-        jPanel1.setBackground(new java.awt.Color(204, 204, 255));
+        jPanel1.setBackground(new java.awt.Color(204, 204, 204));
 
         tb_khachHang.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -569,6 +582,33 @@ public class KhachHangForm extends javax.swing.JFrame {
 //        });
 //    }
 
+      public static void main(String args[]) {
+        /* Set the Nimbus look and feel */
+        try {
+            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
+                if ("Nimbus".equals(info.getName())) {
+                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
+                    break;
+                }
+            }
+        } catch (ClassNotFoundException ex) {
+            java.util.logging.Logger.getLogger(KhachHangForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (InstantiationException ex) {
+            java.util.logging.Logger.getLogger(KhachHangForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (IllegalAccessException ex) {
+            java.util.logging.Logger.getLogger(KhachHangForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+            java.util.logging.Logger.getLogger(KhachHangForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        }
+
+        /* Create and display the form */
+        java.awt.EventQueue.invokeLater(new Runnable() {
+            public void run() {
+                new KhachHangForm().setVisible(true);
+            }
+        });
+    }
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private swing.MyButton Btn_capNhat;
     private swing.MyButton btn_chon;

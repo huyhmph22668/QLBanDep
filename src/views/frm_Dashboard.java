@@ -115,7 +115,7 @@ public class frm_Dashboard extends javax.swing.JFrame {
 
         jLabel2.setForeground(new java.awt.Color(204, 255, 255));
         jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/kisspng-adidas-stan-smith-adidas-originals-three-stripes-adidas-5b3c6bce342844.1131818415306864142137 (1).png"))); // NOI18N
-        jPanel4.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 0, 130, 110));
+        jPanel4.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 0, 140, 120));
 
         jPanel2.add(jPanel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 190, 160));
 

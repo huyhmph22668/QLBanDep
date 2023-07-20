@@ -281,8 +281,7 @@ public class frm_Banhang extends javax.swing.JPanel implements Runnable, ThreadF
         panelGradiente4.setMinimumSize(new java.awt.Dimension(1010, 640));
         panelGradiente4.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jLabel5.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
-        jLabel5.setForeground(new java.awt.Color(0, 0, 102));
+        jLabel5.setFont(new java.awt.Font("Trebuchet MS", 1, 18)); // NOI18N
         jLabel5.setText("Thanh toán");
         jLabel5.setToolTipText("");
         panelGradiente4.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 10, 120, -1));

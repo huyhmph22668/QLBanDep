@@ -11,6 +11,7 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.regex.Pattern;
+import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import models.KhachHang;
@@ -336,10 +337,10 @@ public class frm_Khachhang extends javax.swing.JPanel {
         setMinimumSize(new java.awt.Dimension(1010, 640));
         setPreferredSize(new java.awt.Dimension(1010, 640));
 
-        panelGradiente1.setColorPrimario(new java.awt.Color(204, 255, 255));
-        panelGradiente1.setColorSecundario(new java.awt.Color(255, 204, 255));
+        panelGradiente1.setColorPrimario(new java.awt.Color(204, 204, 204));
+        panelGradiente1.setColorSecundario(new java.awt.Color(204, 204, 204));
 
-        panelBorder1.setBackground(new java.awt.Color(204, 204, 255));
+        panelBorder1.setBackground(new java.awt.Color(204, 204, 204));
         panelBorder1.setToolTipText("");
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
@@ -368,13 +369,13 @@ public class frm_Khachhang extends javax.swing.JPanel {
         panelBorder1.add(jLabel8);
         jLabel8.setBounds(90, 200, 48, 30);
 
-        rd_nu.setBackground(new java.awt.Color(204, 204, 255));
+        rd_nu.setBackground(new java.awt.Color(204, 204, 204));
         buttonGroup1.add(rd_nu);
         rd_nu.setText("Nữ");
         panelBorder1.add(rd_nu);
         rd_nu.setBounds(230, 200, 60, 30);
 
-        rd_Nam.setBackground(new java.awt.Color(204, 204, 255));
+        rd_Nam.setBackground(new java.awt.Color(204, 204, 204));
         buttonGroup1.add(rd_Nam);
         rd_Nam.setSelected(true);
         rd_Nam.setText("Nam");
@@ -446,9 +447,9 @@ public class frm_Khachhang extends javax.swing.JPanel {
         panelGradiente1.add(panelBorder1);
         panelBorder1.setBounds(10, 0, 990, 260);
 
-        jTabbedPane3.setBackground(new java.awt.Color(204, 204, 255));
+        jTabbedPane3.setBackground(new java.awt.Color(204, 204, 204));
 
-        jPanel1.setBackground(new java.awt.Color(204, 204, 255));
+        jPanel1.setBackground(new java.awt.Color(204, 204, 204));
 
         panelBorder3.setBackground(new java.awt.Color(255, 255, 255));
 
@@ -469,10 +470,10 @@ public class frm_Khachhang extends javax.swing.JPanel {
         panelBorder3.add(txt_timKiem01);
         txt_timKiem01.setBounds(20, 0, 450, 40);
 
+        TXT_01.setBackground(new java.awt.Color(204, 204, 204));
         TXT_01.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         TXT_01.setForeground(new java.awt.Color(255, 51, 0));
 
-        TB_bang1.setBackground(new java.awt.Color(255, 245, 255));
         TB_bang1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null, null, null},
@@ -521,9 +522,8 @@ public class frm_Khachhang extends javax.swing.JPanel {
 
         jTabbedPane3.addTab("Thông Tin Khách Hàng", jPanel1);
 
-        jPanel2.setBackground(new java.awt.Color(204, 204, 255));
+        jPanel2.setBackground(new java.awt.Color(204, 204, 204));
 
-        TB_bang02.setBackground(new java.awt.Color(255, 245, 255));
         TB_bang02.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
@@ -570,7 +570,7 @@ public class frm_Khachhang extends javax.swing.JPanel {
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGap(16, 16, 16)
-                        .addComponent(LBL_SOLUONG, javax.swing.GroupLayout.DEFAULT_SIZE, 32, Short.MAX_VALUE))
+                        .addComponent(LBL_SOLUONG, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addContainerGap()
                         .addComponent(btn_LamMoi1, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -583,7 +583,7 @@ public class frm_Khachhang extends javax.swing.JPanel {
         jTabbedPane3.addTab("Lịch Sử Mua Hàng", jPanel2);
 
         panelGradiente1.add(jTabbedPane3);
-        jTabbedPane3.setBounds(12, 270, 990, 370);
+        jTabbedPane3.setBounds(10, 270, 990, 370);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -684,6 +684,21 @@ public class frm_Khachhang extends javax.swing.JPanel {
         txt_email.setText(kh.getEmail());
     }//GEN-LAST:event_TB_bang1MouseClicked
 
+     public static void main(String args[]) {
+        /* Set the Nimbus look and feel */
+        // ...
+
+        /* Create and display the form */
+        java.awt.EventQueue.invokeLater(new Runnable() {
+            public void run() {
+                JFrame frame = new JFrame();
+                frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+                frame.setSize(1010, 640);
+                frame.getContentPane().add(new frm_Khachhang());
+                frame.setVisible(true);
+            }
+        });
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private swing.MyButton Btn_capNhat;
