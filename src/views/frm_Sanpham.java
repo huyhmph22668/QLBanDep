@@ -589,7 +589,6 @@ public class frm_Sanpham extends javax.swing.JPanel {
         jLabel15.setBounds(260, 10, 180, 40);
 
         hideshow.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        hideshow.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/hide.png"))); // NOI18N
         hideshow.setText("  Hiện sản phẩm hết");
         hideshow.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {

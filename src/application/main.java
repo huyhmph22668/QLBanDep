@@ -8,7 +8,7 @@ import views.frm_Login;
 
 public class main {
 
-//    public static void main(String[] args) {
-//        new frm_Login().setVisible(true);
-//    }
+    public static void main(String[] args) {
+        new frm_Login().setVisible(true);
+    }
 }
