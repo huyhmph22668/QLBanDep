@@ -62,6 +62,7 @@ public class frm_Nhanvien extends javax.swing.JPanel {
         model.addColumn("Email");
         model.addColumn("Chức Vụ");
         model.addColumn("Trạng thái");
+        tblnhanvien.setModel(model);
     }
 
         public void Loaddata() {
