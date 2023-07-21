@@ -42,7 +42,9 @@ import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
-
+import models.DanhMuc;
+import models.HoaDon;
+import models.SanPham;
 
 import org.apache.poi.xwpf.usermodel.ParagraphAlignment;
 import org.apache.poi.xwpf.usermodel.XWPFDocument;
@@ -50,9 +52,21 @@ import org.apache.poi.xwpf.usermodel.XWPFParagraph;
 import org.apache.poi.xwpf.usermodel.XWPFRun;
 import org.apache.poi.xwpf.usermodel.XWPFTable;
 import org.apache.poi.xwpf.usermodel.XWPFTableRow;
-
-
-
+import repositorys.IHoaDonRepostory;
+import repositorys.impl.HoaDonRepostory;
+import repositorys.impl.KhachHangReposirotyImpl;
+import services.IDanhMucService;
+import services.IHoaDonService;
+import services.IKhachHangService;
+import services.ISanPhamServices;
+import services.impl.DanhMucServiceImpl;
+import services.impl.HoaDonService;
+import services.impl.SanPhamServiec;
+import services.impl.khahangsvImpl;
+import viewmodels.GioHangViewModel;
+import viewmodels.HoaDonCHiTietViewModel;
+import viewmodels.HoaDonViewModel;
+import viewmodels.SanPhamViewModel;
 
 //import viewmodels.barCode;
 /**
@@ -61,9 +75,226 @@ import org.apache.poi.xwpf.usermodel.XWPFTableRow;
  */
 public class frm_Banhang extends javax.swing.JPanel implements Runnable, ThreadFactory {
 
-   
+    private WebcamPanel panel = null;
+    private Webcam webcam = null;
+    private Executor executor = Executors.newSingleThreadExecutor(this);
 
-   
+    private DefaultTableModel model;
+    private DefaultTableModel modelGioHang;
+    private DefaultComboBoxModel combox;
+    private ISanPhamServices sanISamPhamServiecs;
+    private IHoaDonService hoaDonServiec;
+    private IKhachHangService khachHangService = new khahangsvImpl();
+    private List<GioHangViewModel> listGioHang = new ArrayList<>();
+
+    private Integer id;
+    private String TenNhanVien;
+    private IHoaDonRepostory hoaDonRepostory = new HoaDonRepostory();
+    private IDanhMucService danhMucSPServices = new DanhMucServiceImpl();
+
+    public frm_Banhang(Integer idNhanVien, String TenNV) {
+        initComponents();
+        inintWebCam();
+        jMenuItem1.setText("Thay đổi số lượng");
+        jMenuItem1.setBackground(Color.CYAN);
+        chk_inHoaDon.setSelected(true);
+        chk_inHoaDon.setSelected(true);
+        model = new DefaultTableModel();
+        modelGioHang = (DefaultTableModel) tb_gioHang.getModel();
+        combox = new DefaultComboBoxModel();
+        sanISamPhamServiecs = new SanPhamServiec();
+        hoaDonServiec = new HoaDonService();
+
+        TenNhanVien = TenNV;
+        id = idNhanVien;
+        getListSP();
+        getListHoaDon();
+        loadCBMau();
+
+    }
+
+    private void inintWebCam() {
+
+        Dimension size = WebcamResolution.QVGA.getSize();
+        webcam = Webcam.getWebcams().get(0);
+//        webcam.setViewSize(size);
+        panel = new WebcamPanel(webcam);
+        panel.setPreferredSize(size);
+        panel.setFPSDisplayed(true);
+        jPanel1.add(panel, new org.netbeans.lib.awtextra.AbsoluteConstraints(2, 2, 220, 150));
+        executor.execute(this);
+    }
+
+    private void getListSP() {
+        model = (DefaultTableModel) tb_sanPham.getModel();
+        model.setRowCount(0);
+        List<SanPhamViewModel> getList = sanISamPhamServiecs.getListSanPham();
+        for (SanPhamViewModel x : getList) {
+            model.addRow(new Object[]{
+                x.getMa(),
+                x.getTen(),
+                x.getMauSac().getTen(),
+                String.format("%.0f", x.getKhuyenMai().getGiaTriGiam()),
+                x.getKhuyenMai().getHinhThucKM(),
+                x.getChatLieu().getTen(),
+                x.getKichCo().getTen(),
+                String.format("%.0f", x.getGiaBan()),
+                x.getSoLuongTon(),});
+        }
+    }
+
+    private String getTrangThaiHD(int TrangThai) {
+        if (TrangThai == 0) {
+            return "chờ thanh Toán";
+        }
+        if (TrangThai == 1) {
+            return "Đã thanh Toán";
+        }
+
+        return null;
+    }
+
+    private void getListHoaDon() {
+        model = (DefaultTableModel) tb_hoaDon.getModel();
+        model.setRowCount(0);
+        List<HoaDonViewModel> getList = hoaDonServiec.getListHD(0);
+        for (HoaDonViewModel x : getList) {
+            model.addRow(new Object[]{
+                x.getMa(),
+                x.getNgayTao(),
+                x.getUs().getTen(),
+                getTrangThaiHD(x.getTinhTrang())
+
+            });
+        }
+    }
+
+    private void clear() {
+        lbl_sdt.setText("");
+
+        lbl_tongTien1.setText(String.valueOf(0));
+        lbl_giamGia1.setText(String.valueOf(0.0));
+        lbl_thanhTien.setText(String.valueOf(0));
+//        lbl_diemThuong.setText(String.valueOf(0));
+        txt_tienKhachDua.setText("");
+        lbl_tienThua.setText("");
+        txt_ghiChu.setText("");
+        lbl_sdt.setText("");
+
+        lbl_tenKhachHang.setText("");
+    }
+
+    private void loadCBMau() {
+        combox = (DefaultComboBoxModel) cb_danhMuc.getModel();
+        List<DanhMuc> listDanhMuc = danhMucSPServices.getAll();
+        listDanhMuc.forEach(danhMuc -> combox.addElement(danhMuc.getTen()));
+
+    }
+
+    private HoaDonViewModel inputHD() {
+        HoaDonViewModel hd = new HoaDonViewModel();
+        String Ma = "HD";
+        Random random = new Random();
+        hd.setMa(Ma + random.nextInt());
+
+        long millis = System.currentTimeMillis();
+        Timestamp timestamp = new Timestamp(System.currentTimeMillis());
+        hd.setNgayTao(timestamp);
+
+        return hd;
+    }
+
+    private HoaDonCHiTietViewModel inputHDCT(Double DonGia, int SoLuong) {
+        HoaDonCHiTietViewModel hdct = new HoaDonCHiTietViewModel();
+        hdct.setDonGia(DonGia);
+        hdct.setSoluong(SoLuong);
+
+        return hdct;
+    }
+
+    private void getListGioHang() {
+        modelGioHang = (DefaultTableModel) tb_gioHang.getModel();
+        modelGioHang.setRowCount(0);
+        for (GioHangViewModel x : listGioHang) {
+            modelGioHang.addRow(new Object[]{
+                x.getMaSP(),
+                x.getTenSP(),
+                x.getMauSac(),
+                x.getKichCo(),
+                x.getSoLuong(),
+                String.format("%.0f", x.getDonGia()),
+                String.format("%.0f", x.getGiamGia()) + " " + x.getHinhThucGiamGia(),
+                String.format("%.0f", x.getThanhTien())
+            });
+        }
+    }
+
+    private void getListGioHangHDCT(String MaHD) {
+        modelGioHang = (DefaultTableModel) tb_gioHang.getModel();
+        modelGioHang.setRowCount(0);
+        List<HoaDonCHiTietViewModel> list = hoaDonServiec.getListHoaDonChiTiet(MaHD);
+        if (list.isEmpty()) {
+            return;
+        }
+        for (HoaDonCHiTietViewModel x : list) {
+            GioHangViewModel gioHang = new GioHangViewModel();
+            gioHang.setMaSP(x.getSanPham().getMa());
+            gioHang.setTenSP(x.getSanPham().getTen());
+            gioHang.setMauSac(x.getMauSac().getTen());
+            gioHang.setKichCo(x.getKichCo().getTen());
+            gioHang.setSoLuong(x.getSoluong());
+            gioHang.setDonGia(x.getDonGia());
+            gioHang.setGiamGia(x.getSanPham().getKhuyenMai().getGiaTriGiam());
+            gioHang.setHinhThucGiamGia(x.getSanPham().getKhuyenMai().getHinhThucKM());
+            listGioHang.add(gioHang);
+            getListGioHang();
+
+        }
+    }
+
+    private void mouse() {
+        int rowHD = tb_hoaDon.getSelectedRow();
+        int row = tb_hoaDon.getSelectedRow();
+        if (row < 0) {
+            return;
+        }
+        listGioHang.clear();
+        String MaHD = tb_hoaDon.getValueAt(row, 0).toString();
+        lbl_tongTien1.setText(String.valueOf(0));
+        lbl_giamGia1.setText(String.valueOf(0));
+        lbl_thanhTien.setText(String.valueOf(0));
+        getListGioHangHDCT(MaHD);
+        Double tongPT = 0.0;
+        Double tongVN = 0.0;
+        Double tongTien = 0.0;
+        Double giam = Double.parseDouble(lbl_giamGia1.getText());
+        int count = 0;
+        List<HoaDonCHiTietViewModel> list = hoaDonServiec.getListHoaDonChiTiet(MaHD);
+        for (HoaDonCHiTietViewModel x : list) {
+            tongTien = tongTien + x.getThanhTien();
+            lbl_tongTien1.setText(String.format("%.0f", tongTien));
+            List<SanPhamViewModel> listSanPham = sanISamPhamServiecs.getListSanPham();
+            if (tb_gioHang.getValueAt(count, 0).equals(x.getSanPham().getMa()) && x.getSanPham().getKhuyenMai().getHinhThucKM().equals("%")) {
+                tongPT = x.getThanhTien() * x.getSanPham().getKhuyenMai().getGiaTriGiam() / 100;
+                lbl_giamGia1.setText(String.valueOf(giam += tongPT));
+                lbl_giamGia1.setText(String.format("%.0f", giam));
+            } else {
+                tongVN = x.getSanPham().getKhuyenMai().getGiaTriGiam() * x.getSoluong();
+                lbl_giamGia1.setText(String.valueOf(giam += tongVN));
+                lbl_giamGia1.setText(String.format("%.0f", giam));
+            }
+            count++;
+        }
+        Double ThanhTien = Double.parseDouble(lbl_tongTien1.getText()) - Double.parseDouble(lbl_giamGia1.getText());
+        lbl_thanhTien.setText(String.valueOf(String.format("%.0f", ThanhTien)));
+//        if (Integer.parseInt(lbl_thanhTien.getText()) >= 500000) {
+//            int diemThuong = Integer.parseInt(lbl_thanhTien.getText()) / 100000;
+//            lbl_diemThuong.setText(String.valueOf(diemThuong));
+//        } else {
+//            lbl_diemThuong.setText(String.valueOf(0));
+//        }
+    }
+
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -459,49 +690,535 @@ public class frm_Banhang extends javax.swing.JPanel implements Runnable, ThreadF
     }// </editor-fold>//GEN-END:initComponents
 
     private void tb_sanPhamMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tb_sanPhamMouseClicked
-       
+        int row = tb_sanPham.getSelectedRow();
+        int rowHD = tb_hoaDon.getSelectedRow();
+        if (row < 0) {
+            return;
+        }
+        if (rowHD < 0) {
+            JOptionPane.showMessageDialog(this, "Bạn cần chọn hóa đơn để thêm sản phẩm!");
+            return;
+        }
+        try {
+
+            int NhapSoLuong = Integer.parseInt(JOptionPane.showInputDialog(this, "Nhập Số Lượng!"));
+            String MaSP = tb_sanPham.getValueAt(row, 0).toString();
+            String TenSP = tb_sanPham.getValueAt(row, 1).toString();
+            String mausac = tb_sanPham.getValueAt(row, 2).toString();
+            String kichco = tb_sanPham.getValueAt(row, 6).toString();
+            int SoLuong = Integer.parseInt(tb_sanPham.getValueAt(row, 8).toString());
+            Double DonGia = Double.parseDouble(tb_sanPham.getValueAt(row, 7).toString());
+            Double GiamGia = Double.parseDouble(tb_sanPham.getValueAt(row, 3).toString());
+            String hinhThucGiamGia = tb_sanPham.getValueAt(row, 4).toString();
+            List<HoaDonCHiTietViewModel> listh = hoaDonServiec.getListHoaDonChiTiet(tb_hoaDon.getValueAt(rowHD, 0).toString());
+            //validate nam
+
+            if (NhapSoLuong <= 0) {
+                JOptionPane.showMessageDialog(null, "Số lượng phải lớn hơn 0 !", "Chú ý", JOptionPane.WARNING_MESSAGE);
+                return;
+            }
+
+            //ket thuc validate nam
+            if (SoLuong >= NhapSoLuong) {
+                for (HoaDonCHiTietViewModel x : listh) {
+                    if (x.getSanPham().getMa().equals(MaSP)) {
+                        JOptionPane.showMessageDialog(this, "Sản Phẩm Đã Có Trên Giỏ Hàng");
+                        return;
+                    }
+                }
+                listGioHang.add(new GioHangViewModel(MaSP, TenSP, mausac, kichco, NhapSoLuong, DonGia, GiamGia, hinhThucGiamGia));
+                getListGioHang();
+
+                int kq = (int) (SoLuong - NhapSoLuong);
+                sanISamPhamServiecs.updateSoLuongSP(MaSP, kq);
+                List<SanPhamViewModel> list = sanISamPhamServiecs.getListSanPham();
+                list.clear();
+                getListSP();
+                double tongPT = 0.0;
+                double tongVN = 0.0;
+                double tongTien = 0.0;
+                double giam = 0.0; // Thay đổi giá trị ban đầu của giam từ 0.0 sang  Double.parseDouble(lbl_giamGia1.getText());
+                int count = 0;
+                for (GioHangViewModel x : listGioHang) {
+                    tongTien += x.getThanhTien();
+                    lbl_tongTien1.setText(String.format("%.0f", tongTien));
+                    if (x.getHinhThucGiamGia().equals("%")) {
+                        tongPT += x.getThanhTien() * x.getGiamGia() / 100;
+                    } else {
+                        tongVN += x.getGiamGia() * x.getSoLuong();
+                    }
+                    count++;
+                }
+                giam = tongPT + tongVN; // Tổng giá trị giảm giá bao gồm giảm theo % và giảm theo tiền
+                lbl_giamGia1.setText(String.format("%.0f", giam)); // Hiển thị tổng giá trị giảm giá lên label
+                Double ThanhTien = Double.parseDouble(lbl_tongTien1.getText()) - Double.parseDouble(lbl_giamGia1.getText());
+                lbl_thanhTien.setText(String.valueOf(String.format("%.0f", ThanhTien)));
+
+            } else if (SoLuong < NhapSoLuong) {
+
+                JOptionPane.showMessageDialog(null, "Sản phẩm không đủ", "Cảnh báo", JOptionPane.ERROR_MESSAGE);
+
+                return;
+            }
+            List<HoaDonViewModel> listHoaDon = hoaDonServiec.getListHD(1);
+            for (HoaDonViewModel x : listHoaDon) {
+                if (tb_hoaDon.getValueAt(rowHD, 0).toString().equals(x.getMa())) {
+                    HoaDonCHiTietViewModel hdct = inputHDCT(DonGia, NhapSoLuong);
+                    hoaDonServiec.saveHDCT(hdct, MaSP, x.getMa());
+
+                    return;
+
+                }
+            }
+
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Vui lòng không nhập kí tự", "Chú ý", JOptionPane.WARNING_MESSAGE);
+        }
     }//GEN-LAST:event_tb_sanPhamMouseClicked
 
     private void btn_thanhToanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_thanhToanActionPerformed
-       
+        if (tb_gioHang.getRowCount() == 0) {
+            JOptionPane.showMessageDialog(this, "Bạn chưa chọn sản phẩm lên giỏ hàng !");
+            return;
+        }
+        int rowHD = tb_hoaDon.getSelectedRow();
+        if (rowHD < 0) {
+            JOptionPane.showMessageDialog(this, "chọn hoá đơn bạn muốn thanh toán");
+            return;
+
+        }
+        if (lbl_tenKhachHang.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "chưa có thông tin khách hàng");
+            return;
+        }
+        if (txt_tienKhachDua.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "tiền khách Đưa không được để trống");
+            return;
+
+        }
+        try {
+            if (Double.parseDouble(txt_tienKhachDua.getText()) < Double.parseDouble(lbl_thanhTien.getText())) {
+                JOptionPane.showMessageDialog(this, "Tiền khách Đưa chưa đủ");
+                return;
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "không nhập kí tự tiền khách đưa");
+            return;
+        }
+        HoaDonViewModel hoaDon = new HoaDonViewModel();
+        hoaDon.setGhiChu(txt_ghiChu.getText());
+        long millis = System.currentTimeMillis();
+        Date date = new Date(millis);
+        hoaDon.setNgayThanhToan(date);
+        hoaDon.setMa(tb_hoaDon.getValueAt(rowHD, 0).toString());
+        hoaDon.setTongTien(Double.parseDouble(lbl_thanhTien.getText()));
+        hoaDonServiec.updateTrangThaiHoaDon(hoaDon);
+
+//        List<KhachHang> getListKhachHang = khachHangService.TenDiemKhachHang(lbl_sdt.getText());
+//        for (KhachHang khachHang : getListKhachHang) {
+//            khachHangService.updateDiemKhachHang(lbl_sdt.getText(), khachHang.getDiemthuong() + Integer.parseInt(lbl_diemThuong.getText()));
+//            break;
+//        }
+        JOptionPane.showMessageDialog(this, "thanh toán thành công");
+        if (chk_inHoaDon.isSelected()) {
+            XWPFDocument document = new XWPFDocument();
+            XWPFParagraph xWPFParagraph = document.createParagraph();
+            XWPFRun run = xWPFParagraph.createRun();
+            XWPFParagraph titleGraph = document.createParagraph();
+
+            titleGraph.setAlignment(ParagraphAlignment.CENTER);
+
+            String title = "CỬA HÀNG BÁN GIÀY THỂ THAO NỮ";
+
+            XWPFRun titleRun = titleGraph.createRun();
+
+            titleRun.setBold(true);
+
+            titleRun.setText(title);
+
+            XWPFParagraph xWPFParagraph1 = document.createParagraph();
+            xWPFParagraph1.setAlignment(ParagraphAlignment.CENTER);
+            run = xWPFParagraph1.createRun();
+            run.setText("ĐC: Phố Trinh Văn Bô , Nam Từ Liêm , Hà Nội");
+
+            XWPFParagraph xWPFParagraph2 = document.createParagraph();
+            xWPFParagraph2.setAlignment(ParagraphAlignment.CENTER);
+            run = xWPFParagraph2.createRun();
+            run.setText("SĐT:0967493115 ");
+
+            XWPFParagraph xWPFParagraph3 = document.createParagraph();
+
+            xWPFParagraph3.setAlignment(ParagraphAlignment.CENTER);
+
+            run = xWPFParagraph3.createRun();
+            run.setText("HOÁ ĐƠN BÁN GIÀY");
+
+            XWPFParagraph xWPFParagraph4 = document.createParagraph();
+            run = xWPFParagraph4.createRun();
+            run.setText("Khách Hàng :" + lbl_tenKhachHang.getText());
+
+            XWPFParagraph xWPFParagraph0 = document.createParagraph();
+            run = xWPFParagraph0.createRun();
+            run.setText("Mã Hoá Đơn :" + tb_hoaDon.getValueAt(rowHD, 0));
+
+            XWPFParagraph xWPFParagraph5 = document.createParagraph();
+            run = xWPFParagraph5.createRun();
+            run.setText("Địa Chỉ :");
+
+            XWPFParagraph xWPFParagraph6 = document.createParagraph();
+            run = xWPFParagraph6.createRun();
+            run.setText("Số Điện Thoại :" + lbl_sdt.getText());
+            XWPFParagraph xWPFParagraph7 = document.createParagraph();
+            run = xWPFParagraph7.createRun();
+            run.setText("Ngày lập :" + date);
+
+            File f = new File("D:\\DA1//HoaDon//" + hoaDon.getMa() + ".docx");
+            try {
+                FileOutputStream fos = new FileOutputStream(f);
+                XWPFParagraph xWPFParagraph13 = document.createParagraph();
+                run = xWPFParagraph13.createRun();
+                run.setText("  ");
+                XWPFTable table = document.createTable();
+                table.setWidth(10000);
+                XWPFTableRow tableRowOne = table.getRow(0);
+
+                tableRowOne.getCell(0).setText("Tên Sản Phẩm");
+                tableRowOne.addNewTableCell().setText("Màu Sắc");
+                tableRowOne.addNewTableCell().setText("Size");
+                tableRowOne.addNewTableCell().setText("Số Lượng");
+                tableRowOne.addNewTableCell().setText(
+                        "Đơn Giá)");
+                tableRowOne.addNewTableCell().setText(
+                        "Thành Tiền");
+                int row = 0;
+
+                for (int i = 0; i < tb_gioHang.getRowCount(); i++) {
+                    XWPFTableRow tableRowTwo = table.createRow();
+
+                    tableRowTwo.getCell(0).setText(tb_gioHang.getValueAt(row, 1).toString());
+
+                    tableRowTwo.getCell(1).setText(tb_gioHang.getValueAt(row, 2).toString());
+
+                    tableRowTwo.getCell(2).setText(tb_gioHang.getValueAt(row, 3).toString());
+
+                    tableRowTwo.getCell(3).setText(tb_gioHang.getValueAt(row, 4).toString());
+
+                    tableRowTwo.getCell(4).setText(tb_gioHang.getValueAt(row, 5).toString());
+
+                    tableRowTwo.getCell(5).setText(String.valueOf(Double.parseDouble(tb_gioHang.getValueAt(row, 4).toString()) * Double.parseDouble(tb_gioHang.getValueAt(row, 5).toString())));
+
+                    row++;
+                }
+
+                XWPFParagraph xWPFParagraph14 = document.createParagraph();
+                run = xWPFParagraph14.createRun();
+                run.setText("  ");
+                XWPFParagraph xWPFParagraph8 = document.createParagraph();
+                run = xWPFParagraph8.createRun();
+                run.setText("Giảm Giá :" + lbl_giamGia1.getText());
+
+                XWPFParagraph xWPFParagraph9 = document.createParagraph();
+                run = xWPFParagraph9.createRun();
+                run.setText("Tổng Tiền Thanh Toán :" + lbl_thanhTien.getText());
+                XWPFParagraph xWPFParagraph10 = document.createParagraph();
+                run = xWPFParagraph10.createRun();
+                run.setText("Tiền trả lại :" + lbl_tienThua.getText());
+                XWPFParagraph xWPFParagraph11 = document.createParagraph();
+                xWPFParagraph11.setAlignment(ParagraphAlignment.RIGHT);
+
+                run = xWPFParagraph11.createRun();
+                run.setText("Người Lập Hoá Đơn");
+
+                XWPFParagraph xWPFParagraph12 = document.createParagraph();
+                xWPFParagraph12.setAlignment(ParagraphAlignment.RIGHT);
+                run = xWPFParagraph12.createRun();
+                run.setText(TenNhanVien);
+                document.write(fos);
+                fos.close();
+                document.close();
+                System.out.println("Xuất hoá đơn thành công");
+                JOptionPane.showMessageDialog(this, "Đã in hóa đơn");
+
+            } catch (FileNotFoundException ex) {
+                ex.printStackTrace();
+            } catch (IOException ex) {
+                ex.printStackTrace();
+            }
+
+        }
+
+        List<HoaDonViewModel> getList = hoaDonServiec.getListHD(1);
+
+        for (HoaDonViewModel hoaDonViewModel : getList) {
+            if (tb_hoaDon.getValueAt(rowHD, 0).equals(hoaDonViewModel.getMa())) {
+                getList.remove(hoaDonViewModel);
+                getList.clear();
+                clear();
+                getListHoaDon();
+                listGioHang.clear();
+                getListGioHang();
+
+                break;
+            }
+        }
     }//GEN-LAST:event_btn_thanhToanActionPerformed
 
     private void btn_taoHoaDonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_taoHoaDonActionPerformed
-     
+        HoaDonViewModel hoaDon = inputHD();
+        Integer add = hoaDonServiec.saveHD(hoaDon, id);
+        if (add > 0) {
+            System.out.println("thêm thành công");
+            List<HoaDonViewModel> list = hoaDonServiec.getListHD(1);
+            list.clear();
+            getListHoaDon();
+        } else {
+            System.out.println("thêm thất bại");
+        }
     }//GEN-LAST:event_btn_taoHoaDonActionPerformed
 
     private void tb_hoaDonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tb_hoaDonMouseClicked
-      
+        int row = tb_hoaDon.getSelectedRow();
+        if (row < 0) {
+            return;
+        }
+        listGioHang.clear();
+        String MaHD = tb_hoaDon.getValueAt(row, 0).toString();
+        try {
+            lbl_tongTien1.setText(String.valueOf(0));
+            lbl_giamGia1.setText(String.valueOf(0));
+            lbl_thanhTien.setText(String.valueOf(0));
+
+            getListGioHangHDCT(MaHD);
+            lbl_tenKhachHang.setText("");
+            lbl_sdt.setText("");
+
+            Double tongPT = 0.0;
+            Double tongVN = 0.0;
+            Double tongTien = 0.0;
+            Double giam = Double.parseDouble(lbl_giamGia1.getText());
+            int count = 0;
+            List<HoaDonCHiTietViewModel> list = hoaDonServiec.getListHoaDonChiTiet(MaHD);
+
+            for (HoaDonCHiTietViewModel x : list) {
+                tongTien = tongTien + x.getThanhTien();
+                lbl_tongTien1.setText(String.format("%.0f", tongTien));
+
+                List<SanPhamViewModel> listSanPham = sanISamPhamServiecs.getListSanPham();
+
+                if (tb_gioHang.getValueAt(count, 0).equals(x.getSanPham().getMa()) && x.getSanPham().getKhuyenMai().getHinhThucKM().equals("%")) {
+                    tongPT = x.getThanhTien() * x.getSanPham().getKhuyenMai().getGiaTriGiam() / 100;
+                    lbl_giamGia1.setText(String.valueOf(giam += tongPT));
+                    lbl_giamGia1.setText(String.format("%.0f", giam));
+                } else {
+                    tongVN = x.getSanPham().getKhuyenMai().getGiaTriGiam() * x.getSoluong();
+                    lbl_giamGia1.setText(String.valueOf(giam += tongVN));
+                    lbl_giamGia1.setText(String.format("%.0f", giam));
+                }
+
+                count++;
+
+            }
+            Double ThanhTien = Double.parseDouble(lbl_tongTien1.getText()) - Double.parseDouble(lbl_giamGia1.getText());
+            lbl_thanhTien.setText(String.valueOf(String.format("%.0f", ThanhTien)));
+//            if (Integer.parseInt(lbl_thanhTien.getText()) >= 500000) {
+//                int diemThuong = Integer.parseInt(lbl_thanhTien.getText()) / 100000;
+//                lbl_diemThuong.setText(String.valueOf(diemThuong));
+//            } else {
+//                lbl_diemThuong.setText(String.valueOf(0));
+//            }
+
+        } catch (Exception e) {
+            lbl_tongTien1.setText(String.valueOf(0));
+            lbl_giamGia1.setText(String.valueOf(0));
+            lbl_thanhTien.setText(String.valueOf(0));
+        }
     }//GEN-LAST:event_tb_hoaDonMouseClicked
 
     private void btn_xoaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_xoaActionPerformed
+        int rowSP = tb_gioHang.getSelectedRow();
+        int rowHD = tb_hoaDon.getSelectedRow();
+        if (rowSP < 0) {
+            JOptionPane.showMessageDialog(this, "chọn 1 sản phẩm trong giỏ hàng để xoá");
+            return;
+        }
 
-    
+        if (rowHD < 0) {
+            JOptionPane.showMessageDialog(this, "chọn Hoá đơn bạn muốn xoá sản phẩm đấy");
+            return;
+        }
+        String MaSP = tb_gioHang.getValueAt(rowSP, 0).toString();
+        String MaHD = tb_hoaDon.getValueAt(rowHD, 0).toString();
+        Integer soLuong = Integer.parseInt(tb_gioHang.getValueAt(rowSP, 4).toString());
+        Integer idSP = sanISamPhamServiecs.getIdSanPham(MaSP);
+        Integer idHd = hoaDonServiec.getIdHD(MaHD);
+        Integer isDelete = hoaDonServiec.deleteSanPham(idHd, idSP);
+        List<SanPhamViewModel> list = sanISamPhamServiecs.getListSanPham();
+        for (SanPhamViewModel x : list) {
+            if (MaSP.equals(x.getMa())) {
+                sanISamPhamServiecs.updateSoLuongSP(MaSP, x.getSoLuongTon() + soLuong);
+                list.clear();
+                getListSP();
+                getListGioHangHDCT(MaHD);
+                mouse();
+                break;
+            }
+        }
+        listGioHang.clear();
+
+        JOptionPane.showMessageDialog(null, "Xóa thành công", "Success", JOptionPane.INFORMATION_MESSAGE);
+
     }//GEN-LAST:event_btn_xoaActionPerformed
 
     private void btn_clearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_clearActionPerformed
-      
+        int rowHD = tb_hoaDon.getSelectedRow();
+        int rowGH = tb_gioHang.getSelectedRow();
+        if (rowHD < 0) {
+            return;
+        }
+        int kt = JOptionPane.showConfirmDialog(this, "bạn muốn xoá tất cả sản phẩm trên giỏ hàng không", "xoá ", JOptionPane.YES_NO_OPTION);
+        if (kt == 0) {
+            String MaHD = tb_hoaDon.getValueAt(rowHD, 0).toString();
+            int count = 0;
+            List<SanPhamViewModel> list = sanISamPhamServiecs.getListSanPham();
+            List<HoaDonCHiTietViewModel> listHD = hoaDonServiec.getListHoaDonChiTiet(MaHD);
+            for (HoaDonCHiTietViewModel gioHang : listHD) {
+                GioHangViewModel hg = new GioHangViewModel();
+                hg.setMaSP(tb_gioHang.getValueAt(count, 0).toString());
+                hg.setSoLuong(Integer.parseInt(tb_gioHang.getValueAt(count, 4).toString()));
+                hg.setTenSP(tb_gioHang.getValueAt(count, 1).toString());
+                hg.setDonGia(Double.parseDouble(tb_gioHang.getValueAt(count, 5).toString()));
+
+                count++;
+                listGioHang.add(hg);
+            }
+            Integer idHd = hoaDonServiec.getIdHD(MaHD);
+            hoaDonServiec.clearSanPhamTrenGioHang(idHd);
+            for (GioHangViewModel x : listGioHang) {
+                for (SanPhamViewModel sanPham : list) {
+                    if (x.getMaSP().equals(sanPham.getMa())) {
+                        sanISamPhamServiecs.updateSoLuongSP(sanPham.getMa(), sanPham.getSoLuongTon() + x.getSoLuong());
+                        getListGioHangHDCT(MaHD);
+
+                    }
+                }
+
+            }
+            list.clear();
+            getListSP();
+            listGioHang.clear();
+            lbl_tongTien1.setText(String.valueOf(0));
+            lbl_giamGia1.setText(String.valueOf(0));
+            lbl_thanhTien.setText(String.valueOf(0));
+            JOptionPane.showMessageDialog(null, "Xóa tất cả thành công", "Success", JOptionPane.INFORMATION_MESSAGE);
+//            lbl_diemThuong.setText("");
+        } else {
+            JOptionPane.showMessageDialog(null, "Đã hủy", "Success", JOptionPane.INFORMATION_MESSAGE);
+
+            return;
+        }
     }//GEN-LAST:event_btn_clearActionPerformed
 
     private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
-       
+        int rowSP = tb_gioHang.getSelectedRow();
+        int rowHD = tb_hoaDon.getSelectedRow();
+        if (rowSP < 0) {
+            return;
+        }
+        if (rowHD < 0) {
+            return;
+        }
+        String MaSP = tb_gioHang.getValueAt(rowSP, 0).toString();
+        String MaHD = tb_hoaDon.getValueAt(rowHD, 0).toString();
+
+        List<SanPhamViewModel> list = sanISamPhamServiecs.getListSanPham();
+        try {
+            int NhapSoLuong = Integer.parseInt(JOptionPane.showInputDialog(null, "Mời nhập số lượng cần thay đổi", "Hello", JOptionPane.INFORMATION_MESSAGE));
+
+            if (NhapSoLuong <= 0) {
+                JOptionPane.showMessageDialog(null, "Số lượng phải lớn hơn 0 !", "Chú ý", JOptionPane.WARNING_MESSAGE);
+                return;
+            }
+            for (SanPhamViewModel x : list) {
+                if (MaSP.equals(x.getMa())) {
+                    if (x.getSoLuongTon() + Integer.parseInt(tb_gioHang.getValueAt(rowSP, 4).toString()) >= NhapSoLuong) {
+
+                        Integer isupdate = hoaDonServiec.updateSoLuongGioHang(NhapSoLuong, MaSP, MaHD);
+                        int updateSoLuong = x.getSoLuongTon() + Integer.parseInt(tb_gioHang.getValueAt(rowSP, 4).toString());
+                        getListGioHangHDCT(MaHD);
+                        sanISamPhamServiecs.updateSoLuongSP(x.getMa(), updateSoLuong - NhapSoLuong);
+                        list.clear();
+                        getListSP();
+                        mouse();
+                        return;
+                    } else if (x.getSoLuongTon() < NhapSoLuong) {
+                        JOptionPane.showMessageDialog(this, "số Lượng sản phẩm không đủ");
+                        return;
+                    }
+                }
+
+            }
+        } catch (Exception e) {
+
+            JOptionPane.showMessageDialog(null, "Vui lòng không nhập kí tự", "Chú ý", JOptionPane.WARNING_MESSAGE);
+        }
     }//GEN-LAST:event_jMenuItem1ActionPerformed
 
     private void searchText1CaretUpdate(javax.swing.event.CaretEvent evt) {//GEN-FIRST:event_searchText1CaretUpdate
-        
+        String Ten = searchText1.getText().trim();
+        if (Ten.isEmpty()) {
+            List<SanPhamViewModel> list = sanISamPhamServiecs.getListSanPham();
+            list.clear();
+            getListSP();
+            return;
+        }
+        model = (DefaultTableModel) tb_sanPham.getModel();
+        model.setRowCount(0);
+        List<SanPham> getList = sanISamPhamServiecs.seachSanPham(Ten);
+        for (SanPham x : getList) {
+            model.addRow(new Object[]{
+                x.getMa(),
+                x.getTen(),
+                x.getMauSac().getTen(),
+                String.format("%.0f", x.getKhuyenMai().getGiaTriGiam()),
+                x.getKhuyenMai().getHinhThucKM(),
+                x.getChatLieu().getTen(),
+                x.getKichCo().getTen(),
+                String.format("%.0f", x.getGiaBan()),
+                x.getSoLuongTon(),});
+        }
     }//GEN-LAST:event_searchText1CaretUpdate
 
     private void myButton9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_myButton9ActionPerformed
-       
+        clear();
     }//GEN-LAST:event_myButton9ActionPerformed
 
     private void btn_xacNhanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_xacNhanActionPerformed
-    
+        int rowHD = tb_hoaDon.getSelectedRow();
+        if (rowHD < 0) {
+            JOptionPane.showMessageDialog(this, "chọn 1 hoá đơn hiện thị khách hàng");
+            return;
+        }
+
+        List<HoaDon> getList = hoaDonServiec.getKhachHang(tb_hoaDon.getValueAt(rowHD, 0).toString());
+        for (HoaDon hoaDon : getList) {
+            lbl_tenKhachHang.setText(hoaDon.getKhachHang().getTen());
+            lbl_sdt.setText(hoaDon.getKhachHang().getSdt());
+
+            return;
+        }
     }//GEN-LAST:event_btn_xacNhanActionPerformed
 
     private void txt_tienKhachDuaCaretUpdate(javax.swing.event.CaretEvent evt) {//GEN-FIRST:event_txt_tienKhachDuaCaretUpdate
-        
+        try {
+            Double tienKhachDua = Double.parseDouble(txt_tienKhachDua.getText().trim());
+            Double khachCanTra = Double.parseDouble(lbl_thanhTien.getText());
+            Double tienThuaTraKhach = tienKhachDua - khachCanTra;
+            DecimalFormat format = new DecimalFormat("#,###");
+            lbl_tienThua.setText(String.valueOf(format.format(tienThuaTraKhach)));
 
+        } catch (Exception e) {
+
+        }
     }//GEN-LAST:event_txt_tienKhachDuaCaretUpdate
 
     private void jLabel3AncestorAdded(javax.swing.event.AncestorEvent evt) {//GEN-FIRST:event_jLabel3AncestorAdded
@@ -509,11 +1226,38 @@ public class frm_Banhang extends javax.swing.JPanel implements Runnable, ThreadF
     }//GEN-LAST:event_jLabel3AncestorAdded
 
     private void btn_thayDoiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_thayDoiActionPerformed
-       
+        int rowHD = tb_hoaDon.getSelectedRow();
+        if (rowHD < 0) {
+            JOptionPane.showMessageDialog(this, "chọn hoá đơn bạn muốn thêm khách hàng vào");
+            return;
+        }
+        new KhachHangForm(tb_hoaDon.getValueAt(rowHD, 0).toString()).setVisible(true);
     }//GEN-LAST:event_btn_thayDoiActionPerformed
 
     private void cb_danhMucItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cb_danhMucItemStateChanged
-      
+        String TenDanhMuc = cb_danhMuc.getSelectedItem().toString();
+        if (TenDanhMuc.equals("All")) {
+            List<SanPhamViewModel> sanPham = sanISamPhamServiecs.getListSanPham();
+            sanPham.clear();
+            getListSP();
+            return;
+        }
+        model = (DefaultTableModel) tb_sanPham.getModel();
+        model.setRowCount(0);
+        List<SanPhamViewModel> locTheoDanhMucSP = sanISamPhamServiecs.locTheoDanhMucSP(TenDanhMuc);
+        for (SanPhamViewModel x : locTheoDanhMucSP) {
+            model.addRow(new Object[]{
+                x.getMa(),
+                x.getTen(),
+                x.getMauSac().getTen(),
+                String.format("%.0f", x.getKhuyenMai().getGiaTriGiam()),
+                x.getKhuyenMai().getHinhThucKM(),
+                x.getChatLieu().getTen(),
+                x.getKichCo().getTen(),
+                String.format("%.0f", x.getGiaBan()),
+                x.getSoLuongTon(),});
+
+        }
     }//GEN-LAST:event_cb_danhMucItemStateChanged
 
     private void tb_hoaDonMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tb_hoaDonMouseEntered
@@ -586,5 +1330,4 @@ public class frm_Banhang extends javax.swing.JPanel implements Runnable, ThreadF
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
-   
 }
