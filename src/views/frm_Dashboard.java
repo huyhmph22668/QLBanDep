@@ -14,10 +14,57 @@ import javax.swing.JPanel;
  */
 public class frm_Dashboard extends javax.swing.JFrame {
 
-   
-    
+    private JPanel panelchid;
+    private int xx, xy;
+    private int id;
+    private String TenNV;
+    private String TenCV;
 
-  
+    public frm_Dashboard(String TenNhanVien, int idNV, String tencv) {
+        initComponents();
+        TenCV = tencv;
+        id = idNV;
+        lbl_tenNhanVien.setText(TenNhanVien);
+        TenNV = TenNhanVien;
+        setLocationRelativeTo(null);
+        setdashboad();
+    }
+
+    public frm_Dashboard() {
+        initComponents();
+
+        setLocationRelativeTo(null);
+        setdashboad();
+    }
+
+    private void setdashboad() {
+//        setColor(btnsanpham);
+//        crep1.setOpaque(true);
+        resetColor(new JPanel[]{btnsanpham, btnkhuyenmai, btnkhachhang, btnnhanvien, btnthongke, btnhoadon, btndangxuat}, new JPanel[]{crep2, crep3, crep4, crep5, crepp1, crepp2, crepp3});
+//        setpanal(new frm_Sanpham());
+    }
+
+    private void setColor(JPanel pane) {
+        pane.setBackground(new Color(144, 164, 174));
+    }
+
+    private void resetColor(JPanel[] pane, JPanel[] indicators) {
+        for (int i = 0; i < pane.length; i++) {
+            pane[i].setBackground(new Color(82, 82, 82));
+
+        }
+        for (int i = 0; i < indicators.length; i++) {
+            indicators[i].setOpaque(false);
+        }
+    }
+
+    private void setpanal(JPanel panel) {
+        panelchid = panel;
+        pnmain.removeAll();
+        pnmain.add(panelchid);
+        pnmain.validate();
+    }
+
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -57,6 +104,7 @@ public class frm_Dashboard extends javax.swing.JFrame {
         pnmain = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setBackground(new java.awt.Color(255, 255, 255));
         setLocationByPlatform(true);
         setMinimumSize(new java.awt.Dimension(1200, 650));
         setUndecorated(true);
@@ -82,7 +130,8 @@ public class frm_Dashboard extends javax.swing.JFrame {
             }
         });
 
-        lbltieude.setFont(new java.awt.Font("Times New Roman", 3, 26)); // NOI18N
+        lbltieude.setFont(new java.awt.Font("Times New Roman", 1, 24)); // NOI18N
+        lbltieude.setForeground(new java.awt.Color(51, 51, 51));
         lbltieude.setText("Bán hàng");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
@@ -90,36 +139,38 @@ public class frm_Dashboard extends javax.swing.JFrame {
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap(449, Short.MAX_VALUE)
-                .addComponent(lbltieude, javax.swing.GroupLayout.PREFERRED_SIZE, 310, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(217, 217, 217)
-                .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(504, Short.MAX_VALUE)
+                .addComponent(lbltieude, javax.swing.GroupLayout.PREFERRED_SIZE, 231, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(303, 303, 303)
+                .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLabel8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jLabel8, javax.swing.GroupLayout.DEFAULT_SIZE, 30, Short.MAX_VALUE)
             .addComponent(lbltieude, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
-        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 0, 1010, 60));
+        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 0, 1090, 30));
 
-        jPanel2.setBackground(new java.awt.Color(204, 204, 204));
+        jPanel2.setBackground(new java.awt.Color(102, 102, 102));
+        jPanel2.setForeground(new java.awt.Color(204, 204, 204));
         jPanel2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jPanel4.setBackground(new java.awt.Color(204, 204, 204));
-        jPanel4.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+        jPanel4.setBackground(new java.awt.Color(102, 102, 102));
+        jPanel4.setLayout(new java.awt.BorderLayout());
 
-        lbl_tenNhanVien.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        lbl_tenNhanVien.setText("TÊN NHÂN VIÊN");
-        jPanel4.add(lbl_tenNhanVien, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 120, 160, 40));
+        lbl_tenNhanVien.setFont(new java.awt.Font("Eras Bold ITC", 1, 18)); // NOI18N
+        lbl_tenNhanVien.setForeground(new java.awt.Color(255, 255, 255));
+        lbl_tenNhanVien.setText("   Shoes Store");
+        jPanel4.add(lbl_tenNhanVien, java.awt.BorderLayout.CENTER);
 
-        jLabel2.setForeground(new java.awt.Color(204, 255, 255));
-        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/kisspng-adidas-stan-smith-adidas-originals-three-stripes-adidas-5b3c6bce342844.1131818415306864142137 (1).png"))); // NOI18N
-        jPanel4.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 0, 140, 120));
+        jLabel2.setForeground(new java.awt.Color(255, 255, 255));
+        jPanel4.add(jLabel2, java.awt.BorderLayout.PAGE_START);
 
         jPanel2.add(jPanel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 190, 160));
 
-        btnbanhang.setBackground(new java.awt.Color(204, 204, 204));
+        btnbanhang.setBackground(new java.awt.Color(0, 0, 0));
         btnbanhang.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
                 btnbanhangMousePressed(evt);
@@ -127,6 +178,7 @@ public class frm_Dashboard extends javax.swing.JFrame {
         });
 
         crep1.setBackground(new java.awt.Color(255, 255, 255));
+        crep1.setForeground(new java.awt.Color(204, 204, 204));
         crep1.setMinimumSize(new java.awt.Dimension(0, 0));
         crep1.setOpaque(false);
         crep1.setPreferredSize(new java.awt.Dimension(3, 60));
@@ -139,11 +191,12 @@ public class frm_Dashboard extends javax.swing.JFrame {
         );
         crep1Layout.setVerticalGroup(
             crep1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 60, Short.MAX_VALUE)
+            .addGap(0, 0, Short.MAX_VALUE)
         );
 
-        jLabel4.setBackground(new java.awt.Color(0, 0, 0));
+        jLabel4.setBackground(new java.awt.Color(102, 102, 102));
         jLabel4.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jLabel4.setForeground(new java.awt.Color(255, 255, 255));
         jLabel4.setText("Bán Hàng");
 
         javax.swing.GroupLayout btnbanhangLayout = new javax.swing.GroupLayout(btnbanhang);
@@ -152,19 +205,22 @@ public class frm_Dashboard extends javax.swing.JFrame {
             btnbanhangLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(btnbanhangLayout.createSequentialGroup()
                 .addComponent(crep1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 25, Short.MAX_VALUE)
-                .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 156, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+                .addGap(18, 18, 18)
+                .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(60, Short.MAX_VALUE))
         );
         btnbanhangLayout.setVerticalGroup(
             btnbanhangLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(crep1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(crep1, javax.swing.GroupLayout.DEFAULT_SIZE, 72, Short.MAX_VALUE)
+            .addGroup(btnbanhangLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         jPanel2.add(btnbanhang, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 160, 190, 60));
 
-        btnsanpham.setBackground(new java.awt.Color(204, 204, 204));
+        btnsanpham.setBackground(new java.awt.Color(0, 0, 0));
         btnsanpham.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
                 btnsanphamMousePressed(evt);
@@ -186,8 +242,8 @@ public class frm_Dashboard extends javax.swing.JFrame {
             .addGap(0, 60, Short.MAX_VALUE)
         );
 
-        jLabel5.setBackground(new java.awt.Color(0, 0, 0));
         jLabel5.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jLabel5.setForeground(new java.awt.Color(255, 255, 255));
         jLabel5.setText("Sản Phẩm");
 
         javax.swing.GroupLayout btnsanphamLayout = new javax.swing.GroupLayout(btnsanpham);
@@ -196,9 +252,9 @@ public class frm_Dashboard extends javax.swing.JFrame {
             btnsanphamLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(btnsanphamLayout.createSequentialGroup()
                 .addComponent(crep2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 25, Short.MAX_VALUE)
+                .addGap(18, 18, 18)
                 .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 156, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+                .addContainerGap(13, Short.MAX_VALUE))
         );
         btnsanphamLayout.setVerticalGroup(
             btnsanphamLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -211,7 +267,8 @@ public class frm_Dashboard extends javax.swing.JFrame {
 
         jPanel2.add(btnsanpham, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 220, 190, 60));
 
-        btnkhuyenmai.setBackground(new java.awt.Color(204, 204, 204));
+        btnkhuyenmai.setBackground(new java.awt.Color(0, 0, 0));
+        btnkhuyenmai.setFocusCycleRoot(true);
         btnkhuyenmai.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
                 btnkhuyenmaiMousePressed(evt);
@@ -234,6 +291,7 @@ public class frm_Dashboard extends javax.swing.JFrame {
         );
 
         jLabel6.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jLabel6.setForeground(new java.awt.Color(255, 255, 255));
         jLabel6.setText("Khuyến Mãi");
 
         javax.swing.GroupLayout btnkhuyenmaiLayout = new javax.swing.GroupLayout(btnkhuyenmai);
@@ -242,9 +300,9 @@ public class frm_Dashboard extends javax.swing.JFrame {
             btnkhuyenmaiLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(btnkhuyenmaiLayout.createSequentialGroup()
                 .addComponent(crep3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 25, Short.MAX_VALUE)
+                .addGap(18, 18, 18)
                 .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 156, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+                .addContainerGap(13, Short.MAX_VALUE))
         );
         btnkhuyenmaiLayout.setVerticalGroup(
             btnkhuyenmaiLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -257,7 +315,7 @@ public class frm_Dashboard extends javax.swing.JFrame {
 
         jPanel2.add(btnkhuyenmai, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 280, 190, -1));
 
-        btnkhachhang.setBackground(new java.awt.Color(204, 204, 204));
+        btnkhachhang.setBackground(new java.awt.Color(0, 0, 0));
         btnkhachhang.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
                 btnkhachhangMousePressed(evt);
@@ -300,6 +358,7 @@ public class frm_Dashboard extends javax.swing.JFrame {
         );
 
         jLabel7.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jLabel7.setForeground(new java.awt.Color(255, 255, 255));
         jLabel7.setText("Khách Hàng");
         jLabel7.setRequestFocusEnabled(false);
 
@@ -309,9 +368,9 @@ public class frm_Dashboard extends javax.swing.JFrame {
             btnkhachhangLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(btnkhachhangLayout.createSequentialGroup()
                 .addComponent(crep4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(26, 26, 26)
+                .addGap(18, 18, 18)
                 .addComponent(jLabel7, javax.swing.GroupLayout.DEFAULT_SIZE, 134, Short.MAX_VALUE)
-                .addGap(27, 27, 27))
+                .addGap(35, 35, 35))
         );
         btnkhachhangLayout.setVerticalGroup(
             btnkhachhangLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -324,7 +383,7 @@ public class frm_Dashboard extends javax.swing.JFrame {
 
         jPanel2.add(btnkhachhang, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 340, 190, -1));
 
-        btnnhanvien.setBackground(new java.awt.Color(204, 204, 204));
+        btnnhanvien.setBackground(new java.awt.Color(0, 0, 0));
         btnnhanvien.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
                 btnnhanvienMousePressed(evt);
@@ -348,6 +407,7 @@ public class frm_Dashboard extends javax.swing.JFrame {
 
         jLabel3.setBackground(new java.awt.Color(0, 0, 128));
         jLabel3.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jLabel3.setForeground(new java.awt.Color(255, 255, 255));
         jLabel3.setText("Nhân Viên");
 
         javax.swing.GroupLayout btnnhanvienLayout = new javax.swing.GroupLayout(btnnhanvien);
@@ -356,9 +416,9 @@ public class frm_Dashboard extends javax.swing.JFrame {
             btnnhanvienLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(btnnhanvienLayout.createSequentialGroup()
                 .addComponent(crep5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(29, 29, 29)
+                .addGap(18, 18, 18)
                 .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, 135, Short.MAX_VALUE)
-                .addGap(23, 23, 23))
+                .addGap(34, 34, 34))
         );
         btnnhanvienLayout.setVerticalGroup(
             btnnhanvienLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -371,7 +431,7 @@ public class frm_Dashboard extends javax.swing.JFrame {
 
         jPanel2.add(btnnhanvien, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 400, 190, -1));
 
-        btnhoadon.setBackground(new java.awt.Color(204, 204, 204));
+        btnhoadon.setBackground(new java.awt.Color(0, 0, 0));
         btnhoadon.setPreferredSize(new java.awt.Dimension(100, 60));
         btnhoadon.setRequestFocusEnabled(false);
         btnhoadon.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -397,6 +457,7 @@ public class frm_Dashboard extends javax.swing.JFrame {
 
         jLabel9.setBackground(new java.awt.Color(255, 255, 255));
         jLabel9.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jLabel9.setForeground(new java.awt.Color(255, 255, 255));
         jLabel9.setText("Hóa Đơn");
 
         javax.swing.GroupLayout btnhoadonLayout = new javax.swing.GroupLayout(btnhoadon);
@@ -405,9 +466,9 @@ public class frm_Dashboard extends javax.swing.JFrame {
             btnhoadonLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(btnhoadonLayout.createSequentialGroup()
                 .addComponent(crepp2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 30, Short.MAX_VALUE)
+                .addGap(18, 18, 18)
                 .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(25, 25, 25))
+                .addGap(0, 37, Short.MAX_VALUE))
         );
         btnhoadonLayout.setVerticalGroup(
             btnhoadonLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -420,7 +481,7 @@ public class frm_Dashboard extends javax.swing.JFrame {
 
         jPanel2.add(btnhoadon, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 520, 190, -1));
 
-        btnthongke.setBackground(new java.awt.Color(204, 204, 204));
+        btnthongke.setBackground(new java.awt.Color(0, 0, 0));
         btnthongke.setForeground(new java.awt.Color(204, 255, 255));
         btnthongke.setPreferredSize(new java.awt.Dimension(210, 60));
         btnthongke.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -449,12 +510,13 @@ public class frm_Dashboard extends javax.swing.JFrame {
         btnthongke.add(crepp1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
 
         jLabel10.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jLabel10.setForeground(new java.awt.Color(255, 255, 255));
         jLabel10.setText("Thống Kê");
-        btnthongke.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 0, 140, 60));
+        btnthongke.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 0, 140, 60));
 
         jPanel2.add(btnthongke, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 460, 190, 60));
 
-        btndangxuat.setBackground(new java.awt.Color(204, 204, 204));
+        btndangxuat.setBackground(new java.awt.Color(102, 102, 102));
         btndangxuat.setPreferredSize(new java.awt.Dimension(100, 60));
         btndangxuat.setRequestFocusEnabled(false);
         btndangxuat.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -478,124 +540,155 @@ public class frm_Dashboard extends javax.swing.JFrame {
             .addGap(0, 41, Short.MAX_VALUE)
         );
 
-        jLabel11.setBackground(new java.awt.Color(255, 255, 255));
-        jLabel11.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        jLabel11.setForeground(new java.awt.Color(255, 51, 51));
-        jLabel11.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/logout (1).png"))); // NOI18N
-        jLabel11.setText("Đăng xuất");
-
         javax.swing.GroupLayout btndangxuatLayout = new javax.swing.GroupLayout(btndangxuat);
         btndangxuat.setLayout(btndangxuatLayout);
         btndangxuatLayout.setHorizontalGroup(
             btndangxuatLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(btndangxuatLayout.createSequentialGroup()
                 .addComponent(crepp3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(jLabel11, javax.swing.GroupLayout.PREFERRED_SIZE, 146, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(23, Short.MAX_VALUE))
+                .addContainerGap(187, Short.MAX_VALUE))
         );
         btndangxuatLayout.setVerticalGroup(
             btndangxuatLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, btndangxuatLayout.createSequentialGroup()
-                .addGroup(btndangxuatLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(crepp3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel11, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(crepp3, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(19, 19, 19))
         );
 
         jPanel2.add(btndangxuat, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 580, 190, 40));
 
-        getContentPane().add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 190, 670));
+        jLabel11.setBackground(new java.awt.Color(255, 255, 255));
+        jLabel11.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        jLabel11.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel11.setText("Log out");
+        jPanel2.add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 610, 80, 41));
+
+        getContentPane().add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 160, 690));
 
         pnmain.setBackground(new java.awt.Color(255, 255, 255));
+        pnmain.setForeground(new java.awt.Color(204, 204, 204));
         pnmain.setLayout(new java.awt.BorderLayout());
-        getContentPane().add(pnmain, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 60, 1010, 620));
+        getContentPane().add(pnmain, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 40, 1070, 630));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void jLabel8MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel8MouseClicked
-    
+        System.exit(0);
     }//GEN-LAST:event_jLabel8MouseClicked
 
     private void jPanel1MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel1MousePressed
- 
+        xx = evt.getX();
+        xy = evt.getY();
     }//GEN-LAST:event_jPanel1MousePressed
 
     private void jPanel1MouseDragged(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel1MouseDragged
-  
+        int x = evt.getXOnScreen();
+        int y = evt.getYOnScreen();
+        this.setLocation(x - xx, y - xy);
     }//GEN-LAST:event_jPanel1MouseDragged
 
-    private void btnbanhangMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnbanhangMousePressed
-
-    }//GEN-LAST:event_btnbanhangMousePressed
-
-    private void btnsanphamMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnsanphamMousePressed
-
-    }//GEN-LAST:event_btnsanphamMousePressed
-
-    private void btnkhuyenmaiMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnkhuyenmaiMousePressed
-
-      
-
-    }//GEN-LAST:event_btnkhuyenmaiMousePressed
-
-    private void btnkhachhangMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnkhachhangMousePressed
-   
-    }//GEN-LAST:event_btnkhachhangMousePressed
-
-    private void btnnhanvienMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnnhanvienMousePressed
-  
-    }//GEN-LAST:event_btnnhanvienMousePressed
-
-    private void btnhoadonMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnhoadonMousePressed
-    
-    }//GEN-LAST:event_btnhoadonMousePressed
+    private void btndangxuatMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btndangxuatMousePressed
+        int x = JOptionPane.showConfirmDialog(this, "Bạn có muốn đăng xuất khỏi sever không ", "đăng xuất", JOptionPane.YES_NO_OPTION);
+        if (x == 1) {
+            return;
+        }
+        setColor(btndangxuat);
+        crepp3.setOpaque(true);
+        resetColor(new JPanel[]{btnbanhang, btnsanpham, btnkhuyenmai, btnkhachhang, btnnhanvien, btnthongke, btnhoadon}, new JPanel[]{crep1, crep2, crep3, crep4, crep5, crepp1, crepp2});
+        new frm_Login().setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_btndangxuatMousePressed
 
     private void btnthongkeMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnthongkeMousePressed
 
-
     }//GEN-LAST:event_btnthongkeMousePressed
 
-    private void btndangxuatMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btndangxuatMousePressed
-      
+    private void btnhoadonMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnhoadonMousePressed
+//        setColor(btnhoadon);
+//        crepp2.setOpaque(true);
+//        resetColor(new JPanel[]{btnbanhang, btnsanpham, btnkhuyenmai, btnkhachhang, btnnhanvien, btnthongke, btndangxuat}, new JPanel[]{crep1, crep2, crep3, crep4, crep5, crepp1, crepp3});
+//        setpanal(new frm_Hoadon());
+//        lbltieude.setText("Hóa đơn");
+    }//GEN-LAST:event_btnhoadonMousePressed
 
-    }//GEN-LAST:event_btndangxuatMousePressed
+    private void btnnhanvienMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnnhanvienMousePressed
+
+        setColor(btnnhanvien);
+        crep5.setOpaque(true);
+        resetColor(new JPanel[]{btnbanhang, btnsanpham, btnkhuyenmai, btnkhachhang, btnthongke, btnhoadon, btndangxuat}, new JPanel[]{crep1, crep2, crep3, crep4, crepp1, crepp2, crepp3});
+        setpanal(new frm_Nhanvien());
+        lbltieude.setText("Nhân viên");
+
+    }//GEN-LAST:event_btnnhanvienMousePressed
+
+    private void btnkhachhangMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnkhachhangMousePressed
+        setColor(btnkhachhang);
+        crep4.setOpaque(true);
+        resetColor(new JPanel[]{btnbanhang, btnsanpham, btnkhuyenmai, btnnhanvien, btnthongke, btnhoadon, btndangxuat}, new JPanel[]{crep1, crep2, crep3, crep5, crepp1, crepp2, crepp3});
+        setpanal(new frm_Khachhang());
+        lbltieude.setText("Khách hàng");
+    }//GEN-LAST:event_btnkhachhangMousePressed
+
+    private void btnkhuyenmaiMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnkhuyenmaiMousePressed
+        setColor(btnkhuyenmai);
+        crep3.setOpaque(true);
+        resetColor(new JPanel[]{btnbanhang, btnsanpham, btnkhachhang, btnnhanvien, btnthongke, btnhoadon, btndangxuat}, new JPanel[]{crep1, crep2, crep4, crep5, crepp1, crepp2, crepp3});
+        setpanal(new frm_Khuyenmai());
+        lbltieude.setText("Khuyến mãi");
+    }//GEN-LAST:event_btnkhuyenmaiMousePressed
+
+    private void btnsanphamMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnsanphamMousePressed
+        setColor(btnsanpham);
+        crep2.setOpaque(true);
+        resetColor(new JPanel[]{btnbanhang, btnkhuyenmai, btnkhachhang, btnnhanvien, btnthongke, btnhoadon, btndangxuat}, new JPanel[]{crep1, crep3, crep4, crep5, crepp1, crepp2, crepp3});
+        setpanal(new frm_Sanpham());
+        lbltieude.setText("Sản phẩm");
+    }//GEN-LAST:event_btnsanphamMousePressed
+
+    private void btnbanhangMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnbanhangMousePressed
+        //        setColor(btnbanhang);
+        //        crep1.setOpaque(true);
+        //        resetColor(new JPanel[]{btnsanpham, btnkhuyenmai, btnkhachhang, btnnhanvien, btnthongke, btnhoadon, btndangxuat}, new JPanel[]{crep2, crep3, crep4, crep5, crepp1, crepp2, crepp3});
+        //        setpanal(new frm_Banhang(id, TenNV));
+        //        lbltieude.setText("Bán hàng");
+    }//GEN-LAST:event_btnbanhangMousePressed
 
     /**
      * @param args the command line arguments
      */
-//    public static void main(String args[]) {
-//        /* Set the Nimbus look and feel */
-//        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-//        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-//         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-//         */
-//        try {
-//            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-//                if ("Nimbus".equals(info.getName())) {
-//                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-//                    break;
-//                }
-//            }
-//        } catch (ClassNotFoundException ex) {
-//            java.util.logging.Logger.getLogger(dashboard.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-//        } catch (InstantiationException ex) {
-//            java.util.logging.Logger.getLogger(dashboard.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-//        } catch (IllegalAccessException ex) {
-//            java.util.logging.Logger.getLogger(dashboard.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-//        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-//            java.util.logging.Logger.getLogger(dashboard.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-//        }
-//        //</editor-fold>
-//
-//        /* Create and display the form */
-//        java.awt.EventQueue.invokeLater(new Runnable() {
-//            public void run() {
-//                new dashboard().setVisible(true);
-//            }
-//        });
-//    }
+    public static void main(String args[]) {
+        /* Set the Nimbus look and feel */
+        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
+        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
+         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
+         */
+        try {
+            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
+                if ("Nimbus".equals(info.getName())) {
+                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
+                    break;
+                }
+            }
+        } catch (ClassNotFoundException ex) {
+            java.util.logging.Logger.getLogger(frm_Dashboard.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (InstantiationException ex) {
+            java.util.logging.Logger.getLogger(frm_Dashboard.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (IllegalAccessException ex) {
+            java.util.logging.Logger.getLogger(frm_Dashboard.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+            java.util.logging.Logger.getLogger(frm_Dashboard.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        }
+        //</editor-fold>
+
+        /* Create and display the form */
+        java.awt.EventQueue.invokeLater(new Runnable() {
+            public void run() {
+                new frm_Dashboard().setVisible(true);
+            }
+        });
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel btnbanhang;

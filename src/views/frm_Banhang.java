@@ -39,6 +39,7 @@ import java.util.regex.Pattern;
 import javax.swing.BorderFactory;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JFileChooser;
+import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
@@ -112,6 +113,25 @@ public class frm_Banhang extends javax.swing.JPanel implements Runnable, ThreadF
         getListHoaDon();
         loadCBMau();
 
+    }
+
+    private frm_Banhang() {
+         initComponents();
+        inintWebCam();
+        jMenuItem1.setText("Thay đổi số lượng");
+        jMenuItem1.setBackground(Color.CYAN);
+        chk_inHoaDon.setSelected(true);
+        chk_inHoaDon.setSelected(true);
+        model = new DefaultTableModel();
+        modelGioHang = (DefaultTableModel) tb_gioHang.getModel();
+        combox = new DefaultComboBoxModel();
+        sanISamPhamServiecs = new SanPhamServiec();
+        hoaDonServiec = new HoaDonService();
+
+       
+        getListSP();
+        getListHoaDon();
+        loadCBMau();
     }
 
     private void inintWebCam() {
@@ -507,7 +527,7 @@ public class frm_Banhang extends javax.swing.JPanel implements Runnable, ThreadF
         jScrollPane1.setViewportView(tb_hoaDon);
 
         panelGradiente3.add(jScrollPane1);
-        jScrollPane1.setBounds(10, 20, 370, 150);
+        jScrollPane1.setBounds(10, 20, 350, 150);
 
         jLabel4.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jLabel4.setText("Hóa đơn chờ");
@@ -517,7 +537,7 @@ public class frm_Banhang extends javax.swing.JPanel implements Runnable, ThreadF
 
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
         panelGradiente3.add(jPanel1);
-        jPanel1.setBounds(380, 20, 220, 150);
+        jPanel1.setBounds(370, 20, 220, 150);
 
         panelGradiente4.setColorPrimario(new java.awt.Color(204, 204, 204));
         panelGradiente4.setColorSecundario(new java.awt.Color(204, 204, 204));
@@ -527,7 +547,7 @@ public class frm_Banhang extends javax.swing.JPanel implements Runnable, ThreadF
         jLabel5.setFont(new java.awt.Font("Trebuchet MS", 1, 18)); // NOI18N
         jLabel5.setText("Thanh toán");
         jLabel5.setToolTipText("");
-        panelGradiente4.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 10, 120, -1));
+        panelGradiente4.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 120, -1));
 
         jLabel7.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         jLabel7.setText("Tên khách hàng");
@@ -680,24 +700,27 @@ public class frm_Banhang extends javax.swing.JPanel implements Runnable, ThreadF
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(panelGradiente1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(panelGradiente3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(panelGradiente2, javax.swing.GroupLayout.PREFERRED_SIZE, 605, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addComponent(panelGradiente3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(panelGradiente1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(panelGradiente4, javax.swing.GroupLayout.PREFERRED_SIZE, 441, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+                        .addComponent(panelGradiente2, javax.swing.GroupLayout.PREFERRED_SIZE, 622, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE)))
+                .addGap(18, 18, 18)
+                .addComponent(panelGradiente4, javax.swing.GroupLayout.PREFERRED_SIZE, 407, Short.MAX_VALUE)
+                .addGap(22, 22, 22))
         );
         layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(panelGradiente3, javax.swing.GroupLayout.PREFERRED_SIZE, 177, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(11, 11, 11)
-                .addComponent(panelGradiente2, javax.swing.GroupLayout.PREFERRED_SIZE, 176, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(11, 11, 11)
-                .addComponent(panelGradiente1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addComponent(panelGradiente4, javax.swing.GroupLayout.DEFAULT_SIZE, 640, Short.MAX_VALUE)
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(panelGradiente4, javax.swing.GroupLayout.PREFERRED_SIZE, 634, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(panelGradiente3, javax.swing.GroupLayout.PREFERRED_SIZE, 177, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(panelGradiente2, javax.swing.GroupLayout.PREFERRED_SIZE, 181, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(panelGradiente1, javax.swing.GroupLayout.PREFERRED_SIZE, 264, javax.swing.GroupLayout.PREFERRED_SIZE))))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -1298,6 +1321,21 @@ public class frm_Banhang extends javax.swing.JPanel implements Runnable, ThreadF
         // TODO add your handling code here:
     }//GEN-LAST:event_chk_inHoaDonActionPerformed
 
+  public static void main(String args[]) {
+        /* Set the Nimbus look and feel */
+        // ...
+
+        /* Create and display the form */
+        java.awt.EventQueue.invokeLater(new Runnable() {
+            public void run() {
+                JFrame frame = new JFrame();
+                frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+                frame.setSize(1010, 640);
+                frame.getContentPane().add(new frm_Banhang());
+                frame.setVisible(true);
+            }
+        });
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private swing.MyButton btn_clear;
