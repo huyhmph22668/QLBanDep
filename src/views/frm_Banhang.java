@@ -94,8 +94,8 @@ public class frm_Banhang extends javax.swing.JPanel implements Runnable, ThreadF
     private IDanhMucService danhMucSPServices = new DanhMucServiceImpl();
 
     public frm_Banhang(Integer idNhanVien, String TenNV) {
-       
-         initComponents();
+
+        initComponents();
         inintWebCam();
         jMenuItem1.setText("Thay đổi số lượng");
         jMenuItem1.setBackground(Color.CYAN);
@@ -116,7 +116,7 @@ public class frm_Banhang extends javax.swing.JPanel implements Runnable, ThreadF
     }
 
     private frm_Banhang() {
-         initComponents();
+        initComponents();
         inintWebCam();
         jMenuItem1.setText("Thay đổi số lượng");
         jMenuItem1.setBackground(Color.CYAN);
@@ -128,7 +128,6 @@ public class frm_Banhang extends javax.swing.JPanel implements Runnable, ThreadF
         sanISamPhamServiecs = new SanPhamServiec();
         hoaDonServiec = new HoaDonService();
 
-       
         getListSP();
         getListHoaDon();
         loadCBMau();
@@ -136,7 +135,6 @@ public class frm_Banhang extends javax.swing.JPanel implements Runnable, ThreadF
 
     private void inintWebCam() {
 
-        
         Dimension size = WebcamResolution.QVGA.getSize();
         webcam = Webcam.getWebcams().get(0);
 //        webcam.setViewSize(size);
@@ -148,8 +146,8 @@ public class frm_Banhang extends javax.swing.JPanel implements Runnable, ThreadF
     }
 
     private void getListSP() {
-       
-         model = (DefaultTableModel) tb_sanPham.getModel();
+
+        model = (DefaultTableModel) tb_sanPham.getModel();
         model.setRowCount(0);
         List<SanPhamViewModel> getList = sanISamPhamServiecs.getListSanPham();
         for (SanPhamViewModel x : getList) {
@@ -167,8 +165,8 @@ public class frm_Banhang extends javax.swing.JPanel implements Runnable, ThreadF
     }
 
     private String getTrangThaiHD(int TrangThai) {
-      
-          if (TrangThai == 0) {
+
+        if (TrangThai == 0) {
             return "chờ thanh Toán";
         }
         if (TrangThai == 1) {
@@ -179,8 +177,8 @@ public class frm_Banhang extends javax.swing.JPanel implements Runnable, ThreadF
     }
 
     private void getListHoaDon() {
-      
-          model = (DefaultTableModel) tb_hoaDon.getModel();
+
+        model = (DefaultTableModel) tb_hoaDon.getModel();
         model.setRowCount(0);
         List<HoaDonViewModel> getList = hoaDonServiec.getListHD(0);
         for (HoaDonViewModel x : getList) {
@@ -195,8 +193,8 @@ public class frm_Banhang extends javax.swing.JPanel implements Runnable, ThreadF
     }
 
     private void clear() {
-       
-         lbl_sdt.setText("");
+
+        lbl_sdt.setText("");
 
         lbl_tongTien1.setText(String.valueOf(0));
         lbl_giamGia1.setText(String.valueOf(0.0));
@@ -211,16 +209,16 @@ public class frm_Banhang extends javax.swing.JPanel implements Runnable, ThreadF
     }
 
     private void loadCBMau() {
-       
-         combox = (DefaultComboBoxModel) cb_danhMuc.getModel();
+
+        combox = (DefaultComboBoxModel) cb_danhMuc.getModel();
         List<DanhMuc> listDanhMuc = danhMucSPServices.getAll();
         listDanhMuc.forEach(danhMuc -> combox.addElement(danhMuc.getTen()));
 
     }
 
     private HoaDonViewModel inputHD() {
-       
-         HoaDonViewModel hd = new HoaDonViewModel();
+
+        HoaDonViewModel hd = new HoaDonViewModel();
         String Ma = "HD";
         Random random = new Random();
         hd.setMa(Ma + random.nextInt());
@@ -233,8 +231,8 @@ public class frm_Banhang extends javax.swing.JPanel implements Runnable, ThreadF
     }
 
     private HoaDonCHiTietViewModel inputHDCT(Double DonGia, int SoLuong) {
-      
-          HoaDonCHiTietViewModel hdct = new HoaDonCHiTietViewModel();
+
+        HoaDonCHiTietViewModel hdct = new HoaDonCHiTietViewModel();
         hdct.setDonGia(DonGia);
         hdct.setSoluong(SoLuong);
 
@@ -242,7 +240,7 @@ public class frm_Banhang extends javax.swing.JPanel implements Runnable, ThreadF
     }
 
     private void getListGioHang() {
-        
+
         modelGioHang = (DefaultTableModel) tb_gioHang.getModel();
         modelGioHang.setRowCount(0);
         for (GioHangViewModel x : listGioHang) {
@@ -260,7 +258,7 @@ public class frm_Banhang extends javax.swing.JPanel implements Runnable, ThreadF
     }
 
     private void getListGioHangHDCT(String MaHD) {
-        
+
         modelGioHang = (DefaultTableModel) tb_gioHang.getModel();
         modelGioHang.setRowCount(0);
         List<HoaDonCHiTietViewModel> list = hoaDonServiec.getListHoaDonChiTiet(MaHD);
@@ -284,8 +282,8 @@ public class frm_Banhang extends javax.swing.JPanel implements Runnable, ThreadF
     }
 
     private void mouse() {
-       
-         int rowHD = tb_hoaDon.getSelectedRow();
+
+        int rowHD = tb_hoaDon.getSelectedRow();
         int row = tb_hoaDon.getSelectedRow();
         if (row < 0) {
             return;
@@ -725,8 +723,8 @@ public class frm_Banhang extends javax.swing.JPanel implements Runnable, ThreadF
     }// </editor-fold>//GEN-END:initComponents
 
     private void tb_sanPhamMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tb_sanPhamMouseClicked
-       
-         int row = tb_sanPham.getSelectedRow();
+
+        int row = tb_sanPham.getSelectedRow();
         int rowHD = tb_hoaDon.getSelectedRow();
         if (row < 0) {
             return;
@@ -813,8 +811,7 @@ public class frm_Banhang extends javax.swing.JPanel implements Runnable, ThreadF
     }//GEN-LAST:event_tb_sanPhamMouseClicked
 
     private void btn_thanhToanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_thanhToanActionPerformed
-        
-        
+
         if (tb_gioHang.getRowCount() == 0) {
             JOptionPane.showMessageDialog(this, "Bạn chưa chọn sản phẩm lên giỏ hàng !");
             return;
@@ -985,8 +982,7 @@ public class frm_Banhang extends javax.swing.JPanel implements Runnable, ThreadF
 
         }
 
-      
-          List<HoaDonViewModel> getList = hoaDonServiec.getListHD(1);
+        List<HoaDonViewModel> getList = hoaDonServiec.getListHD(1);
 
         for (HoaDonViewModel hoaDonViewModel : getList) {
             if (tb_hoaDon.getValueAt(rowHD, 0).equals(hoaDonViewModel.getMa())) {
@@ -1003,8 +999,8 @@ public class frm_Banhang extends javax.swing.JPanel implements Runnable, ThreadF
     }//GEN-LAST:event_btn_thanhToanActionPerformed
 
     private void btn_taoHoaDonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_taoHoaDonActionPerformed
-       
-         HoaDonViewModel hoaDon = inputHD();
+
+        HoaDonViewModel hoaDon = inputHD();
         Integer add = hoaDonServiec.saveHD(hoaDon, id);
         if (add > 0) {
             System.out.println("thêm thành công");
@@ -1017,8 +1013,8 @@ public class frm_Banhang extends javax.swing.JPanel implements Runnable, ThreadF
     }//GEN-LAST:event_btn_taoHoaDonActionPerformed
 
     private void tb_hoaDonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tb_hoaDonMouseClicked
-      
-          int row = tb_hoaDon.getSelectedRow();
+
+        int row = tb_hoaDon.getSelectedRow();
         if (row < 0) {
             return;
         }
@@ -1076,9 +1072,8 @@ public class frm_Banhang extends javax.swing.JPanel implements Runnable, ThreadF
     }//GEN-LAST:event_tb_hoaDonMouseClicked
 
     private void btn_xoaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_xoaActionPerformed
-      
-        
-          int rowSP = tb_gioHang.getSelectedRow();
+
+        int rowSP = tb_gioHang.getSelectedRow();
         int rowHD = tb_hoaDon.getSelectedRow();
         if (rowSP < 0) {
             JOptionPane.showMessageDialog(this, "chọn 1 sản phẩm trong giỏ hàng để xoá");
@@ -1113,8 +1108,7 @@ public class frm_Banhang extends javax.swing.JPanel implements Runnable, ThreadF
     }//GEN-LAST:event_btn_xoaActionPerformed
 
     private void btn_clearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_clearActionPerformed
-        
-        
+
         int rowHD = tb_hoaDon.getSelectedRow();
         int rowGH = tb_gioHang.getSelectedRow();
         if (rowHD < 0) {
@@ -1164,7 +1158,7 @@ public class frm_Banhang extends javax.swing.JPanel implements Runnable, ThreadF
     }//GEN-LAST:event_btn_clearActionPerformed
 
     private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
-        
+
         int rowSP = tb_gioHang.getSelectedRow();
         int rowHD = tb_hoaDon.getSelectedRow();
         if (rowSP < 0) {
@@ -1206,13 +1200,12 @@ public class frm_Banhang extends javax.swing.JPanel implements Runnable, ThreadF
         } catch (Exception e) {
 
             JOptionPane.showMessageDialog(null, "Vui lòng không nhập kí tự", "Chú ý", JOptionPane.WARNING_MESSAGE);
-        
+
         }
     }//GEN-LAST:event_jMenuItem1ActionPerformed
 
     private void searchText1CaretUpdate(javax.swing.event.CaretEvent evt) {//GEN-FIRST:event_searchText1CaretUpdate
-        
-        
+
         String Ten = searchText1.getText().trim();
         if (Ten.isEmpty()) {
             List<SanPhamViewModel> list = sanISamPhamServiecs.getListSanPham();
@@ -1242,8 +1235,8 @@ public class frm_Banhang extends javax.swing.JPanel implements Runnable, ThreadF
     }//GEN-LAST:event_myButton9ActionPerformed
 
     private void btn_xacNhanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_xacNhanActionPerformed
-       
-         int rowHD = tb_hoaDon.getSelectedRow();
+
+        int rowHD = tb_hoaDon.getSelectedRow();
         if (rowHD < 0) {
             JOptionPane.showMessageDialog(this, "chọn 1 hoá đơn hiện thị khách hàng");
             return;
@@ -1259,8 +1252,8 @@ public class frm_Banhang extends javax.swing.JPanel implements Runnable, ThreadF
     }//GEN-LAST:event_btn_xacNhanActionPerformed
 
     private void txt_tienKhachDuaCaretUpdate(javax.swing.event.CaretEvent evt) {//GEN-FIRST:event_txt_tienKhachDuaCaretUpdate
-       
-         try {
+
+        try {
             Double tienKhachDua = Double.parseDouble(txt_tienKhachDua.getText().trim());
             Double khachCanTra = Double.parseDouble(lbl_thanhTien.getText());
             Double tienThuaTraKhach = tienKhachDua - khachCanTra;
@@ -1282,13 +1275,13 @@ public class frm_Banhang extends javax.swing.JPanel implements Runnable, ThreadF
             JOptionPane.showMessageDialog(this, "chọn hoá đơn bạn muốn thêm khách hàng vào");
             return;
         }
-        
+
         new KhachHangForm(tb_hoaDon.getValueAt(rowHD, 0).toString()).setVisible(true);
     }//GEN-LAST:event_btn_thayDoiActionPerformed
 
     private void cb_danhMucItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cb_danhMucItemStateChanged
-         
-          String TenDanhMuc = cb_danhMuc.getSelectedItem().toString();
+
+        String TenDanhMuc = cb_danhMuc.getSelectedItem().toString();
         if (TenDanhMuc.equals("All")) {
             List<SanPhamViewModel> sanPham = sanISamPhamServiecs.getListSanPham();
             sanPham.clear();
@@ -1321,7 +1314,6 @@ public class frm_Banhang extends javax.swing.JPanel implements Runnable, ThreadF
         // TODO add your handling code here:
     }//GEN-LAST:event_chk_inHoaDonActionPerformed
 
-<<<<<<< HEAD
 //    public static void main(String args[]) {
 //        java.awt.EventQueue.invokeLater(new Runnable() {
 //            public void run() {
@@ -1333,8 +1325,7 @@ public class frm_Banhang extends javax.swing.JPanel implements Runnable, ThreadF
 //            }
 //        });
 //    }
-=======
-  public static void main(String args[]) {
+    public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         // ...
 
@@ -1349,7 +1340,6 @@ public class frm_Banhang extends javax.swing.JPanel implements Runnable, ThreadF
             }
         });
     }
->>>>>>> 1b1316537d80c501e5c0606ec1be066ba4ad9305
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private swing.MyButton btn_clear;
@@ -1451,14 +1441,7 @@ public class frm_Banhang extends javax.swing.JPanel implements Runnable, ThreadF
                 }
 
             }
-
-<<<<<<< HEAD
         } while (true);
-=======
-//            }
-        } while (true);
-
->>>>>>> 1b1316537d80c501e5c0606ec1be066ba4ad9305
     }
 
     @Override

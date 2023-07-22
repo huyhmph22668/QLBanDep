@@ -4,7 +4,6 @@
  */
 package views;
 
-import com.sun.java.swing.plaf.windows.WindowsBorders;
 import java.awt.Color;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -15,11 +14,7 @@ import javax.swing.JPanel;
  */
 public class frm_Dashboard extends javax.swing.JFrame {
 
-<<<<<<< HEAD
-   private JPanel panelchid;
-=======
     private JPanel panelchid;
->>>>>>> 1b1316537d80c501e5c0606ec1be066ba4ad9305
     private int xx, xy;
     private int id;
     private String TenNV;
@@ -36,28 +31,18 @@ public class frm_Dashboard extends javax.swing.JFrame {
     }
 
     public frm_Dashboard() {
-<<<<<<< HEAD
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
-
-    private void setdashboad() {
-        setColor(btnbanhang);
-        crep1.setOpaque(true);
-        resetColor(new JPanel[]{btnsanpham, btnkhuyenmai, btnkhachhang, btnnhanvien, btnthongke, btnhoadon, btndangxuat}, new JPanel[]{crep2, crep3, crep4, crep5, crepp1, crepp2, crepp3});
-        setpanal(new frm_Banhang(id, TenNV));
-=======
-        initComponents();
-
+          initComponents();
+        
+        
         setLocationRelativeTo(null);
         setdashboad();
     }
 
     private void setdashboad() {
-//        setColor(btnsanpham);
+//        setColor(btnbanhang);
 //        crep1.setOpaque(true);
         resetColor(new JPanel[]{btnsanpham, btnkhuyenmai, btnkhachhang, btnnhanvien, btnthongke, btnhoadon, btndangxuat}, new JPanel[]{crep2, crep3, crep4, crep5, crepp1, crepp2, crepp3});
-//        setpanal(new frm_Sanpham());
->>>>>>> 1b1316537d80c501e5c0606ec1be066ba4ad9305
+//        setpanal(new frm_Banhang(id, TenNV));
     }
 
     private void setColor(JPanel pane) {
@@ -80,10 +65,6 @@ public class frm_Dashboard extends javax.swing.JFrame {
         pnmain.add(panelchid);
         pnmain.validate();
     }
-<<<<<<< HEAD
-    
-=======
->>>>>>> 1b1316537d80c501e5c0606ec1be066ba4ad9305
 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -124,13 +105,12 @@ public class frm_Dashboard extends javax.swing.JFrame {
         pnmain = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setBackground(new java.awt.Color(255, 255, 255));
         setLocationByPlatform(true);
         setMinimumSize(new java.awt.Dimension(1200, 650));
         setUndecorated(true);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jPanel1.setBackground(new java.awt.Color(204, 204, 204));
+        jPanel1.setBackground(new java.awt.Color(234, 243, 248));
         jPanel1.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
             public void mouseDragged(java.awt.event.MouseEvent evt) {
                 jPanel1MouseDragged(evt);
@@ -150,8 +130,8 @@ public class frm_Dashboard extends javax.swing.JFrame {
             }
         });
 
-        lbltieude.setFont(new java.awt.Font("Times New Roman", 1, 24)); // NOI18N
-        lbltieude.setForeground(new java.awt.Color(51, 51, 51));
+        lbltieude.setFont(new java.awt.Font("Times New Roman", 3, 26)); // NOI18N
+        lbltieude.setForeground(new java.awt.Color(204, 0, 255));
         lbltieude.setText("Bán hàng");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
@@ -159,33 +139,32 @@ public class frm_Dashboard extends javax.swing.JFrame {
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap(504, Short.MAX_VALUE)
+                .addContainerGap()
                 .addComponent(lbltieude, javax.swing.GroupLayout.PREFERRED_SIZE, 231, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(303, 303, 303)
-                .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 739, Short.MAX_VALUE)
+                .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLabel8, javax.swing.GroupLayout.DEFAULT_SIZE, 30, Short.MAX_VALUE)
+            .addComponent(jLabel8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(lbltieude, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
-        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 0, 1090, 30));
+        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 0, 1010, 30));
 
-        jPanel2.setBackground(new java.awt.Color(102, 102, 102));
-        jPanel2.setForeground(new java.awt.Color(204, 204, 204));
+        jPanel2.setBackground(new java.awt.Color(82, 82, 82));
         jPanel2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jPanel4.setBackground(new java.awt.Color(102, 102, 102));
+        jPanel4.setBackground(new java.awt.Color(82, 82, 82));
         jPanel4.setLayout(new java.awt.BorderLayout());
 
-        lbl_tenNhanVien.setFont(new java.awt.Font("Eras Bold ITC", 1, 18)); // NOI18N
-        lbl_tenNhanVien.setForeground(new java.awt.Color(255, 255, 255));
-        lbl_tenNhanVien.setText("   Shoes Store");
+        lbl_tenNhanVien.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        lbl_tenNhanVien.setForeground(new java.awt.Color(204, 204, 255));
+        lbl_tenNhanVien.setText("TÊN NHÂN VIÊN");
         jPanel4.add(lbl_tenNhanVien, java.awt.BorderLayout.CENTER);
 
-        jLabel2.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel2.setForeground(new java.awt.Color(204, 255, 255));
+        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/chaneo.png"))); // NOI18N
         jPanel4.add(jLabel2, java.awt.BorderLayout.PAGE_START);
 
         jPanel2.add(jPanel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 190, 160));
@@ -198,7 +177,6 @@ public class frm_Dashboard extends javax.swing.JFrame {
         });
 
         crep1.setBackground(new java.awt.Color(255, 255, 255));
-        crep1.setForeground(new java.awt.Color(204, 204, 204));
         crep1.setMinimumSize(new java.awt.Dimension(0, 0));
         crep1.setOpaque(false);
         crep1.setPreferredSize(new java.awt.Dimension(3, 60));
@@ -211,10 +189,10 @@ public class frm_Dashboard extends javax.swing.JFrame {
         );
         crep1Layout.setVerticalGroup(
             crep1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
+            .addGap(0, 60, Short.MAX_VALUE)
         );
 
-        jLabel4.setBackground(new java.awt.Color(102, 102, 102));
+        jLabel4.setBackground(new java.awt.Color(0, 0, 0));
         jLabel4.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel4.setForeground(new java.awt.Color(255, 255, 255));
         jLabel4.setText("Bán Hàng");
@@ -226,16 +204,13 @@ public class frm_Dashboard extends javax.swing.JFrame {
             .addGroup(btnbanhangLayout.createSequentialGroup()
                 .addComponent(crep1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(60, Short.MAX_VALUE))
+                .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 156, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         btnbanhangLayout.setVerticalGroup(
             btnbanhangLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(crep1, javax.swing.GroupLayout.DEFAULT_SIZE, 72, Short.MAX_VALUE)
-            .addGroup(btnbanhangLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addComponent(crep1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         jPanel2.add(btnbanhang, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 160, 190, 60));
@@ -274,7 +249,7 @@ public class frm_Dashboard extends javax.swing.JFrame {
                 .addComponent(crep2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 156, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(13, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         btnsanphamLayout.setVerticalGroup(
             btnsanphamLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -536,7 +511,7 @@ public class frm_Dashboard extends javax.swing.JFrame {
 
         jPanel2.add(btnthongke, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 460, 190, 60));
 
-        btndangxuat.setBackground(new java.awt.Color(102, 102, 102));
+        btndangxuat.setBackground(new java.awt.Color(0, 0, 0));
         btndangxuat.setPreferredSize(new java.awt.Dimension(100, 60));
         btndangxuat.setRequestFocusEnabled(false);
         btndangxuat.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -557,8 +532,13 @@ public class frm_Dashboard extends javax.swing.JFrame {
         );
         crepp3Layout.setVerticalGroup(
             crepp3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 41, Short.MAX_VALUE)
+            .addGap(0, 0, Short.MAX_VALUE)
         );
+
+        jLabel11.setBackground(new java.awt.Color(255, 255, 255));
+        jLabel11.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        jLabel11.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel11.setText("Đăng xuất");
 
         javax.swing.GroupLayout btndangxuatLayout = new javax.swing.GroupLayout(btndangxuat);
         btndangxuat.setLayout(btndangxuatLayout);
@@ -566,30 +546,27 @@ public class frm_Dashboard extends javax.swing.JFrame {
             btndangxuatLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(btndangxuatLayout.createSequentialGroup()
                 .addComponent(crepp3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(187, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
+                .addComponent(jLabel11, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(37, Short.MAX_VALUE))
         );
         btndangxuatLayout.setVerticalGroup(
             btndangxuatLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, btndangxuatLayout.createSequentialGroup()
                 .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(crepp3, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(btndangxuatLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jLabel11, javax.swing.GroupLayout.DEFAULT_SIZE, 41, Short.MAX_VALUE)
+                    .addComponent(crepp3, javax.swing.GroupLayout.DEFAULT_SIZE, 41, Short.MAX_VALUE))
                 .addGap(19, 19, 19))
         );
 
         jPanel2.add(btndangxuat, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 580, 190, 40));
 
-        jLabel11.setBackground(new java.awt.Color(255, 255, 255));
-        jLabel11.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        jLabel11.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel11.setText("Log out");
-        jPanel2.add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 610, 80, 41));
-
-        getContentPane().add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 160, 690));
+        getContentPane().add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 190, 670));
 
         pnmain.setBackground(new java.awt.Color(255, 255, 255));
-        pnmain.setForeground(new java.awt.Color(204, 204, 204));
         pnmain.setLayout(new java.awt.BorderLayout());
-        getContentPane().add(pnmain, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 40, 1070, 630));
+        getContentPane().add(pnmain, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 30, 1010, 640));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -609,7 +586,6 @@ public class frm_Dashboard extends javax.swing.JFrame {
         this.setLocation(x - xx, y - xy);
     }//GEN-LAST:event_jPanel1MouseDragged
 
-<<<<<<< HEAD
     private void btnbanhangMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnbanhangMousePressed
         setColor(btnbanhang);
         crep1.setOpaque(true);
@@ -627,6 +603,7 @@ public class frm_Dashboard extends javax.swing.JFrame {
     }//GEN-LAST:event_btnsanphamMousePressed
 
     private void btnkhuyenmaiMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnkhuyenmaiMousePressed
+
         if (TenCV.equalsIgnoreCase("quản lý")) {
             setColor(btnkhuyenmai);
             crep3.setOpaque(true);
@@ -638,6 +615,7 @@ public class frm_Dashboard extends javax.swing.JFrame {
             setdashboad();
             return;
         }
+
     }//GEN-LAST:event_btnkhuyenmaiMousePressed
 
     private void btnkhachhangMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnkhachhangMousePressed
@@ -671,6 +649,7 @@ public class frm_Dashboard extends javax.swing.JFrame {
     }//GEN-LAST:event_btnhoadonMousePressed
 
     private void btnthongkeMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnthongkeMousePressed
+
         if (TenCV.equalsIgnoreCase("quản lý")) {
             setColor(btnthongke);
             crepp1.setOpaque(true);
@@ -682,6 +661,8 @@ public class frm_Dashboard extends javax.swing.JFrame {
             setdashboad();
             return;
         }
+
+
     }//GEN-LAST:event_btnthongkeMousePressed
 
     private void btndangxuatMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btndangxuatMousePressed
@@ -694,111 +675,12 @@ public class frm_Dashboard extends javax.swing.JFrame {
         resetColor(new JPanel[]{btnbanhang, btnsanpham, btnkhuyenmai, btnkhachhang, btnnhanvien, btnthongke, btnhoadon}, new JPanel[]{crep1, crep2, crep3, crep4, crep5, crepp1, crepp2});
         new frm_Login().setVisible(true);
         this.dispose();
+
     }//GEN-LAST:event_btndangxuatMousePressed
-=======
-    private void btndangxuatMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btndangxuatMousePressed
-        int x = JOptionPane.showConfirmDialog(this, "Bạn có muốn đăng xuất khỏi sever không ", "đăng xuất", JOptionPane.YES_NO_OPTION);
-        if (x == 1) {
-            return;
-        }
-        setColor(btndangxuat);
-        crepp3.setOpaque(true);
-        resetColor(new JPanel[]{btnbanhang, btnsanpham, btnkhuyenmai, btnkhachhang, btnnhanvien, btnthongke, btnhoadon}, new JPanel[]{crep1, crep2, crep3, crep4, crep5, crepp1, crepp2});
-        new frm_Login().setVisible(true);
-        this.dispose();
-    }//GEN-LAST:event_btndangxuatMousePressed
-
-    private void btnthongkeMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnthongkeMousePressed
-
-    }//GEN-LAST:event_btnthongkeMousePressed
-
-    private void btnhoadonMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnhoadonMousePressed
-//        setColor(btnhoadon);
-//        crepp2.setOpaque(true);
-//        resetColor(new JPanel[]{btnbanhang, btnsanpham, btnkhuyenmai, btnkhachhang, btnnhanvien, btnthongke, btndangxuat}, new JPanel[]{crep1, crep2, crep3, crep4, crep5, crepp1, crepp3});
-//        setpanal(new frm_Hoadon());
-//        lbltieude.setText("Hóa đơn");
-    }//GEN-LAST:event_btnhoadonMousePressed
-
-    private void btnnhanvienMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnnhanvienMousePressed
-
-        setColor(btnnhanvien);
-        crep5.setOpaque(true);
-        resetColor(new JPanel[]{btnbanhang, btnsanpham, btnkhuyenmai, btnkhachhang, btnthongke, btnhoadon, btndangxuat}, new JPanel[]{crep1, crep2, crep3, crep4, crepp1, crepp2, crepp3});
-        setpanal(new frm_Nhanvien());
-        lbltieude.setText("Nhân viên");
-
-    }//GEN-LAST:event_btnnhanvienMousePressed
-
-    private void btnkhachhangMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnkhachhangMousePressed
-        setColor(btnkhachhang);
-        crep4.setOpaque(true);
-        resetColor(new JPanel[]{btnbanhang, btnsanpham, btnkhuyenmai, btnnhanvien, btnthongke, btnhoadon, btndangxuat}, new JPanel[]{crep1, crep2, crep3, crep5, crepp1, crepp2, crepp3});
-        setpanal(new frm_Khachhang());
-        lbltieude.setText("Khách hàng");
-    }//GEN-LAST:event_btnkhachhangMousePressed
-
-    private void btnkhuyenmaiMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnkhuyenmaiMousePressed
-        setColor(btnkhuyenmai);
-        crep3.setOpaque(true);
-        resetColor(new JPanel[]{btnbanhang, btnsanpham, btnkhachhang, btnnhanvien, btnthongke, btnhoadon, btndangxuat}, new JPanel[]{crep1, crep2, crep4, crep5, crepp1, crepp2, crepp3});
-        setpanal(new frm_Khuyenmai());
-        lbltieude.setText("Khuyến mãi");
-    }//GEN-LAST:event_btnkhuyenmaiMousePressed
-
-    private void btnsanphamMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnsanphamMousePressed
-        setColor(btnsanpham);
-        crep2.setOpaque(true);
-        resetColor(new JPanel[]{btnbanhang, btnkhuyenmai, btnkhachhang, btnnhanvien, btnthongke, btnhoadon, btndangxuat}, new JPanel[]{crep1, crep3, crep4, crep5, crepp1, crepp2, crepp3});
-        setpanal(new frm_Sanpham());
-        lbltieude.setText("Sản phẩm");
-    }//GEN-LAST:event_btnsanphamMousePressed
-
-    private void btnbanhangMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnbanhangMousePressed
-        //        setColor(btnbanhang);
-        //        crep1.setOpaque(true);
-        //        resetColor(new JPanel[]{btnsanpham, btnkhuyenmai, btnkhachhang, btnnhanvien, btnthongke, btnhoadon, btndangxuat}, new JPanel[]{crep2, crep3, crep4, crep5, crepp1, crepp2, crepp3});
-        //        setpanal(new frm_Banhang(id, TenNV));
-        //        lbltieude.setText("Bán hàng");
-    }//GEN-LAST:event_btnbanhangMousePressed
->>>>>>> 1b1316537d80c501e5c0606ec1be066ba4ad9305
 
     /**
      * @param args the command line arguments
      */
-<<<<<<< HEAD
-//    public static void main(String args[]) {
-//        /* Set the Nimbus look and feel */
-//        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-//        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-//         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-//         */
-//        try {
-//            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-//                if ("Nimbus".equals(info.getName())) {
-//                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-//                    break;
-//                }
-//            }
-//        } catch (ClassNotFoundException ex) {
-//            java.util.logging.Logger.getLogger(dashboard.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-//        } catch (InstantiationException ex) {
-//            java.util.logging.Logger.getLogger(dashboard.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-//        } catch (IllegalAccessException ex) {
-//            java.util.logging.Logger.getLogger(dashboard.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-//        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-//            java.util.logging.Logger.getLogger(dashboard.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-//        }
-//        //</editor-fold>
-//
-//        /* Create and display the form */
-//        java.awt.EventQueue.invokeLater(new Runnable() {
-//            public void run() {
-//                new .setVisible(true);
-//            }
-//        });
-//    }
-=======
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
@@ -830,7 +712,6 @@ public class frm_Dashboard extends javax.swing.JFrame {
             }
         });
     }
->>>>>>> 1b1316537d80c501e5c0606ec1be066ba4ad9305
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel btnbanhang;
