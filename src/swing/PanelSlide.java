@@ -17,8 +17,7 @@ import javax.swing.Timer;
  * @author RAVEN
  */
 public class PanelSlide extends javax.swing.JPanel {
-
-    public int getAnimate() {
+      public int getAnimate() {
         return animate;
     }
 
@@ -98,6 +97,7 @@ public class PanelSlide extends javax.swing.JPanel {
                 com1.setVisible(true);
             }
         }
+  
     }
 
     /**

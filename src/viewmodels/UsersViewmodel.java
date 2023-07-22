@@ -11,7 +11,7 @@ import models.ChucVu;
  * @author Admin 88
  */
 public class UsersViewmodel {
-      private String ten, tendem, ho;
+    private String ten, tendem, ho;
     private String ngaysinh;
     private Integer gioitinh;
     private String sdt;

@@ -17,9 +17,12 @@ import javax.swing.table.DefaultTableModel;
 import models.KhuyenMai;
 import repositorys.IKhuyenmaiRepository;
 import repositorys.impl.KhuyenmaiReponsitory;
+import services.ICTSPService;
 
 import services.IKhuyenmaiService;
+import services.impl.CTSPServiceImpl;
 import services.impl.KhuyenmaiService;
+import viewmodels.ChiTietSPViewModel;
 
 
 import viewmodels.KhuyenmaiViewmodel;
@@ -33,7 +36,7 @@ public class frm_Khuyenmai extends javax.swing.JPanel {
     DefaultTableModel defaultTableModel;
     DefaultTableModel defaultTableModel1;
     private IKhuyenmaiService khuyenmaiService;
-   
+    ICTSPService chiTietSPServices;
 
     /**
      * Creates new form khuyenmai
@@ -43,9 +46,9 @@ public class frm_Khuyenmai extends javax.swing.JPanel {
         defaultTableModel = (DefaultTableModel) tb_khuyenmai.getModel();
         defaultTableModel1 = (DefaultTableModel) tb_sp.getModel();
         khuyenmaiService = new KhuyenmaiService();
-     
+        chiTietSPServices = new CTSPServiceImpl();
         LoadData();
-      
+        LoadDataSP();
     }
 
     void LoadData() {
@@ -63,7 +66,16 @@ public class frm_Khuyenmai extends javax.swing.JPanel {
             stt++;
         }
     }
-
+void LoadDataSP() {
+        defaultTableModel1.setRowCount(0);
+        for (ChiTietSPViewModel x : chiTietSPServices.GetAll()) {
+            defaultTableModel1.addRow(new Object[]{
+                false,
+                x.getMa(),
+                x.getTen()
+            });
+        }
+    }
  
 
     /**
