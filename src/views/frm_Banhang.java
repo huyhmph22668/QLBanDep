@@ -39,6 +39,7 @@ import java.util.regex.Pattern;
 import javax.swing.BorderFactory;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JFileChooser;
+import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
@@ -1268,6 +1269,17 @@ public class frm_Banhang extends javax.swing.JPanel implements Runnable, ThreadF
         // TODO add your handling code here:
     }//GEN-LAST:event_chk_inHoaDonActionPerformed
 
+//    public static void main(String args[]) {
+//        java.awt.EventQueue.invokeLater(new Runnable() {
+//            public void run() {
+//                JFrame frame = new JFrame();
+//                frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+//                frame.setSize(1010, 640);
+//                frame.getContentPane().add(new frm_Banhang());
+//                frame.setVisible(true);
+//            }
+//        });
+//    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private swing.MyButton btn_clear;
@@ -1322,12 +1334,62 @@ public class frm_Banhang extends javax.swing.JPanel implements Runnable, ThreadF
 
     @Override
     public void run() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        do {
+            try {
+                Thread.sleep(100);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+
+            Result result = null;
+            BufferedImage image = null;
+
+            if (webcam.isOpen()) {
+
+                if ((image = webcam.getImage()) == null) {
+                    continue;
+                }
+
+                LuminanceSource source = new BufferedImageLuminanceSource(image);
+                BinaryBitmap bitmap = new BinaryBitmap(new HybridBinarizer(source));
+
+                try {
+                    result = new MultiFormatReader().decode(bitmap);
+                } catch (NotFoundException e) {
+                }
+            }
+
+            if (result != null) {
+                searchText1.setText(result.getText());
+
+                model = (DefaultTableModel) tb_sanPham.getModel();
+                model.setRowCount(0);
+                List<SanPham> getListSanPham = sanISamPhamServiecs.seachBarCodeS(result.getText());
+                for (SanPham x : getListSanPham) {
+                    model.addRow(new Object[]{
+                        x.getMa(),
+                        x.getTen(),
+                        x.getMauSac().getTen(),
+                        String.format("%.0f", x.getKhuyenMai().getGiaTriGiam()),
+                        x.getKhuyenMai().getHinhThucKM(),
+                        x.getChatLieu().getTen(),
+                        x.getKichCo().getTen(),
+                        String.format("%.0f", x.getGiaBan()),
+                        x.getSoLuongTon()
+                    });
+
+                }
+
+            }
+
+        } while (true);
     }
 
     @Override
     public Thread newThread(Runnable r) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        Thread t = new Thread(r, "example-runner");
+        t.setDaemon(true);
+        return t;
     }
 
 }
