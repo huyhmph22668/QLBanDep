@@ -24,7 +24,6 @@ import services.impl.CTSPServiceImpl;
 import services.impl.KhuyenmaiService;
 import viewmodels.ChiTietSPViewModel;
 
-
 import viewmodels.KhuyenmaiViewmodel;
 
 /**
@@ -47,6 +46,8 @@ public class frm_Khuyenmai extends javax.swing.JPanel {
         defaultTableModel1 = (DefaultTableModel) tb_sp.getModel();
         khuyenmaiService = new KhuyenmaiService();
         chiTietSPServices = new CTSPServiceImpl();
+        khuyenmaiService.UpdateTT();
+        khuyenmaiService.UpdateTT2();
         LoadData();
         LoadDataSP();
     }
@@ -66,7 +67,8 @@ public class frm_Khuyenmai extends javax.swing.JPanel {
             stt++;
         }
     }
-void LoadDataSP() {
+
+    void LoadDataSP() {
         defaultTableModel1.setRowCount(0);
         for (ChiTietSPViewModel x : chiTietSPServices.GetAll()) {
             defaultTableModel1.addRow(new Object[]{
@@ -76,7 +78,6 @@ void LoadDataSP() {
             });
         }
     }
- 
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -389,23 +390,23 @@ void LoadDataSP() {
             JOptionPane.showMessageDialog(this, "Tên khuyến mãi đã tồn tại");
             return;
         }
-        
-             if (rd_phantram.isSelected()) {
+
+        if (rd_phantram.isSelected()) {
             if (Integer.parseInt(txt_giatrgiam.getText().trim()) >= 100) {
                 JOptionPane.showMessageDialog(this, "Giá trị khuyến mãi phải nhỏ hơn 100% !!!");
                 return;
             }
         }
-             
-                 if (Integer.parseInt(txt_giatrgiam.getText().trim()) < 0) {
-                JOptionPane.showMessageDialog(this, "Giá trị khuyến mãi không được phép âm");
-                return;
-            }
-                 if (Integer.parseInt(txt_giatrgiam.getText().trim()) == 0) {
-                JOptionPane.showMessageDialog(this, "Bạn phải nhập giá trị khuyến mãi lớn hơn 0");
-                return;
-            }
-        
+
+        if (Integer.parseInt(txt_giatrgiam.getText().trim()) < 0) {
+            JOptionPane.showMessageDialog(this, "Giá trị khuyến mãi không được phép âm");
+            return;
+        }
+        if (Integer.parseInt(txt_giatrgiam.getText().trim()) == 0) {
+            JOptionPane.showMessageDialog(this, "Bạn phải nhập giá trị khuyến mãi lớn hơn 0");
+            return;
+        }
+
         IKhuyenmaiRepository repository = new KhuyenmaiReponsitory();
         List<KhuyenMai> lst = repository.GetAll();
         long time = System.currentTimeMillis();
@@ -427,10 +428,10 @@ void LoadDataSP() {
             km.setGiaTriGiam(Double.parseDouble(txt_giatrgiam.getText()));
             khuyenmaiService.Add(km);
             LoadData();
-            
+
             for (int i = 0; i < tb_sp.getRowCount(); i++) {
                 boolean ischeckbox = (boolean) tb_sp.getValueAt(i, 0);
-               
+
             }
             JOptionPane.showMessageDialog(this, "Thêm thành công");
         }
@@ -446,20 +447,20 @@ void LoadDataSP() {
             JOptionPane.showMessageDialog(this, "Bạn chưa chọn dòng nào");
             return;
         }
-              if (rd_phantram.isSelected()) {
+        if (rd_phantram.isSelected()) {
             if (Integer.parseInt(txt_giatrgiam.getText().trim()) >= 100) {
                 JOptionPane.showMessageDialog(this, "Giá trị khuyến mãi phải nhỏ hơn 100% !!!");
                 return;
             }
         }
-                          if (Integer.parseInt(txt_giatrgiam.getText().trim()) < 0) {
-                JOptionPane.showMessageDialog(this, "Giá trị khuyến mãi không được phép âm");
-                return;
-            }
-                 if (Integer.parseInt(txt_giatrgiam.getText().trim()) == 0) {
-                JOptionPane.showMessageDialog(this, "Bạn phải nhập giá trị khuyến mãi lớn hơn 0");
-                return;
-            }
+        if (Integer.parseInt(txt_giatrgiam.getText().trim()) < 0) {
+            JOptionPane.showMessageDialog(this, "Giá trị khuyến mãi không được phép âm");
+            return;
+        }
+        if (Integer.parseInt(txt_giatrgiam.getText().trim()) == 0) {
+            JOptionPane.showMessageDialog(this, "Bạn phải nhập giá trị khuyến mãi lớn hơn 0");
+            return;
+        }
         if (JOptionPane.showConfirmDialog(this, "Bạn có muốn sửa không?", "Update", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
             KhuyenmaiViewmodel km = new KhuyenmaiViewmodel();
             SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
@@ -478,11 +479,23 @@ void LoadDataSP() {
                 JOptionPane.showMessageDialog(this, "Ngày kết thúc phải lớn hơn ngày bắt đầu");
                 return;
             }
-            
-            
-           
+
+            long time = System.currentTimeMillis();
+            java.sql.Date date = new java.sql.Date(time);
+            if (date.before(chiTietSPServices.checkngay(lst.get(r).getID()))) {
+                JOptionPane.showMessageDialog(this, "khuyến mãi chưa đến ngày áp dụng vui lòng xem và chọn khuyến mãi khác");
+                return;
+            }
+            for (int i = 0; i < tb_sp.getRowCount(); i++) {
+                boolean ischeckbox = (boolean) tb_sp.getValueAt(i, 0);
+                if (ischeckbox) {
+                    System.out.println(tb_sp.getValueAt(i, 1));
+                    chiTietSPServices.Update(lst.get(r).getID(), tb_sp.getValueAt(i, 1).toString());
+                }
+
+            }
             khuyenmaiService.Update(km, lst.get(r).getID());
-          
+            khuyenmaiService.UpdateTT2();
             LoadData();
             JOptionPane.showMessageDialog(this, "Sửa thành công ");
 
@@ -499,7 +512,7 @@ void LoadDataSP() {
         dateTK_KT.setCalendar(null);
         buttonGroup1.clearSelection();
         src_timkiem.setText("");
- 
+
         LoadData();
 
 
@@ -542,13 +555,13 @@ void LoadDataSP() {
             JOptionPane.showMessageDialog(this, "Bạn chưa chọn ngày bắt đầu hoặc ngày kết thúc hoặc tên khuyến mãi để tìm kiếm");
             return;
         }
-      
-       
+
+
     }//GEN-LAST:event_lbl_timkiemMouseClicked
 
     private void src_timkiemCaretUpdate(javax.swing.event.CaretEvent evt) {//GEN-FIRST:event_src_timkiemCaretUpdate
         // TODO add your handling code here:
-     
+
     }//GEN-LAST:event_src_timkiemCaretUpdate
 
     private void cb_selectAllActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cb_selectAllActionPerformed
@@ -562,7 +575,6 @@ void LoadDataSP() {
         }
     }//GEN-LAST:event_cb_selectAllActionPerformed
 
-    
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         // ...

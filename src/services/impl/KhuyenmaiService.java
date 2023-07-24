@@ -60,4 +60,16 @@ public class KhuyenmaiService implements IKhuyenmaiService {
         return repository.GetAll();
     }
 
+    @Override
+    public boolean UpdateTT2() {
+        boolean iscapnhat = repository.UpdateTT2();
+        return iscapnhat;
+    }
+
+   @Override
+    public boolean UpdateTT() {
+        boolean iscapnhat = repository.UpdateTT();
+        return iscapnhat;
+    }
+
 }

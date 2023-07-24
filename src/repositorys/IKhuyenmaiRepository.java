@@ -16,7 +16,9 @@ public interface IKhuyenmaiRepository {
 
     public String checktrung(String ten);
 
-   
+    public boolean UpdateTT();
+
+    public boolean UpdateTT2();
 
     public KhuyenMai getbyid(int id);
 }

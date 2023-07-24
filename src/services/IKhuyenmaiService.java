@@ -1,4 +1,3 @@
-
 package services;
 
 import java.util.List;
@@ -17,6 +16,9 @@ public interface IKhuyenmaiService {
 
     public String checktrung(String ten);
 
+    public boolean UpdateTT();
+
+    public boolean UpdateTT2();
 
     public List<KhuyenMai> getlist();
 }
