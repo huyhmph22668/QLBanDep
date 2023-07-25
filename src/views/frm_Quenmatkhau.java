@@ -10,6 +10,8 @@ import java.util.Random;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import javax.swing.JOptionPane;
+import services.IUsersService;
+import services.impl.UsersServiceImpl;
 
 
 /**
@@ -18,7 +20,25 @@ import javax.swing.JOptionPane;
  */
 public class frm_Quenmatkhau extends javax.swing.JPanel {
 
-    
+    boolean hish = false;
+    boolean hish1 = false;
+    IUsersService ius;
+    ArrayList lstma;
+    int ran;
+
+    public frm_Quenmatkhau() {
+        initComponents();
+        ius = new UsersServiceImpl();
+        lstma = new ArrayList();
+    }
+
+    public void quenmatkhau() {
+        txt_email.grabFocus();
+    }
+
+    public void addEventBackLogin(ActionListener event) {
+        cmdBackLogin.addActionListener(event);
+    }
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {

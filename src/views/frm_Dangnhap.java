@@ -11,6 +11,8 @@ import java.awt.event.KeyEvent;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.SwingUtilities;
+import services.IUserService;
+import services.impl.UserServiceImpl;
 
 
 /**
@@ -18,7 +20,32 @@ import javax.swing.SwingUtilities;
  * @author hungh
  */
 public class frm_Dangnhap extends javax.swing.JPanel {
+    boolean hish = false;
+    private IUserService userServiec;
 
+    public frm_Dangnhap() {
+        initComponents();
+        userServiec = new UserServiceImpl();
+    }
+
+    public void dangnhap() {
+        txtUser.grabFocus();
+    }
+
+    public void addEventquenmatkhau(ActionListener event) {
+        quenmatkhau1.addActionListener(event);
+    }
+
+    public void btndangnhapEven(ActionListener event) {
+        myButton2.addActionListener(event);
+    }
+
+    public boolean isdangnhap() {
+        String TaiKhaon = txtUser.getText().trim();
+        String MatKhau = txtPass.getText().trim();
+        boolean dangNhap = userServiec.getUser(TaiKhaon, MatKhau);
+        return dangNhap;
+    }
 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents

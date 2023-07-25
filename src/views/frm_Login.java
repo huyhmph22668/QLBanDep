@@ -15,65 +15,71 @@ import javax.swing.JOptionPane;
  */
 public class frm_Login extends javax.swing.JFrame {
 
-   
+    private frm_Dangnhap dangnhap = new frm_Dangnhap();
+    private frm_Quenmatkhau quenmatkhau = new frm_Quenmatkhau();
+
+    public frm_Login() {
+        initComponents();
+        setLocationRelativeTo(null);
+        animation();
+    }
+
+    private void animation() {
+        Slide.setAnimate(20);
+        Slide.init(dangnhap, quenmatkhau);
+        dangnhap.addEventquenmatkhau(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent ae) {
+                Slide.show(1);
+                quenmatkhau.quenmatkhau();
+            }
+        });
+        quenmatkhau.addEventBackLogin(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent ae) {
+                Slide.show(0);
+                dangnhap.dangnhap();
+            }
+        });
+        dangnhap.btndangnhapEven(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if (dangnhap.isdangnhap() == true) {
+                    dispose();
+                }
+            }
+        });
+    }
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        panelGradiente1 = new swing.PanelGradiente();
-        jPanel1 = new javax.swing.JPanel();
-        jLabel5 = new javax.swing.JLabel();
-        jPanel2 = new javax.swing.JPanel();
         Slide = new swing.PanelSlide();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setMinimumSize(new java.awt.Dimension(800, 450));
         setResizable(false);
 
-        jPanel1.setBackground(new java.awt.Color(153, 204, 255));
-        jPanel1.setLayout(null);
-
-        jLabel5.setText("jLabel5");
-        jPanel1.add(jLabel5);
-        jLabel5.setBounds(0, 0, 380, 450);
-
-        panelGradiente1.add(jPanel1);
-        jPanel1.setBounds(0, 0, 380, 450);
-
         javax.swing.GroupLayout SlideLayout = new javax.swing.GroupLayout(Slide);
         Slide.setLayout(SlideLayout);
         SlideLayout.setHorizontalGroup(
             SlideLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 420, Short.MAX_VALUE)
+            .addGap(0, 426, Short.MAX_VALUE)
         );
         SlideLayout.setVerticalGroup(
             SlideLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 450, Short.MAX_VALUE)
+            .addGap(0, 462, Short.MAX_VALUE)
         );
-
-        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
-        jPanel2.setLayout(jPanel2Layout);
-        jPanel2Layout.setHorizontalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(Slide, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-        );
-        jPanel2Layout.setVerticalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(Slide, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-        );
-
-        panelGradiente1.add(jPanel2);
-        jPanel2.setBounds(380, 0, 420, 450);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(panelGradiente1, javax.swing.GroupLayout.DEFAULT_SIZE, 800, Short.MAX_VALUE)
+            .addComponent(Slide, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(panelGradiente1, javax.swing.GroupLayout.DEFAULT_SIZE, 450, Short.MAX_VALUE)
+            .addComponent(Slide, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         pack();
@@ -116,9 +122,5 @@ public class frm_Login extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private swing.PanelSlide Slide;
-    private javax.swing.JLabel jLabel5;
-    private javax.swing.JPanel jPanel1;
-    private javax.swing.JPanel jPanel2;
-    private swing.PanelGradiente panelGradiente1;
     // End of variables declaration//GEN-END:variables
 }
