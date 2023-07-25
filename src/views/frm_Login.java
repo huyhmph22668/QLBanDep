@@ -57,7 +57,7 @@ public class frm_Login extends javax.swing.JFrame {
         Slide = new swing.PanelSlide();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setMinimumSize(new java.awt.Dimension(800, 450));
+        setMinimumSize(new java.awt.Dimension(450, 450));
         setResizable(false);
 
         javax.swing.GroupLayout SlideLayout = new javax.swing.GroupLayout(Slide);
