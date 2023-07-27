@@ -34,9 +34,7 @@ public class GioHangViewModel {
         this.HinhThucGiamGia = HinhThucGiamGia;
     }
 
-    public GioHangViewModel(String MaSP, String TenSP, String mausac, String kichco, int NhapSoLuong, Double DonGia, Double GiamGia, String hinhThucGiamGia) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
+    
 
     public String getMaSP() {
         return MaSP;
