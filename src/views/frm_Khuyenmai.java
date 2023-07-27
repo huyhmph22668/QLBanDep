@@ -406,7 +406,10 @@ public class frm_Khuyenmai extends javax.swing.JPanel {
             JOptionPane.showMessageDialog(this, "Bạn phải nhập giá trị khuyến mãi lớn hơn 0");
             return;
         }
-
+         if (Integer.parseInt(txt_giatrgiam.getText().trim()) >= 100000) {
+            JOptionPane.showMessageDialog(this, "Bạn phải nhập giá trị khuyến mãi nhỏ hơn 100000VNĐ");
+            return;
+        }
         IKhuyenmaiRepository repository = new KhuyenmaiReponsitory();
         List<KhuyenMai> lst = repository.GetAll();
         long time = System.currentTimeMillis();
@@ -448,8 +451,8 @@ public class frm_Khuyenmai extends javax.swing.JPanel {
             return;
         }
         if (rd_phantram.isSelected()) {
-            if (Integer.parseInt(txt_giatrgiam.getText().trim()) >= 100) {
-                JOptionPane.showMessageDialog(this, "Giá trị khuyến mãi phải nhỏ hơn 100% !!!");
+            if (Integer.parseInt(txt_giatrgiam.getText().trim()) >= 50) {
+                JOptionPane.showMessageDialog(this, "Giá trị khuyến mãi phải nhỏ hơn 50% !!!");
                 return;
             }
         }
@@ -461,6 +464,11 @@ public class frm_Khuyenmai extends javax.swing.JPanel {
             JOptionPane.showMessageDialog(this, "Bạn phải nhập giá trị khuyến mãi lớn hơn 0");
             return;
         }
+         if (Integer.parseInt(txt_giatrgiam.getText().trim()) >= 100000) {
+            JOptionPane.showMessageDialog(this, "Bạn phải nhập giá trị khuyến mãi nhỏ hơn 100000VNĐ");
+            return;
+        }
+        
         if (JOptionPane.showConfirmDialog(this, "Bạn có muốn sửa không?", "Update", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
             KhuyenmaiViewmodel km = new KhuyenmaiViewmodel();
             SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");

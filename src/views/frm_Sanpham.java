@@ -272,10 +272,11 @@ public class frm_Sanpham extends javax.swing.JPanel {
             return null;
         }
 
-        if (Double.valueOf(txt_gianhap.getText()) <= 0) {
-            JOptionPane.showMessageDialog(this, "Giá nhập phải lớn hơn 0!");
+        if (Double.valueOf(txt_gianhap.getText()) <= 100000) {
+            JOptionPane.showMessageDialog(this, "Giá nhập phải lớn hơn 100000VNĐ!");
             return null;
         }
+      
 // giá bán
         if (txt_giaban.getText().isEmpty()) {
             JOptionPane.showMessageDialog(this, "Bạn chưa nhập giá bán!");
@@ -289,8 +290,8 @@ public class frm_Sanpham extends javax.swing.JPanel {
             return null;
         }
 
-        if (Double.valueOf(txt_giaban.getText()) <= 0) {
-            JOptionPane.showMessageDialog(this, "Giá bán phải lớn hơn 0!");
+        if (Double.valueOf(txt_giaban.getText()) <= 100000) {
+            JOptionPane.showMessageDialog(this, "Giá bán phải lớn hơn 100000VNĐ!");
             return null;
         }
 ///////////////
