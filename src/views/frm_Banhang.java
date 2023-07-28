@@ -761,7 +761,7 @@ public class frm_Banhang extends javax.swing.JPanel implements Runnable, ThreadF
                         return;
                     }
                 }
-                listGioHang.add(new GioHangViewModel(MaSP, TenSP, mausac, kichco,SoLuong, DonGia, GiamGia, GiamGia, hinhThucGiamGia));
+                listGioHang.add(new GioHangViewModel(MaSP, TenSP, mausac, kichco,NhapSoLuong, DonGia, GiamGia, GiamGia, hinhThucGiamGia));
                 getListGioHang();
 
                 int kq = (int) (SoLuong - NhapSoLuong);
