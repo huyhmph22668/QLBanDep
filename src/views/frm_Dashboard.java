@@ -215,11 +215,10 @@ public class frm_Dashboard extends javax.swing.JFrame {
         );
         btnbanhangLayout.setVerticalGroup(
             btnbanhangLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(crep1, javax.swing.GroupLayout.DEFAULT_SIZE, 72, Short.MAX_VALUE)
+            .addComponent(crep1, javax.swing.GroupLayout.DEFAULT_SIZE, 66, Short.MAX_VALUE)
             .addGroup(btnbanhangLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 66, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
 
         jPanel2.add(btnbanhang, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 160, 190, 60));
@@ -556,28 +555,30 @@ public class frm_Dashboard extends javax.swing.JFrame {
             btndangxuatLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(btndangxuatLayout.createSequentialGroup()
                 .addComponent(crepp3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addGap(28, 28, 28)
                 .addComponent(jLabel11, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(89, Short.MAX_VALUE))
+                .addContainerGap(79, Short.MAX_VALUE))
         );
         btndangxuatLayout.setVerticalGroup(
             btndangxuatLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, btndangxuatLayout.createSequentialGroup()
+            .addGroup(btndangxuatLayout.createSequentialGroup()
                 .addGap(0, 0, Short.MAX_VALUE)
-                .addGroup(btndangxuatLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jLabel11, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(crepp3, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(crepp3, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(19, 19, 19))
+            .addGroup(btndangxuatLayout.createSequentialGroup()
+                .addGap(19, 19, 19)
+                .addComponent(jLabel11, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(30, Short.MAX_VALUE))
         );
 
-        jPanel2.add(btndangxuat, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 580, 190, 40));
+        jPanel2.add(btndangxuat, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 580, 190, 90));
 
-        getContentPane().add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 160, 690));
+        getContentPane().add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 160, 670));
 
         pnmain.setBackground(new java.awt.Color(255, 255, 255));
         pnmain.setForeground(new java.awt.Color(204, 204, 204));
         pnmain.setLayout(new java.awt.BorderLayout());
-        getContentPane().add(pnmain, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 30, 1090, 650));
+        getContentPane().add(pnmain, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 40, 1060, 640));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
